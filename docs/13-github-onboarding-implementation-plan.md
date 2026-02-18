@@ -8,21 +8,6 @@
 
 ---
 
-## ✅ Implementation Decisions
-
-The following decisions have been confirmed for this implementation:
-
-| # | Decision | Confirmed Answer | Impact |
-|---|----------|------------------|--------|
-| 1 | **Enterprise Type** | **EMU (Enterprise Managed Users)** | All identity sections configured for EMU |
-| 2 | **Sandbox Org Base Permission** | **None** (sandbox may have private repos) | Phase 3.2 |
-| 3 | **Archive Org Base Permission** | **None** | Phase 3.2 |
-| 4 | **Repository Creation Policy** | **Organization Owners only** | Phase 4.1.1 |
-| 5 | **Copilot Coding Agent** | **No Policy** (let organizations decide; agentic features will be used) | Phase 7.1.1 |
-| 6 | **Required PR Approvals** | **Minimum 1 at org level**; teams can add stricter rules as needed | Phase 5.1.1 |
-
----
-
 ## Table of Contents
 
 1. [Phase 0: Pre-Implementation Planning](#phase-0-pre-implementation-planning)
