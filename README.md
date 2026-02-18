@@ -33,7 +33,7 @@ Comprehensive L400-level technical documentation for GitHub Enterprise Cloud adm
 - [🤖 GitHub Copilot Governance](docs/12-github-copilot-governance.md) - Enterprise Copilot policies, settings, content exclusions, license management, and best practices
 
 ### Implementation Guides
-- [🚀 GitHub Onboarding Implementation Plan](docs/github-onboarding-implementation-plan.md) - Comprehensive priority task list for GitHub Enterprise onboarding including governance, compliance, security-by-default configuration, repository rulesets, migration readiness, and Copilot governance
+- [🚀 GitHub Onboarding Implementation Plan](docs/13-github-onboarding-implementation-plan.md) - Comprehensive priority task list for GitHub Enterprise onboarding including governance, compliance, security-by-default configuration, repository rulesets, migration readiness, and Copilot governance
 
 ---
 
