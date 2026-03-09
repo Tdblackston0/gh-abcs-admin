@@ -128,6 +128,22 @@ Similarly, container images that are public and have more than 5,000 downloads w
 5. **Security hardening**
    * Consider claiming the old org name with a placeholder organization to prevent name squatting and redirect hijacking
 
+## Public Community Research
+
+An exhaustive search was conducted across major public sources to find any documented real-world experiences of GitHub Copilot disruption after an organization rename. The following sources were checked:
+
+* **GitHub Community Discussions** -- general, Enterprise category, and Copilot Conversations category
+* **GitHub Blog** -- searched for org rename-related posts
+* **Microsoft Q&A** (learn.microsoft.com/answers)
+* **Microsoft Tech Community** (techcommunity.microsoft.com)
+* **Stack Overflow**
+
+**Result: No public discussions, blog posts, or Q&A threads were found** that document any Copilot disruption caused by renaming a GitHub organization. The absence of complaints across these high-traffic forums is consistent with the technical analysis above -- that Copilot authentication resolves via internal numeric IDs rather than org slugs.
+
+One tangentially related finding is the GitHub Blog's *Repo-jacking explained* article (February 2024), which confirms that GitHub uses **internal numeric IDs** (not names) for identity resolution and employs a tombstoning algorithm to retire popular renamed names. This indirectly supports the conclusion that services like Copilot continue functioning after a rename.
+
+> **Note:** Because no explicit GitHub documentation or community evidence covers this exact intersection (org rename + Copilot), opening a **GitHub Support ticket** before performing the rename is still recommended for official confirmation specific to your EMU + Copilot setup.
+
 ## Official Documentation References
 
 | Topic                               | URL                                                                                                                                                                                        |
