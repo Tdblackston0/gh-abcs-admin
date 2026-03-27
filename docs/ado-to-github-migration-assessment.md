@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # Azure DevOps to GitHub Migration Assessment
 
 ## Comprehensive Analysis: ADO DevSecOps Recommendations Mapped to GitHub

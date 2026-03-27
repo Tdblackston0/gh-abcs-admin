@@ -1,5 +1,5 @@
 ---
-liquid: false
+render_with_liquid: false
 ---
 
 # 5 - GitHub API - REST API & GraphQL API

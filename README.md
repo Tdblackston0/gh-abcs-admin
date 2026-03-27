@@ -35,6 +35,13 @@ Comprehensive L400-level technical documentation for GitHub Enterprise Cloud adm
 ### Implementation Guides
 - [🚀 GitHub Onboarding Implementation Plan](docs/13-github-onboarding-implementation-plan.md) - Comprehensive priority task list for GitHub Enterprise onboarding including governance, compliance, security-by-default configuration, repository rulesets, migration readiness, and Copilot governance
 
+### Azure DevOps to GitHub Migration
+- [📊 ADO to GitHub Migration Assessment](docs/ado-to-github-migration-assessment.md) - Comprehensive mapping of ADO DevSecOps recommendations to GitHub equivalents
+- [📄 ADO to GitHub Migration Business Case (Markdown)](docs/ADO-to-GitHub-Migration-Business-Case.md) - Strategic business case for migrating from Azure DevOps to GitHub
+- [📄 ADO to GitHub Migration Business Case (HTML)](docs/ADO-to-GitHub-Migration-Business-Case.html) - Formatted business case document
+- [🔀 GitHub Enterprise Importer ADO Guide](docs/14-github-enterprise-importer-ado-guide.md) - Step-by-step guide for using GitHub Enterprise Importer with Azure DevOps
+- [🔍 Azure DevOps to GitHub Migration Analysis](docs/16-azure-devops-to-github-migration-analysis.md) - Detailed technical analysis of the migration process
+
 ---
 
 ## Hands-on Labs

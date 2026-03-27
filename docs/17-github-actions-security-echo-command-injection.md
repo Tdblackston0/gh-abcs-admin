@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # GitHub Actions Security: Echo Command Injection Prevention
 
 ## Overview

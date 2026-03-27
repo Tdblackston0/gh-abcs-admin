@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # Azure Pipelines with GitHub Repositories: Impact Analysis After Migration
 
 ## Executive Summary
