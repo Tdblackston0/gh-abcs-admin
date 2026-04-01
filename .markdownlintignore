@@ -1,0 +1,5 @@
+# Files to ignore for markdownlint
+# Dev artifacts flagged for deletion in Phase 8
+docs/initial-prompt.md
+docs/final-prompt-plan.md
+docs/PLAN.md

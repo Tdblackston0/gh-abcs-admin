@@ -1,0 +1,34 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^https://github\\.com/YOUR",
+      "comment": "Placeholder URLs in lab instructions"
+    },
+    {
+      "pattern": "^https://github\\.com/YOURORGANIZATION",
+      "comment": "Placeholder org URLs in lab instructions"
+    },
+    {
+      "pattern": "^https://smee\\.io",
+      "comment": "Smee.io webhook proxy — dynamic URLs"
+    },
+    {
+      "pattern": "^#",
+      "comment": "Anchor-only links — validated by structure checks"
+    }
+  ],
+  "replacementPatterns": [],
+  "httpHeaders": [
+    {
+      "urls": ["https://docs.github.com"],
+      "headers": {
+        "Accept-Encoding": "gzip, deflate"
+      }
+    }
+  ],
+  "timeout": "15s",
+  "retryOn429": true,
+  "retryCount": 3,
+  "fallbackRetryDelay": "5s",
+  "aliveStatusCodes": [200, 206, 301, 302, 307, 308]
+}
