@@ -115,5 +115,8 @@ tests/
 ├── validate-links.js       # Link validation wrapper
 ├── README.md               # This file
 └── fixtures/
-    └── vbd-coverage-map.json  # VBD agenda → content mapping
+    ├── vbd-coverage-map.json    # VBD agenda → content mapping
+    ├── doc-expectations.json    # (planned — Phase 1)
+    ├── lab-expectations.json    # (planned — Phase 1)
+    └── known-issues.json        # (planned — Phase 1)
 ```

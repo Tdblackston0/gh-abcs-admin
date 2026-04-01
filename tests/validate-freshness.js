@@ -66,6 +66,14 @@ const DEPRECATED_PATTERNS = [
   }
 ];
 
+// Files where deprecated patterns appear in educational/security-example context
+// and should be suppressed (not false positives — intentionally demonstrating the pattern)
+const CONTEXTUAL_SUPPRESSIONS = {
+  'docs/17-github-actions-security-echo-command-injection.md': [
+    '::set-output'  // Security education: demonstrates command injection attack vector
+  ]
+};
+
 async function main() {
   const allFiles = await findValidationFiles({ includeReadme: true });
 
@@ -74,12 +82,16 @@ async function main() {
   for (const relPath of allFiles) {
     try {
       const content = readFile(relPath);
+      const suppressions = CONTEXTUAL_SUPPRESSIONS[relPath] || [];
 
       for (const check of DEPRECATED_PATTERNS) {
         const matches = content.match(check.pattern);
         if (matches) {
-          totalFlags += matches.length;
           for (const match of matches) {
+            // Skip if this match is suppressed for this file
+            if (suppressions.some(s => match.includes(s))) continue;
+
+            totalFlags++;
             if (check.severity === 'error') {
               reporter.fail(relPath, `${check.message} — found: "${match}"`);
             } else {
