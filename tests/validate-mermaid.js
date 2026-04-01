@@ -10,19 +10,13 @@
  */
 
 const {
-  findMarkdownFiles,
+  findValidationFiles,
   parseMarkdown,
   extractCodeBlocks,
   Reporter
 } = require('./utils');
 
 const reporter = new Reporter('Mermaid Diagram Validation');
-
-const SKIP_FILES = [
-  'docs/PLAN.md',
-  'docs/initial-prompt.md',
-  'docs/final-prompt-plan.md'
-];
 
 // Valid Mermaid diagram types
 const VALID_TYPES = [
@@ -92,16 +86,14 @@ function validateMermaidBlock(relPath, block) {
 }
 
 async function main() {
-  const docFiles = await findMarkdownFiles('docs/**/*.md');
-  const labFiles = await findMarkdownFiles('labs/**/*.md');
-  const allFiles = [...docFiles, ...labFiles].filter(f => !SKIP_FILES.includes(f));
+  const allFiles = await findValidationFiles();
 
   let totalDiagrams = 0;
 
   for (const relPath of allFiles) {
     try {
       const parsed = parseMarkdown(relPath);
-      const blocks = extractCodeBlocks(parsed.body);
+      const { blocks } = extractCodeBlocks(parsed.body);
       const mermaidBlocks = blocks.filter(b => b.lang === 'mermaid');
 
       for (const block of mermaidBlocks) {

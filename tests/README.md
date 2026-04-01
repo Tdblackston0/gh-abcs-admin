@@ -23,6 +23,7 @@ npm run test:mermaid       # Mermaid diagram syntax
 npm run test:freshness     # Deprecated content detection
 npm run test:spell         # Spelling
 npm run test:vbd-coverage  # VBD agenda coverage map
+npm run test:lab-completeness # Lab structure completeness
 npm run test:links         # Link validation (slow — makes network requests)
 ```
 
@@ -58,9 +59,9 @@ npm test -- --skip-links --fail-fast
 | File | Purpose |
 |------|---------|
 | `fixtures/vbd-coverage-map.json` | Maps VBD agenda items → docs and labs |
-| `fixtures/doc-expectations.json` | Expected structure for each doc (Phase 1) |
-| `fixtures/lab-expectations.json` | Expected structure for each lab (Phase 1) |
-| `fixtures/known-issues.json` | Tracked issues from baseline (Phase 1) |
+| `fixtures/doc-expectations.json` | Expected structure for each doc *(planned — Phase 1)* |
+| `fixtures/lab-expectations.json` | Expected structure for each lab *(planned — Phase 1)* |
+| `fixtures/known-issues.json` | Tracked issues from baseline *(planned — Phase 1)* |
 
 ## Adding New Tests
 
@@ -91,8 +92,10 @@ Edit `tests/fixtures/vbd-coverage-map.json`. Each agenda item needs:
 ## CI Integration
 
 The GitHub Actions workflow (`.github/workflows/tests.yml`) runs all tests on:
-- Push to `main` or `feature/**` branches (when docs/labs/tests change)
+- Push to `main` or `feature/**` branches (when docs, labs, tests, config files, or the workflow itself changes)
 - Pull requests to `main`
+
+Path filters include: `docs/**`, `labs/**`, `README.md`, `tests/**`, `package.json`, `package-lock.json`, `.markdownlint.yml`, `.cspell.json`, and `.github/workflows/tests.yml`.
 
 Link validation runs separately with `continue-on-error: true` since it depends on external URLs.
 
@@ -107,6 +110,7 @@ tests/
 ├── validate-codeblocks.js  # Code block syntax validation
 ├── validate-mermaid.js     # Mermaid diagram validation
 ├── validate-vbd-coverage.js # VBD agenda coverage checking
+├── validate-lab-completeness.js # Lab structural completeness
 ├── validate-freshness.js   # Deprecated content detection
 ├── validate-links.js       # Link validation wrapper
 ├── README.md               # This file

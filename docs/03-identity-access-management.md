@@ -408,7 +408,7 @@ PingFederate Admin → SP Connections → Create New:
 
 **2. Configure SSO Service URLs**
 
-- **Assertion Consumer Service (ACS):** 
+- **Assertion Consumer Service (ACS):**
   - URL: `https://github.com/enterprises/{ENTERPRISE_SLUG}/saml/consume`
   - Binding: HTTP POST
   - Index: 0 (default)

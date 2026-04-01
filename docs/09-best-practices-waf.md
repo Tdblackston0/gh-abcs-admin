@@ -163,7 +163,6 @@ graph TB
     style CST fill:#ffb,stroke:#333,stroke-width:2px
 ```
 
-
 ## Enterprise Setup Checklist
 
 ### Phase 1: Foundation (Weeks 1-2)
@@ -323,7 +322,6 @@ graph TD
 - **Role Assignment:** Assign teams to repositories with appropriate roles (read, triage, write, maintain, admin)
 - **Least Privilege:** Start with minimal permissions and grant additional access as needed
 - **Team Maintainers:** Designate team maintainers for self-service management
-
 
 ## Repository Naming and Structure Conventions
 
@@ -2160,7 +2158,6 @@ jobs:
 
 **Cross-reference:** See [Organization Strategies](02-organization-strategies.md) for multi-organization patterns.
 
-
 ## Common Anti-Patterns to Avoid
 
 ### 1. Unlimited Repository Creation Without Governance
@@ -2878,7 +2875,6 @@ class GitHubCostOptimizer:
 
 **Cross-reference:** See the Pillars section on Cost Optimization for detailed strategies.
 
-
 ## Key Performance Indicators (KPIs)
 
 Measuring GitHub platform effectiveness through carefully selected KPIs enables data-driven optimization and demonstrates business value.
@@ -3447,4 +3443,3 @@ jobs:
 This comprehensive GitHub Well-Architected Framework document provides enterprise-grade guidance for implementing GitHub at scale. Organizations should use this as a reference for designing, implementing, and optimizing their GitHub infrastructure.
 
 For questions or updates, refer to the related documentation series or contact your GitHub Enterprise Account Team.
-

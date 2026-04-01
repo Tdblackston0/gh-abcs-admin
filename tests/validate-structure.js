@@ -10,7 +10,7 @@
 const path = require('path');
 const fs = require('fs');
 const {
-  findMarkdownFiles,
+  findValidationFiles,
   parseMarkdown,
   extractHeadings,
   Reporter,
@@ -18,13 +18,6 @@ const {
 } = require('./utils');
 
 const reporter = new Reporter('Structure Validation');
-
-// Files to skip validation on (dev artifacts, not deliverables)
-const SKIP_FILES = [
-  'docs/PLAN.md',
-  'docs/initial-prompt.md',
-  'docs/final-prompt-plan.md'
-];
 
 // Load optional expectation fixtures if they exist
 function loadFixture(name) {
@@ -148,9 +141,7 @@ function categorize(relPath) {
 
 async function main() {
   // Find all markdown files in docs/ and labs/
-  const docFiles = await findMarkdownFiles('docs/**/*.md');
-  const labFiles = await findMarkdownFiles('labs/**/*.md');
-  const allFiles = [...docFiles, ...labFiles].filter(f => !SKIP_FILES.includes(f));
+  const allFiles = await findValidationFiles();
 
   if (allFiles.length === 0) {
     reporter.fail('(global)', 'No markdown files found');

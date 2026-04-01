@@ -7,21 +7,14 @@
  */
 
 const { execSync } = require('child_process');
-const path = require('path');
 const fs = require('fs');
 const {
-  findMarkdownFiles,
+  findValidationFiles,
   rootPath,
   Reporter
 } = require('./utils');
 
 const reporter = new Reporter('Link Validation');
-
-const SKIP_FILES = [
-  'docs/PLAN.md',
-  'docs/initial-prompt.md',
-  'docs/final-prompt-plan.md'
-];
 
 const CONFIG_PATH = rootPath('link-check-config.json');
 const MAX_CONCURRENCY = 4;
@@ -70,10 +63,7 @@ async function main() {
     process.exit(1);
   }
 
-  const docFiles = await findMarkdownFiles('docs/**/*.md');
-  const labFiles = await findMarkdownFiles('labs/**/*.md');
-  const readmeFiles = await findMarkdownFiles('README.md');
-  const allFiles = [...docFiles, ...labFiles, ...readmeFiles].filter(f => !SKIP_FILES.includes(f));
+  const allFiles = await findValidationFiles({ includeReadme: true });
 
   console.log(`  Checking links in ${allFiles.length} files (this may take a minute)...`);
 

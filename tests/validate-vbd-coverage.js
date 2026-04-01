@@ -99,4 +99,9 @@ function main() {
   process.exit(success ? 0 : 1);
 }
 
-main();
+try {
+  main();
+} catch (err) {
+  console.error('VBD coverage validation failed:', err.message);
+  process.exit(1);
+}

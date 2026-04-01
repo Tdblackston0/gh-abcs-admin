@@ -13,6 +13,7 @@
     "test:codeblocks": "node tests/validate-codeblocks.js",
     "test:mermaid": "node tests/validate-mermaid.js",
     "test:vbd-coverage": "node tests/validate-vbd-coverage.js",
+    "test:lab-completeness": "node tests/validate-lab-completeness.js",
     "test:freshness": "node tests/validate-freshness.js"
   },
   "devDependencies": {

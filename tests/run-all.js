@@ -20,6 +20,7 @@ const SUITES = [
   { name: 'Content Freshness', cmd: 'npm run test:freshness --silent', required: true },
   { name: 'Spelling', cmd: 'npm run test:spell --silent', required: true },
   { name: 'VBD Coverage Map', cmd: 'npm run test:vbd-coverage --silent', required: true },
+  { name: 'Lab Completeness', cmd: 'npm run test:lab-completeness --silent', required: true },
   // Link checking is slow (network calls) — run last, can be skipped with --skip-links
   { name: 'Link Validation', cmd: 'npm run test:links --silent', required: false }
 ];

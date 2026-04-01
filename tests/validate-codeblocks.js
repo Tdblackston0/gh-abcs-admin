@@ -9,19 +9,13 @@
 
 const YAML = require('yaml');
 const {
-  findMarkdownFiles,
+  findValidationFiles,
   parseMarkdown,
   extractCodeBlocks,
   Reporter
 } = require('./utils');
 
 const reporter = new Reporter('Code Block Validation');
-
-const SKIP_FILES = [
-  'docs/PLAN.md',
-  'docs/initial-prompt.md',
-  'docs/final-prompt-plan.md'
-];
 
 function validateYAMLBlock(relPath, block) {
   try {
@@ -71,35 +65,36 @@ function validateJSONBlock(relPath, block) {
 
 function validateBashBlock(relPath, block) {
   const content = block.content;
+  // Strip comment lines before checking quotes (contractions like "don't" are valid)
+  const codeLines = content.split('\n').filter(l => !l.trim().startsWith('#'));
+  const codeOnly = codeLines.join('\n');
 
-  // Check for severely unbalanced quotes (simple heuristic)
-  const singleQuotes = (content.match(/'/g) || []).length;
-  const doubleQuotes = (content.match(/"/g) || []).length;
-  const backticks = (content.match(/`/g) || []).length;
+  const singleQuotes = (codeOnly.match(/'/g) || []).length;
+  const doubleQuotes = (codeOnly.match(/"/g) || []).length;
 
-  // Double-backticks can appear in markdown escaping, skip backtick check
   if (singleQuotes % 2 !== 0) {
-    // Could be intentional (heredoc, awk), just warn
-    reporter.warn(relPath, `Line ${block.line}: Odd number of single quotes in bash block`);
+    reporter.warn(relPath, `Line ${block.line}: Odd number of single quotes in bash block (non-comment lines)`);
   }
   if (doubleQuotes % 2 !== 0) {
-    reporter.warn(relPath, `Line ${block.line}: Odd number of double quotes in bash block`);
+    reporter.warn(relPath, `Line ${block.line}: Odd number of double quotes in bash block (non-comment lines)`);
   }
 
   reporter.pass(`${relPath}:${block.line}: bash block checked`);
 }
 
 async function main() {
-  const docFiles = await findMarkdownFiles('docs/**/*.md');
-  const labFiles = await findMarkdownFiles('labs/**/*.md');
-  const allFiles = [...docFiles, ...labFiles].filter(f => !SKIP_FILES.includes(f));
+  const allFiles = await findValidationFiles();
 
   let totalBlocks = 0;
 
   for (const relPath of allFiles) {
     try {
       const parsed = parseMarkdown(relPath);
-      const blocks = extractCodeBlocks(parsed.body);
+      const { blocks, warnings: extractWarnings } = extractCodeBlocks(parsed.body);
+
+      for (const w of extractWarnings) {
+        reporter.warn(relPath, w);
+      }
 
       for (const block of blocks) {
         totalBlocks++;

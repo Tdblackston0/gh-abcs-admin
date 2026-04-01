@@ -83,12 +83,12 @@ How do outside collaborators work with internal repositories and base permission
 
 1. **Definition**: An outside collaborator is a person who is **not a member** of your organization but has access to one or more repositories
 
-2. **Internal Repository Access**: 
+2. **Internal Repository Access**:
    - **Internal repositories are NOT visible to outside collaborators**
    - Only enterprise members (organization members) can see internal repositories
    - This is by design to enable "innersource" while protecting proprietary information
 
-3. **Base Permissions**: 
+3. **Base Permissions**:
    - Base permissions set the default access level for organization members
    - **Base permissions do NOT apply to outside collaborators**
    - Outside collaborators must be explicitly granted access to specific repositories
@@ -178,7 +178,7 @@ If you want external collaborators (consultants/vendors) in EMU to **NOT** have 
 | Can be added to teams | ✅ Yes | ❌ No | ✅ Yes |
 | Provisioned via IdP | Depends | ❌ No | ✅ Yes |
 
-> 📚 **References**: 
+> 📚 **References**:
 > - [About Internal Repositories](https://docs.github.com/en/enterprise-cloud@latest/repositories/creating-and-managing-repositories/about-repositories#about-internal-repositories)
 > - [Adding Outside Collaborators](https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-outside-collaborators/adding-outside-collaborators-to-repositories-in-your-organization)
 > - [Guest Collaborators](https://docs.github.com/en/enterprise-cloud@latest/admin/managing-accounts-and-repositories/managing-users-in-your-enterprise/roles-in-an-enterprise#guest-collaborators)
@@ -322,7 +322,7 @@ Use these action categories to search for GitHub Actions policy events:
 
 #### How to Search for GitHub Actions Policy Changes
 
-1. **Access the Audit Log**: 
+1. **Access the Audit Log**:
    - Go to your Enterprise → Settings → Audit log
 
 2. **Search Queries to Use**:
@@ -396,7 +396,7 @@ With EMU, **enterprise owner roles can be assigned through your Identity Provide
    - Billing Manager
    - Guest Collaborator
 
-3. **Using Groups**: 
+3. **Using Groups**:
    - Assign an IdP group to the GitHub EMU application
    - Set the role attribute for all users in that group to "Enterprise Owner"
    - All members of that group will be provisioned as enterprise owners

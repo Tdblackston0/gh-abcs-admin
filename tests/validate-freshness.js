@@ -10,18 +10,12 @@
  */
 
 const {
-  findMarkdownFiles,
+  findValidationFiles,
   readFile,
   Reporter
 } = require('./utils');
 
 const reporter = new Reporter('Content Freshness Validation');
-
-const SKIP_FILES = [
-  'docs/PLAN.md',
-  'docs/initial-prompt.md',
-  'docs/final-prompt-plan.md'
-];
 
 // Patterns to flag with explanations
 const DEPRECATED_PATTERNS = [
@@ -41,42 +35,39 @@ const DEPRECATED_PATTERNS = [
     severity: 'warn'
   },
   {
-    pattern: /github\.com\/features\/security/,
+    pattern: /github\.com\/features\/security/g,
     message: 'GitHub Advanced Security is now split into Secret Protection and Code Security (April 2025)',
     severity: 'warn'
   },
   {
-    pattern: /docs\.github\.com\/en\/github\//,
+    pattern: /docs\.github\.com\/en\/github\//g,
     message: 'Outdated docs.github.com URL pattern (old /en/github/ path)',
     severity: 'warn'
   },
   {
-    pattern: /\bGitHub Advanced Security\b(?!.*(?:now|formerly|legacy|previously|was))/,
+    pattern: /\bGitHub Advanced Security\b(?!.*(?:now|formerly|legacy|previously|was|Secret Protection|Code Security))/g,
     message: 'GHAS is now split into GitHub Secret Protection and GitHub Code Security (April 2025) — verify context',
     severity: 'warn'
   },
   {
-    pattern: /save-state|set-output.*>>.*GITHUB_OUTPUT/,
+    pattern: /\bsave-state\b|set-output.*>>.*GITHUB_OUTPUT/g,
     message: 'Deprecated Actions command (set-output/save-state) — use $GITHUB_OUTPUT/$GITHUB_STATE',
     severity: 'warn'
   },
   {
-    pattern: /::set-output\s+name=/,
+    pattern: /::set-output\s+name=/g,
     message: 'Deprecated Actions ::set-output command — use $GITHUB_OUTPUT',
     severity: 'warn'
   },
   {
-    pattern: /node12|node16/i,
+    pattern: /\bnode12\b|\bnode16\b/gi,
     message: 'Outdated Node.js runtime reference — Actions now use node20+',
     severity: 'warn'
   }
 ];
 
 async function main() {
-  const docFiles = await findMarkdownFiles('docs/**/*.md');
-  const labFiles = await findMarkdownFiles('labs/**/*.md');
-  const readmeFiles = await findMarkdownFiles('README.md');
-  const allFiles = [...docFiles, ...labFiles, ...readmeFiles].filter(f => !SKIP_FILES.includes(f));
+  const allFiles = await findValidationFiles({ includeReadme: true });
 
   let totalFlags = 0;
 

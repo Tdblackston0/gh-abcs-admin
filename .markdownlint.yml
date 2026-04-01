@@ -54,14 +54,14 @@ MD058: false
 # Blanks inside blockquotes — used for multi-paragraph quotes
 MD028: false
 
-# Multiple consecutive blank lines — used for visual separation in long docs
-MD012: false
+# Multiple consecutive blank lines — keep clean formatting
+MD012: true
 
 # Fenced code language — many existing code blocks lack language specifiers
 MD040: false
 
-# Trailing spaces — cosmetic; not enforced in existing content
-MD009: false
+# Trailing spaces — auto-fixable; kept enabled for clean diffs
+MD009: true
 
 # Ordered list prefix — labs use mixed numbering patterns (1. for sections, sub-items vary)
 MD029: false
@@ -69,8 +69,8 @@ MD029: false
 # Table column count — some tables use dynamic column structures
 MD056: false
 
-# Files should end with newline — not consistently applied in existing content
-MD047: false
+# Files should end with newline — POSIX standard
+MD047: true
 
 # First line should be top-level heading — files with front matter start with ---
 MD041: false

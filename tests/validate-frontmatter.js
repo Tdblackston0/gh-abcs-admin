@@ -10,7 +10,7 @@
 
 const YAML = require('yaml');
 const {
-  findMarkdownFiles,
+  findValidationFiles,
   parseMarkdown,
   Reporter
 } = require('./utils');
@@ -27,13 +27,6 @@ const KNOWN_KEYS = {
   'layout': 'string',
   'permalink': 'string'
 };
-
-// Files to skip
-const SKIP_FILES = [
-  'docs/PLAN.md',
-  'docs/initial-prompt.md',
-  'docs/final-prompt-plan.md'
-];
 
 function validateFrontMatter(relPath, parsed) {
   if (!parsed.frontmatter) {
@@ -72,9 +65,7 @@ function validateFrontMatter(relPath, parsed) {
 }
 
 async function main() {
-  const docFiles = await findMarkdownFiles('docs/**/*.md');
-  const labFiles = await findMarkdownFiles('labs/**/*.md');
-  const allFiles = [...docFiles, ...labFiles].filter(f => !SKIP_FILES.includes(f));
+  const allFiles = await findValidationFiles();
 
   for (const relPath of allFiles) {
     try {

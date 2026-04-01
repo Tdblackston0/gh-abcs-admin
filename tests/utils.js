@@ -8,6 +8,15 @@ const { glob } = require('glob');
 
 const ROOT = path.resolve(__dirname, '..');
 
+// Files to skip validation on (dev artifacts, not deliverables)
+const SKIP_FILES = [
+  'docs/PLAN.md',
+  'docs/initial-prompt.md',
+  'docs/final-prompt-plan.md'
+];
+
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB guard
+
 /**
  * Resolve a path relative to the repo root.
  */
@@ -17,9 +26,15 @@ function rootPath(...segments) {
 
 /**
  * Read a file relative to the repo root. Returns string content.
+ * Skips files exceeding MAX_FILE_SIZE.
  */
 function readFile(relPath) {
-  return fs.readFileSync(rootPath(relPath), 'utf-8');
+  const abs = rootPath(relPath);
+  const stats = fs.statSync(abs);
+  if (stats.size > MAX_FILE_SIZE) {
+    throw new Error(`File too large (${(stats.size / 1024 / 1024).toFixed(1)} MB > 10 MB limit)`);
+  }
+  return fs.readFileSync(abs, 'utf-8');
 }
 
 /**
@@ -27,6 +42,19 @@ function readFile(relPath) {
  */
 async function findMarkdownFiles(pattern) {
   return glob(pattern, { cwd: ROOT, absolute: false });
+}
+
+/**
+ * Find all markdown files for validation (docs + labs + README), excluding dev artifacts.
+ * @param {object} options
+ * @param {boolean} options.includeReadme - Include README.md (default: false)
+ * @returns {Promise<string[]>} Array of relative paths
+ */
+async function findValidationFiles({ includeReadme = false } = {}) {
+  const docFiles = await findMarkdownFiles('docs/**/*.md');
+  const labFiles = await findMarkdownFiles('labs/**/*.md');
+  const readmeFiles = includeReadme ? await findMarkdownFiles('README.md') : [];
+  return [...docFiles, ...labFiles, ...readmeFiles].filter(f => !SKIP_FILES.includes(f));
 }
 
 /**
@@ -86,10 +114,11 @@ function extractHeadings(body) {
 
 /**
  * Extract fenced code blocks from markdown.
- * Returns array of { lang: string, content: string, line: number }
+ * Returns { blocks: Array<{ lang, content, line }>, warnings: string[] }
  */
 function extractCodeBlocks(body) {
   const blocks = [];
+  const warnings = [];
   const lines = body.split('\n');
   let inBlock = false;
   let currentBlock = null;
@@ -112,7 +141,11 @@ function extractCodeBlocks(body) {
     }
   });
 
-  return blocks;
+  if (inBlock && currentBlock) {
+    warnings.push(`Unclosed code block starting at line ${currentBlock.line}`);
+  }
+
+  return { blocks, warnings };
 }
 
 // Simple test reporter
@@ -128,7 +161,6 @@ class Reporter {
 
   pass(message) {
     this.passed++;
-    // Silent on pass for cleaner output
   }
 
   fail(file, message) {
@@ -174,9 +206,11 @@ class Reporter {
 
 module.exports = {
   ROOT,
+  SKIP_FILES,
   rootPath,
   readFile,
   findMarkdownFiles,
+  findValidationFiles,
   parseMarkdown,
   extractHeadings,
   extractCodeBlocks,

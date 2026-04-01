@@ -20,7 +20,7 @@ References:
 8. Select `Send me evertyhing` for the events to trigger this webhook
 9. Click `Add webhook`
 10. You should see a new webhook added to your repository
-11. Click on `Edit` button for the recently added webhook 
+11. Click on `Edit` button for the recently added webhook
 12. Switch to `Recent Deliveries` tab to see the ping event generated with the webhook creation
 13. Investigate the headers and the payload
 14. Navigate back to your webhook delivery channel created on step 2)

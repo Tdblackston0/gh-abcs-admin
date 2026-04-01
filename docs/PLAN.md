@@ -826,7 +826,7 @@ Every phase transition requires passing the weighted rubric with a score ≥ **9
 
 | Phase | Name | Status | Score | Started | Completed |
 |-------|------|--------|-------|---------|-----------|
-| 0 | Test Infrastructure | ⬜ Not Started | — | — | — |
+| 0 | Test Infrastructure | ✅ Complete | Pending QG | 2026-04-01 | 2026-04-01 |
 | 1 | Baseline Test Coverage | ⬜ Not Started | — | — | — |
 | 2 | Content Audit & Research | ⬜ Not Started | — | — | — |
 | 3 | Update Existing Content | ⬜ Not Started | — | — | — |
@@ -853,7 +853,7 @@ Every phase transition requires passing the weighted rubric with a score ≥ **9
 | Session | Date | Phases Worked | Notes |
 |---------|------|---------------|-------|
 | 1 | 2026-04-01 | Planning | Created plan, branch, initial analysis |
-| 2 | — | — | — |
+| 2 | 2026-04-01 | Phase 0 | Test infrastructure — 8/8 suites green |
 
 ---
 

@@ -1,9 +1,9 @@
 # GitHub Enterprise Cloud Onboarding Implementation Plan
 
 > **Purpose:** Priority task list for a successful GitHub onboarding focusing on governance, compliance, settings, configuration, repository rules, and migration enablement.
-> 
+>
 > **Target State:** Enable secure repository migration from other platforms to GitHub, with security-by-default features, PR validation, and GitHub Copilot full features ready for developers.
-> 
+>
 > **Last Updated:** January 28, 2026
 
 ---

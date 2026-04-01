@@ -16,7 +16,7 @@ References:
 3. Select a template from the list
 4. Review the template by clicking on `Preview and edit`
 5. Edit the issue if needed to add your changes
-6. Click on `Propose changes` to commit the tempaltes to your repository. 
+6. Click on `Propose changes` to commit the tempaltes to your repository.
 7. Repeat steps 3) to 6) to add more issue templates
 
 ## 4.2 Create pull request templates
@@ -53,6 +53,6 @@ Fixes #
 
 1. Navigate to the `main` branch of your repository
 2. Update the [README.md](/README.md) file with checking the completed activities [x]
-3. Commit the changes into a new `feature/lab04` branch 
+3. Commit the changes into a new `feature/lab04` branch
 4. Open a new pull request from `Pull requests`
 5. The template you created will be displayed and used when creating a new PR

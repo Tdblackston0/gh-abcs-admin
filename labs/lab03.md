@@ -20,7 +20,7 @@ References:
     - Do not allow bypassing the above settings
 5. Click `Create` to create the branch protection rule
 6. Test the branch protection by adding/updating one file from your repository
-7. Commit the changes into a new `feature/lab03` branch 
+7. Commit the changes into a new `feature/lab03` branch
 8. Open a new pull request from `Pull requests`
 9. Ask the code owner to review and approve your PR
 10. _(Optional)_ Update the CODEOWNERS file to add more members or a team as code reviewers
