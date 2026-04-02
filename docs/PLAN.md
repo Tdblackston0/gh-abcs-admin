@@ -831,8 +831,8 @@ Every phase transition requires passing the weighted rubric with a score ≥ **9
 | 2 | Content Audit & Research | ✅ Complete | 92 → 96 | 2026-04-02 | 2026-04-02 |
 | 3 | Update Existing Content | ✅ Complete | 99 | 2026-04-02 | 2026-04-02 |
 | 4 | New Documentation | ✅ Complete | 98 | 2026-04-02 | 2026-04-02 |
-| 5 | New Hands-on Labs | 🔄 Pending QG | — | 2026-04-02 | 2026-04-02 |
-| 6 | VBD Structural Materials | ⬜ Not Started | — | — | — |
+| 5 | New Hands-on Labs | ✅ Complete | — | 2026-04-02 | 2026-04-02 |
+| 6 | VBD Structural Materials | ✅ Complete | — | 2026-04-02 | 2026-04-02 |
 | 7 | Integration & Polish | ⬜ Not Started | — | — | — |
 | 8 | Cleanup | ⬜ Not Started | — | — | — |
 
@@ -862,6 +862,7 @@ Every phase transition requires passing the weighted rubric with a score ≥ **9
 | 5 | 2026-04-02 | Phase 3 | Update existing content — 28 known issues resolved, 33 broken links fixed, GHAS terminology updated across 15 docs, lab03 rewritten for Rulesets, doc12 Copilot governance updated, README modernized |
 | 6 | 2026-04-02 | Phase 4 | New documentation — 9 new docs (8,671 lines, 15 Mermaid diagrams), VBD doc coverage 50%→100%, 36/36 expectation files matched, 9/9 test suites green |
 | 7 | 2026-04-02 | Phase 5 | New hands-on labs — 10 new labs (1,771 lines), lab coverage 32%→91%, total lab time ~55 min→~4.5 hrs, 776 structure checks, 95 lab completeness checks, 9/9 suites green |
+| 8 | 2026-04-02 | Phase 6 | VBD structural materials — 7 new files (1,883 lines): AGENDA, INSTRUCTOR-GUIDE, PRE-WORKSHOP-CHECKLIST, KNOWLEDGE-CHECKS, POST-WORKSHOP-ASSESSMENT, REFERENCE-CARD, SLIDE-DECK-OUTLINE. 849 structure checks, 9/9 suites green |
 
 ---
 
