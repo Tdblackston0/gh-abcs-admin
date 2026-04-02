@@ -102,7 +102,7 @@ npm test -- --skip-links --fail-fast
 | Freshness warnings (GHAS split, outdated actions) | 8 | 43 individual warnings across 8 patterns | Phase 3 |
 | Structural issues (missing H1, L400→L300) | 3 | | Phase 3/7 |
 | Content issues (missing duration, legacy patterns) | 5 | | Phase 3 |
-| VBD coverage gaps | 1 | 11 missing docs, 14 missing labs | Phase 4/5 |
+| VBD coverage gaps | 1 | 11 missing docs, 15 missing labs | Phase 4/5 |
 | Dev artifacts to clean up | 2 | | Phase 8 |
 
 ### Test Suite Status
@@ -175,5 +175,5 @@ tests/
     ├── vbd-coverage-map.json    # VBD agenda → content mapping
     ├── doc-expectations.json    # Expected structure for all 21 docs
     ├── lab-expectations.json    # Expected structure for all 6 labs
-    └── known-issues.json        # 68 cataloged issues with fix-phase tags
+    └── known-issues.json        # 36 cataloged issues with fix-phase tags
 ```
