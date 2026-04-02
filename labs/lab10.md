@@ -1,7 +1,5 @@
 # 10 - Dormant User Management
-
 In this lab you will identify inactive users in your GitHub Enterprise Cloud organization, generate dormant user reports, and design a license reclamation workflow to optimize seat costs.
-
 > Duration: 15-20 minutes
 
 References:
@@ -25,12 +23,14 @@ References:
    ```
 
 5. Review the output. Each line shows a member's login and numeric user ID.
-6. To include role information, run:
+6. To include role information, use the `filter` parameter which returns role data:
 
    ```bash
-   gh api /orgs/YOUR-ORG/members --paginate \
-     --jq '.[] | [.login, .id, .role_name // "member"] | @tsv'
+   gh api "/orgs/YOUR-ORG/members?role=admin" --paginate \
+     --jq '.[] | [.login, .id, "admin"] | @tsv'
    ```
+
+   Run this once with `role=admin` and once with `role=member` to build a complete list with role annotations. The standard list-members endpoint returns simple user objects without a role field, so filtering by role is the reliable approach.
 
 7. Note that the **People** tab in the enterprise settings includes a **Dormant users** sub-tab — this is the primary UI for identifying inactive users at the enterprise level.
 
@@ -39,16 +39,22 @@ References:
 1. Navigate to your enterprise account at `https://github.com/enterprises/YOUR-ENTERPRISE`.
 2. Click **People** in the left sidebar, then select the **Dormant users** tab.
 3. Review the list of dormant users. GitHub considers a user dormant if they have had no qualifying activity in the past **30 days**. This is a trailing 30-day window, not a calendar month.
-4. Qualifying activity includes any of the following:
-   - Pushing commits
-   - Opening or commenting on issues
-   - Opening or commenting on pull requests
-   - Pull request reviews
-   - Wiki edits
-   - GitHub Actions workflow runs triggered by the user
-   - Signing in to GitHub.com or the enterprise
+4. Qualifying activity includes any of the following (among others):
+   - Authenticating to access enterprise resources via SAML SSO
+   - Creating a repository
+   - Pushing to an internal repository via HTTPS
+   - Creating, commenting on, or closing/reopening issues or pull requests
+   - Applying or removing labels on issues or pull requests
+   - Publishing a release
+   - Pushing to a wiki or starring a repository
+   - Signing in to GitHub.com
+
+   GitHub does **not** consider the following as active: accessing resources via a personal access token, SSH key, or GitHub App; Git operations (pushes, pulls, clones) on **private** repositories.
+
 5. Download the dormant users report as a CSV file:
-   - Navigate to **Enterprise** → **People** → **Compliance** → **Export** → **Dormant users**
+   - Navigate to your enterprise account, then click **Compliance** at the top of the page
+   - Scroll to **Reports** and locate the **Dormant Users** section
+   - Click **New report** to generate a fresh report, then click **Download** next to the most recent report
    - The CSV includes each user's login, email, last activity date, and activity type
 6. Open the downloaded CSV and examine the columns. Pay attention to the `last_active` timestamp and the `last_active_action` field.
 7. In a small workshop organization, you may see few or no dormant users — this is expected. Focus on understanding the process and the data available.

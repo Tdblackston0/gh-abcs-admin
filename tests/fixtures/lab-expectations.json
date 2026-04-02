@@ -110,7 +110,9 @@
     "minMermaidDiagrams": 0,
     "hasFrontMatter": false,
     "hasDuration": true,
-    "expectedCodeBlockLangs": ["json"],
+    "expectedCodeBlockLangs": [
+      "json"
+    ],
     "linkCount": 6,
     "externalLinkCount": 5
   },
@@ -146,7 +148,10 @@
     "minMermaidDiagrams": 0,
     "hasFrontMatter": false,
     "hasDuration": true,
-    "expectedCodeBlockLangs": ["bash", "json"],
+    "expectedCodeBlockLangs": [
+      "bash",
+      "json"
+    ],
     "linkCount": 6,
     "externalLinkCount": 5
   },
@@ -181,7 +186,9 @@
     "minMermaidDiagrams": 0,
     "hasFrontMatter": false,
     "hasDuration": true,
-    "expectedCodeBlockLangs": ["bash"],
+    "expectedCodeBlockLangs": [
+      "bash"
+    ],
     "linkCount": 5,
     "externalLinkCount": 4
   },
@@ -216,7 +223,9 @@
     "minMermaidDiagrams": 0,
     "hasFrontMatter": true,
     "hasDuration": true,
-    "expectedCodeBlockLangs": ["yaml"],
+    "expectedCodeBlockLangs": [
+      "yaml"
+    ],
     "linkCount": 6,
     "externalLinkCount": 5
   },
@@ -228,13 +237,16 @@
       "13.3 Query the audit log via API",
       "13.4 Write an automation script",
       "13.5 Use gh api for GraphQL",
-      "13.6 Verify your work"
+      "13.6 Post commit statuses and check runs",
+      "13.7 Verify your work"
     ],
     "minLines": 150,
     "minMermaidDiagrams": 0,
     "hasFrontMatter": false,
     "hasDuration": true,
-    "expectedCodeBlockLangs": ["bash"],
+    "expectedCodeBlockLangs": [
+      "bash"
+    ],
     "linkCount": 6,
     "externalLinkCount": 5
   },
@@ -251,7 +263,9 @@
     "minMermaidDiagrams": 0,
     "hasFrontMatter": false,
     "hasDuration": true,
-    "expectedCodeBlockLangs": ["bash"],
+    "expectedCodeBlockLangs": [
+      "bash"
+    ],
     "linkCount": 6,
     "externalLinkCount": 5
   },

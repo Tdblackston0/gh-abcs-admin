@@ -107,7 +107,7 @@ jobs:
 6. Set the commit message to `Add deployment workflow` and commit directly to the `main` branch.
 7. Because the workflow triggers on `push` to `main`, committing this file will immediately start a workflow run.
 
-> **Advanced:** In real-world deployments, replace the `echo` commands with actual deployment steps — for example, authenticating to a cloud provider via OIDC federation and deploying infrastructure or application code. You can also use `deployment: false` on a job to reference an environment for its secrets and variables without creating a deployment record, which is useful for build or test jobs that need environment-scoped credentials.
+> **Advanced:** In real-world deployments, replace the `echo` commands with actual deployment steps — for example, authenticating to a cloud provider via OIDC federation and deploying infrastructure or application code. To use environment secrets and variables in a build or test job without creating a deployment record, consider using a separate job that reads the secrets from the environment and passes them as outputs, or reference the environment only in jobs that perform actual deployments.
 
 ## 12.4 Test the approval flow
 
@@ -149,9 +149,7 @@ Use this checklist to confirm you have completed all exercises in this lab:
 4. Navigate to the **Deployments** section and verify:
    - [ ] Both `staging` and `production` show successful deployment records.
 
-### Discussion questions
-
-Consider the following questions as they relate to your organization's deployment governance:
+5. Consider the following questions as they relate to your organization's deployment governance:
 
 - **OIDC federation:** How would you replace the `echo` commands in this workflow with real cloud deployments using [OIDC-based authentication](https://docs.github.com/en/actions/security-for-github-actions/security-hardening-your-deployments/about-security-hardening-with-openid-connect)? OIDC eliminates the need to store long-lived cloud credentials as secrets.
 - **Custom protection rules:** What custom deployment protection rule would benefit your organization? Examples include requiring an approved change-management ticket, validating that a security scan passed, or checking a feature-flag service before rollout.

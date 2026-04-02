@@ -1,6 +1,5 @@
 # 9 - User and Team Administration
 In this lab you will create team hierarchies with nested teams, assign repository permissions through teams, create custom repository roles, and explore team synchronization with identity providers.
-
 > Duration: 20-25 minutes
 
 References:
@@ -9,7 +8,6 @@ References:
 - [Managing custom repository roles for an organization](https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/managing-custom-repository-roles-for-an-organization)
 - [Repository roles for an organization](https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/repository-roles-for-an-organization)
 - [Synchronizing a team with an identity provider group](https://docs.github.com/en/organizations/organizing-members-into-teams/synchronizing-a-team-with-an-identity-provider-group)
-- [About team discussions](https://docs.github.com/en/organizations/collaborating-with-your-team/about-team-discussions)
 - [Setting base permissions for an organization](https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/setting-base-permissions-for-an-organization)
 
 ## 9.1 Create nested teams
@@ -19,25 +17,25 @@ GitHub supports nested teams, where child teams automatically inherit the access
 1. Navigate to your organization's main page and click the **Teams** tab.
 2. Click the **New team** button in the upper-right corner.
 3. Enter the following details for the parent team:
-   - **Team name**: `engineering`
+   - **Team name**: `YOUR-HANDLE-engineering` (replace `YOUR-HANDLE` with your GitHub username to avoid naming conflicts in a shared workshop org)
    - **Description**: `Engineering department — parent team`
    - **Team visibility**: Select **Visible** (all organization members can see this team and @mention it)
    - Leave **Parent team** empty — this is the top-level team
 4. Click **Create team**.
 5. Navigate back to the **Teams** tab and click **New team** again.
 6. Create the first child team:
-   - **Team name**: `engineering-frontend`
+   - **Team name**: `YOUR-HANDLE-engineering-frontend`
    - **Description**: `Frontend engineering team`
    - **Team visibility**: **Visible**
-   - **Parent team**: Select `engineering`
+   - **Parent team**: Select `YOUR-HANDLE-engineering`
 7. Click **Create team**.
 8. Create a second child team by clicking **New team** once more:
-   - **Team name**: `engineering-backend`
+   - **Team name**: `YOUR-HANDLE-engineering-backend`
    - **Description**: `Backend engineering team`
    - **Team visibility**: **Visible**
-   - **Parent team**: Select `engineering`
+   - **Parent team**: Select `YOUR-HANDLE-engineering`
 9. Click **Create team**.
-10. Navigate to **Teams** > `engineering` and click the **Teams** tab within the team page. Confirm that both `engineering-frontend` and `engineering-backend` appear as child teams.
+10. Navigate to **Teams** > `YOUR-HANDLE-engineering` and click the **Teams** tab within the team page. Confirm that both `YOUR-HANDLE-engineering-frontend` and `YOUR-HANDLE-engineering-backend` appear as child teams.
 11. Click into `engineering-frontend`, then click the **Members** tab and add yourself by clicking **Add a member**.
 
 Teams can be **Visible** (discoverable by all organization members) or **Secret** (visible only to team members and organization owners). Secret teams are useful for groups handling sensitive work, such as security response teams, where membership should not be broadly visible.
@@ -117,7 +115,7 @@ In this section you will verify that the nested team and permission structure yo
    - Apply a label to an issue
    - **Not** push code (Read does not include Write)
 
-> If you only have one GitHub account available, you can verify permissions by reviewing the **Collaborators and teams** page and checking the effective role column, or by using the Organization's **People** > **Member privileges** audit view.
+> If you only have one GitHub account available, you can verify permissions by reviewing the **Collaborators and teams** page and checking the effective role column, or by using the Organization's **People** > **Member privileges** audit view. The incognito approach adds time — plan for 3-5 extra minutes if using two accounts.
 
 ## 9.5 Configure team sync discussion
 

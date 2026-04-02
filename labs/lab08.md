@@ -1,6 +1,5 @@
 # 8 - Audit Log Exploration
 In this lab you will navigate, filter, and query the GitHub Enterprise Cloud audit log to understand how organizational and enterprise-level events are tracked, and explore options for streaming audit data to external systems.
-
 > Duration: 20-25 minutes
 
 References:
@@ -13,7 +12,7 @@ References:
 
 ## 8.1 Navigate the audit log UI
 
-1. To view the **organization audit log**, navigate to your organization page, then go to **Settings** → **Archives** → **Logs** → **Audit log**.
+1. To view the **organization audit log**, navigate to your organization page, then go to **Settings** → in the left sidebar under **Archives**, click **Logs** → **Audit log**.
 2. To view the **enterprise audit log**, navigate to your enterprise account, then go to **Settings** → **Audit log**.
 3. Observe the timeline view. Each entry displays:
    - **Action** — the event that occurred (e.g., `repo.create`, `org.invite_member`)

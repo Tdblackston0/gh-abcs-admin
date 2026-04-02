@@ -1,7 +1,5 @@
 # 14 - Unhealthy Repos and Git History
-
 In this lab you will detect repository health issues, manage large files in Git history, rewrite history to remove sensitive data, clean up stale branches, and plan a repository archival strategy.
-
 > Duration: 20-25 minutes
 
 References:
@@ -109,7 +107,7 @@ GitHub officially recommends **git-filter-repo** for rewriting history. It repla
 
 7. Discuss prevention with your group. **Push protection** (part of GitHub Secret Protection) catches secrets at `git push` time — before they ever enter history. This is far more effective than retroactive cleanup:
 
-   - Navigate to your repository **Settings** → **Code security** → **Secret Protection**
+   - Navigate to your repository **Settings** → **Code security** → under the **Secret scanning** section
    - Ensure **Push protection** is enabled
    - Secrets matching known patterns are blocked before they reach the remote
 

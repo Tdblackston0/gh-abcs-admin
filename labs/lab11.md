@@ -1,7 +1,5 @@
 # 11 - GitHub Apps and Marketplace
-
 In this lab you will browse the GitHub Marketplace, install and configure a GitHub App, review app permissions from an admin perspective, and evaluate the differences between GitHub Apps and OAuth Apps for enterprise governance.
-
 > Duration: 15-20 minutes
 
 References:
@@ -46,12 +44,12 @@ References:
 6. Review the list of permissions the app is requesting before clicking **Install**. These permissions are set by the app developer and define exactly what the app can read or write.
 7. Click **Install** to complete the installation.
 8. After installation, verify that the app appears in your organization settings:
-   - Navigate to **Organization** → **Settings** → **Integrations** → **GitHub Apps**
+   - Navigate to **Organization** → **Settings** → **Third-party Access** → **GitHub Apps**
    - You should see the newly installed app listed with its permissions summary and repository access scope.
 
 ## 11.3 Review app permissions
 
-1. Navigate to **Organization** → **Settings** → **Integrations** → **GitHub Apps**.
+1. Navigate to **Organization** → **Settings** → **Third-party Access** → **GitHub Apps**.
 2. Click **Configure** next to the app you installed in section 11.2.
 3. On the app configuration page, review the permissions grouped into three categories:
    - **Repository permissions** — access to repository contents, issues, pull requests, workflows, metadata, etc.
@@ -116,7 +114,7 @@ References:
 
 1. Confirm that you browsed the **GitHub Marketplace** and identified at least 2-3 apps relevant to enterprise administration.
 2. Confirm that you installed a GitHub App on your organization:
-   - Navigate to **Organization** → **Settings** → **Integrations** → **GitHub Apps**
+   - Navigate to **Organization** → **Settings** → **Third-party Access** → **GitHub Apps**
    - Verify the app appears in the list with the correct repository access scope.
 3. Confirm that you reviewed the installed app's permissions and understand the three permission categories (repository, organization, account).
 4. Confirm that you discussed the key differences between GitHub Apps and OAuth Apps, including when an OAuth App is still necessary.

@@ -1,7 +1,5 @@
 # 13 - Scripts and gh CLI Automation
-
 In this lab you will use the GitHub CLI (`gh`) and the GitHub REST/GraphQL APIs to perform enterprise administration tasks, build automation scripts for common workflows, and learn when to use GraphQL versus REST for efficient admin operations.
-
 > Duration: 20-25 minutes
 
 References:
@@ -61,11 +59,11 @@ References:
    gh api /orgs/YOUR-ORG/teams --jq '.[] | [.name, .slug, .privacy] | @tsv'
    ```
 
-2. Create a new team for this lab exercise:
+2. Create a new team for this lab exercise (use your GitHub handle as a prefix to avoid naming conflicts in a shared workshop org):
 
    ```bash
    gh api /orgs/YOUR-ORG/teams -X POST \
-     -f name="lab13-demo-team" \
+     -f name="YOUR-HANDLE-lab13-team" \
      -f description="Created in Lab 13" \
      -f privacy="closed"
    ```
@@ -75,14 +73,14 @@ References:
 3. Add yourself (or a test user) as a member of the team:
 
    ```bash
-   gh api /orgs/YOUR-ORG/teams/lab13-demo-team/memberships/YOUR-USERNAME \
+   gh api /orgs/YOUR-ORG/teams/YOUR-HANDLE-lab13-team/memberships/YOUR-USERNAME \
      -X PUT -f role="member"
    ```
 
 4. Grant the team **Write** access to a repository:
 
    ```bash
-   gh api /orgs/YOUR-ORG/teams/lab13-demo-team/repos/YOUR-ORG/YOUR-REPO \
+   gh api /orgs/YOUR-ORG/teams/YOUR-HANDLE-lab13-team/repos/YOUR-ORG/YOUR-REPO \
      -X PUT -f permission="push"
    ```
 
@@ -96,7 +94,7 @@ References:
 5. Verify the team was created and the membership is correct:
 
    ```bash
-   gh api /orgs/YOUR-ORG/teams/lab13-demo-team/members \
+   gh api /orgs/YOUR-ORG/teams/YOUR-HANDLE-lab13-team/members \
      --jq '.[] | .login'
    ```
 
@@ -224,28 +222,56 @@ References:
    - Use **REST** for simple create, update, and delete operations, or when you need to work with endpoints that have no GraphQL equivalent (such as the audit log).
    - GraphQL is rate-limited at **5,000 points per hour**, where each query costs a calculated number of points based on the nodes and connections requested.
 
-## 13.6 Verify your work
+## 13.6 Post commit statuses and check runs
+
+Third-party CI/CD systems integrate with GitHub by posting **commit statuses** and **check runs**. As an admin, understanding these APIs helps you troubleshoot integration issues and verify that required status checks are working correctly.
+
+1. Create a commit status on the latest commit of your repository. This is how external CI tools (Jenkins, CircleCI, etc.) report test results back to GitHub:
+
+   ```bash
+   LATEST_SHA=$(gh api /repos/YOUR-ORG/YOUR-REPO/commits/main --jq '.sha')
+
+   gh api /repos/YOUR-ORG/YOUR-REPO/statuses/$LATEST_SHA -X POST \
+     -f state="success" \
+     -f target_url="https://example.com/build/42" \
+     -f description="Lab 13 — CI passed" \
+     -f context="lab13/external-ci"
+   ```
+
+2. Verify the status appears on the commit:
+
+   ```bash
+   gh api /repos/YOUR-ORG/YOUR-REPO/commits/$LATEST_SHA/statuses \
+     --jq '.[] | [.context, .state, .description] | @tsv'
+   ```
+
+3. The `context` field acts as a unique identifier for a status check. Multiple CI systems can each post their own context (e.g., `ci/jenkins`, `security/snyk`). Repository rulesets and branch protection rules use these contexts to enforce **required status checks** before merging.
+
+4. Discuss with your group: how would you configure a repository ruleset to require the `lab13/external-ci` status check before merging to `main`? What happens if the external system goes offline and never posts a status?
+
+## 13.7 Verify your work
 
 1. Confirm you have completed each section by running through this checklist:
 
    - [ ] Verified `gh` is installed and authenticated (13.1)
    - [ ] Listed organization repos and members via `gh api` (13.1)
-   - [ ] Created the **lab13-demo-team** team (13.2)
+   - [ ] Created the **YOUR-HANDLE-lab13-team** team (13.2)
    - [ ] Added a member and a repository to the team (13.2)
    - [ ] Queried the audit log for `team.create` and `repo.create` events (13.3)
    - [ ] Created and ran the `admin-report.sh` automation script (13.4)
    - [ ] Executed a GraphQL query returning repos and teams (13.5)
+   - [ ] Posted a commit status via the Statuses API (13.6)
 
 2. Clean up the resources created during this lab. Delete the demo team:
 
    ```bash
-   gh api /orgs/YOUR-ORG/teams/lab13-demo-team -X DELETE
+   gh api /orgs/YOUR-ORG/teams/YOUR-HANDLE-lab13-team -X DELETE
    ```
 
    Verify the team was removed:
 
    ```bash
-   gh api /orgs/YOUR-ORG/teams/lab13-demo-team 2>&1 || echo "Team deleted successfully"
+   gh api /orgs/YOUR-ORG/teams/YOUR-HANDLE-lab13-team 2>&1 || echo "Team deleted successfully"
    ```
 
 3. Remove the script file if you no longer need it:

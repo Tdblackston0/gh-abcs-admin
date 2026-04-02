@@ -18,7 +18,7 @@ In Lab 03, you created a basic branch ruleset scoped to a single repository. Org
 2. Click **Settings** in the organization navigation bar
 3. In the left sidebar under **"Code, planning, and automation"**, click **Rules**, then click **Rulesets**
 4. Click **New ruleset**, then select **New branch ruleset**
-5. Set the **Ruleset name** to `org-branch-standards`
+5. Set the **Ruleset name** to `YOUR-HANDLE-org-branch-standards` (replace `YOUR-HANDLE` with your GitHub username to avoid naming conflicts in a shared workshop org)
 6. Set **Enforcement status** to **Evaluate** — this is a GHEC-only feature that lets you dry-run the ruleset against real traffic without blocking anyone. You will see results in Rule Insights.
 7. Under **Target repositories**, click **Add target** and select **"All repositories"** to apply this ruleset across the entire organization
     - _(Optional)_ If you prefer a narrower scope, select **"Dynamic list by name"** and enter a pattern such as `production-*`
@@ -37,7 +37,7 @@ Tag rulesets protect your release tags from accidental or unauthorized changes. 
 
 1. Navigate back to your **organization Settings > Rules > Rulesets**
 2. Click **New ruleset**, then select **New tag ruleset**
-3. Set the **Ruleset name** to `release-tag-protection`
+3. Set the **Ruleset name** to `YOUR-HANDLE-release-tag-protection`
 4. Set **Enforcement status** to **Active**
 5. Under **Target repositories**, click **Add target** and select **"All repositories"**
 6. Under **Target tags**, click **Add a target**, select **"Include by pattern"**, and enter `v*` — this matches all tags starting with `v`, covering patterns like `v1.0.0`, `v2.0.0-beta.1`, etc.
@@ -59,7 +59,7 @@ Understanding bypass behavior is essential for designing rulesets that balance s
 1. Navigate to one of the repositories targeted by your org-level ruleset
 2. Try to push a commit directly to the `main` branch (edit a file via the GitHub UI on the default branch):
     - Because the org ruleset is in **Evaluate** mode, the push should **succeed** — but the evaluation will be recorded in Rule Insights
-3. Now return to **Organization Settings > Rules > Rulesets** and edit the `org-branch-standards` ruleset
+3. Now return to **Organization Settings > Rules > Rulesets** and edit the `YOUR-HANDLE-org-branch-standards` ruleset
 4. Change the **Enforcement status** from **Evaluate** to **Active**, then click **Save changes**
 5. Return to the repository and attempt to edit a file directly on `main` again:
     - This time, GitHub should **block** the direct push and force you to create a branch and pull request
@@ -79,14 +79,14 @@ Understanding bypass behavior is essential for designing rulesets that balance s
 Rulesets can be exported as JSON and imported into other organizations or repositories, enabling you to standardize policies across your enterprise.
 
 1. Navigate to **Organization Settings > Rules > Rulesets**
-2. Find the `org-branch-standards` ruleset you created in section 6.1
+2. Find the `YOUR-HANDLE-org-branch-standards` ruleset you created in section 6.1
 3. Click the **···** (three-dot menu) to the right of the ruleset, then click **Export**
 4. GitHub downloads a JSON file representing the complete ruleset configuration. Open the file — its structure looks like this:
 
 ```json
 {
   "id": 12345,
-  "name": "org-branch-standards",
+  "name": "YOUR-HANDLE-org-branch-standards",
   "target": "branch",
   "source_type": "Organization",
   "source": "your-org-name",
@@ -156,15 +156,15 @@ In Lab 03 you learned that rulesets are the modern replacement for branch protec
 Use this checklist to confirm everything is configured correctly.
 
 1. Navigate to **Organization Settings > Rules > Rulesets** and verify:
-    - [ ] `org-branch-standards` ruleset exists with status **Active** (you changed it from Evaluate in 6.3)
-    - [ ] `release-tag-protection` tag ruleset exists with status **Active**
+    - [ ] `YOUR-HANDLE-org-branch-standards` ruleset exists with status **Active** (you changed it from Evaluate in 6.3)
+    - [ ] `YOUR-HANDLE-release-tag-protection` tag ruleset exists with status **Active**
 2. Navigate to **Organization Settings > Rules > Insights** (Rule Insights):
-    - [ ] You see evaluation entries from when `org-branch-standards` was in **Evaluate** mode (section 6.3, step 2)
+    - [ ] You see evaluation entries from when `YOUR-HANDLE-org-branch-standards` was in **Evaluate** mode (section 6.3, step 2)
     - [ ] You see enforcement entries from after you switched to **Active** mode
     - [ ] Tag ruleset events appear if you tested tag creation
 3. Navigate to any targeted repository's **Settings > Rules > Rulesets**:
-    - [ ] The org-level `org-branch-standards` ruleset appears alongside any repo-level rulesets from Lab 03
-    - [ ] The tag ruleset `release-tag-protection` appears in the list
+    - [ ] The org-level `YOUR-HANDLE-org-branch-standards` ruleset appears alongside any repo-level rulesets from Lab 03
+    - [ ] The tag ruleset `YOUR-HANDLE-release-tag-protection` appears in the list
 4. Confirm bypass behavior:
     - [ ] Non-bypass users cannot push directly to `main` (blocked by org-level ruleset)
     - [ ] Non-bypass users cannot create `v*` tags (blocked by tag ruleset)

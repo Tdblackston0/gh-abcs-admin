@@ -1,8 +1,8 @@
 # 15 - Copilot Governance Configuration
-
 In this lab you will configure and review GitHub Copilot policies, manage seat assignments, set up content exclusions, and explore audit events to govern Copilot usage across your enterprise and organization.
-
 > Duration: 15-20 minutes
+
+> **Prerequisites:** This lab requires **GitHub Copilot Business** ($19/user/month) or **Copilot Enterprise** ($39/user/month) to be provisioned on your workshop organization. Verify with your instructor that Copilot licenses are assigned before starting. You can still review the policy settings UI without an active subscription, but seat management and audit events require an active license.
 
 References:
 - [Managing Copilot policies for your organization](https://docs.github.com/en/enterprise-cloud@latest/copilot/managing-copilot/managing-copilot-for-your-organization/managing-policies-for-copilot-in-your-organization)
@@ -43,15 +43,16 @@ References:
 
 5. Click **Save** to apply the content exclusion rule.
 6. Understand what content exclusions do and do not do:
-   - **Do:** Suppress Copilot code completions and suggestions for files matching the specified patterns. When a developer opens an excluded file in their IDE, Copilot will not generate inline suggestions.
-   - **Do not:** Prevent Copilot from *reading* those files for context. Content exclusions control suggestion output, not context input. For truly sensitive content, consider using `.gitignore` or keeping files outside the repository entirely.
+   - **Do:** Suppress Copilot code completions and chat responses for files matching the specified patterns. When a developer opens an excluded file in their IDE, Copilot will not generate inline suggestions.
+   - **Do:** Prevent Copilot from using excluded file content as context for suggestions in *other* files. Excluded content is not sent to the Copilot service.
+   - **Do not:** Affect files that are already not tracked by Git (e.g., `.gitignore`-excluded files). For files that are in the repository, content exclusions are the primary governance mechanism.
+   - **Limitation:** Content exclusions may take **up to 30 minutes** to propagate to IDE clients.
 7. Discuss when to apply content exclusions:
    - Environment files containing secrets or connection strings (`*.env`, `*.pem`, `*.key`)
    - Proprietary algorithms or trade-secret code paths
    - Files containing regulated data (PII, PHI, financial data)
    - Production configuration that should not be accidentally duplicated
 8. Note that content exclusions can also be configured at the **enterprise level** — enterprise exclusions apply across all organizations and cannot be overridden at the org level.
-9. Be aware that exclusion changes take **up to 30 minutes** to propagate to IDE clients. Developers may need to reload their IDE or wait for the exclusion cache to refresh.
 
 > **Tip:** Content exclusions are one layer of a defense-in-depth approach. Combine them with **Custom Instructions** (natural-language files like `.github/copilot-instructions.md` that guide Copilot responses) and **Copilot Spaces** (curated collections of repos, code, PRs, and issues that provide shared context to Copilot) for comprehensive governance of Copilot behavior.
 
@@ -86,7 +87,7 @@ References:
 
 ## 15.4 Review Copilot audit events
 
-1. Navigate to your organization **Settings** → **Logs** → **Audit log**.
+1. Navigate to your organization **Settings** → **Audit log** (in the left sidebar under **Archives** → **Logs**).
 2. In the search bar, enter the following filter to show all Copilot-related events:
 
    ```

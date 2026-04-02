@@ -2,6 +2,8 @@
 In this lab you will enable and configure GitHub's security products — Secret Protection and Code Security — to detect secrets, scan code for vulnerabilities, manage Dependabot alerts, and enforce push protection policies across your repository and organization.
 > Duration: 25-30 minutes
 
+> **Prerequisites:** This lab requires **GitHub Secret Protection** ($19/active committer/month) and **GitHub Code Security** ($30/active committer/month) to be enabled on your workshop organization. Verify with your instructor that these products are provisioned before starting. Dependabot alerts are included with all GHEC plans at no additional cost.
+
 References:
 - [About secret scanning - GitHub Docs](https://docs.github.com/en/code-security/secret-scanning/introduction/about-secret-scanning)
 - [About push protection - GitHub Docs](https://docs.github.com/en/code-security/secret-scanning/introduction/about-push-protection)
@@ -90,7 +92,9 @@ Code scanning with CodeQL is part of **GitHub Code Security** ($30/active commit
    - The analysis runs on every push to the default branch and on every pull request targeting the default branch
    - Default setup covers the most common security queries for each detected language
 5. Click **Enable CodeQL** to confirm
-6. Navigate to the **Actions** tab to observe the CodeQL analysis workflow running — it may take several minutes depending on repository size
+6. Navigate to the **Actions** tab to observe the CodeQL analysis workflow running — it may take several minutes depending on repository size and language
+
+> **Timing note:** The initial CodeQL scan can take anywhere from 1 to 15+ minutes depending on repository size and languages. **Continue to the next section (7.4 Dependabot) while the scan runs** and return to review results afterward. This avoids idle waiting during the workshop.
 
 > **Default vs. Advanced setup:** Default setup is the recommended starting point — it requires zero configuration and automatically updates when GitHub improves its query suites. Advanced setup generates a CodeQL workflow YAML file in your repository, giving you full control over languages, query suites, build commands, and schedule triggers. Use advanced setup when you need to analyze compiled languages with custom build steps, add third-party query packs, or integrate with monorepo configurations.
 
