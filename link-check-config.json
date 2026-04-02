@@ -15,6 +15,18 @@
     {
       "pattern": "^#",
       "comment": "Anchor-only links — validated by structure checks"
+    },
+    {
+      "pattern": "^/",
+      "comment": "Absolute repo paths (e.g., /labs/*, /.github/*) — valid on GitHub but unresolvable locally"
+    },
+    {
+      "pattern": "^https://learning\\.oreilly\\.com",
+      "comment": "O'Reilly Learning — requires authentication, blocks bots (403)"
+    },
+    {
+      "pattern": "^https://cacm\\.acm\\.org",
+      "comment": "ACM Digital Library — blocks automated crawlers (403)"
     }
   ],
   "replacementPatterns": [],

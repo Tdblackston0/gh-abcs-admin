@@ -1,0 +1,92 @@
+{
+  "_comment": "Phase 1 baseline expectations for all lab files. Used by validate-structure.js for regression testing.",
+  "lab01": {
+    "expectedH1": "1 - Introduction to Repository Webhooks and Events",
+    "expectedH2s": [
+      "1.1 Add repository webhook"
+    ],
+    "minLines": 25,
+    "minMermaidDiagrams": 0,
+    "hasFrontMatter": false,
+    "expectedCodeBlockLangs": [],
+    "linkCount": 5,
+    "externalLinkCount": 5,
+    "_knownIssue": "Missing duration field. Fix in Phase 3."
+  },
+  "lab02": {
+    "expectedH1": "2 - Managing GitHub Actions settings for a repository",
+    "expectedH2s": [
+      "2.1 Update Actions and Workflow permissions"
+    ],
+    "minLines": 45,
+    "minMermaidDiagrams": 0,
+    "hasFrontMatter": true,
+    "expectedCodeBlockLangs": ["yaml"],
+    "linkCount": 2,
+    "externalLinkCount": 1,
+    "_knownIssue": "Missing duration field. Fix in Phase 3."
+  },
+  "lab03": {
+    "expectedH1": "3 - Managing a branch protection rule",
+    "expectedH2s": [
+      "3.1 Add a branch protection rule"
+    ],
+    "minLines": 24,
+    "minMermaidDiagrams": 0,
+    "hasFrontMatter": false,
+    "expectedCodeBlockLangs": [],
+    "linkCount": 2,
+    "externalLinkCount": 2,
+    "_knownIssues": [
+      "Missing duration field. Fix in Phase 3.",
+      "Uses legacy branch protection — should demonstrate Rulesets. Major rewrite in Phase 3."
+    ]
+  },
+  "lab04": {
+    "expectedH1": "4 - GitHub Templates",
+    "expectedH2s": [
+      "4.1 Create issue templates",
+      "4.2 Create pull request templates",
+      "4.3 Create a template repository _(Optional)_",
+      "4.4 Create a Pull Request _(Optional)_"
+    ],
+    "minLines": 53,
+    "minMermaidDiagrams": 0,
+    "hasFrontMatter": false,
+    "expectedCodeBlockLangs": ["markdown"],
+    "linkCount": 6,
+    "externalLinkCount": 5,
+    "_knownIssue": "Missing duration field. Fix in Phase 3."
+  },
+  "lab05": {
+    "expectedH1": "5 - GitHub API - REST API & GraphQL API",
+    "expectedH2s": [
+      "5.1 Develop a GitHub Action workflow that calls REST APIs",
+      "5.2 Develop a GitHub Action workflow that calls GraphQL APIs"
+    ],
+    "minLines": 66,
+    "minMermaidDiagrams": 0,
+    "hasFrontMatter": true,
+    "expectedCodeBlockLangs": ["yaml", "yaml"],
+    "linkCount": 8,
+    "externalLinkCount": 6,
+    "_knownIssues": [
+      "Missing duration field. Fix in Phase 3.",
+      "Uses actions/github-script@v6 — needs update to v7+. Fix in Phase 3."
+    ]
+  },
+  "setup": {
+    "expectedH1": "Hands-on Labs Setup",
+    "expectedH2s": [
+      "1.  Fork the current repository",
+      "2. _(Optional)_ Creating a repository from current template"
+    ],
+    "minLines": 18,
+    "minMermaidDiagrams": 0,
+    "hasFrontMatter": false,
+    "expectedCodeBlockLangs": [],
+    "hasDuration": true,
+    "linkCount": 4,
+    "externalLinkCount": 4
+  }
+}

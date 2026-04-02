@@ -60,9 +60,65 @@ npm test -- --skip-links --fail-fast
 | File | Purpose |
 |------|---------|
 | `fixtures/vbd-coverage-map.json` | Maps VBD agenda items → docs and labs |
-| `fixtures/doc-expectations.json` | Expected structure for each doc *(planned — Phase 1)* |
-| `fixtures/lab-expectations.json` | Expected structure for each lab *(planned — Phase 1)* |
-| `fixtures/known-issues.json` | Tracked issues from baseline *(planned — Phase 1)* |
+| `fixtures/doc-expectations.json` | Expected structure for each doc (H1, H2s, min lines, Mermaid count) |
+| `fixtures/lab-expectations.json` | Expected structure for each lab (H1, H2s, code blocks, links) |
+| `fixtures/known-issues.json` | Tracked issues from baseline with fix-phase assignments |
+
+## Baseline Metrics (Phase 1)
+
+*Captured: 2026-04-02*
+
+### Content Inventory
+
+| Category | Count |
+|----------|-------|
+| Numbered docs (01–18) | 18 |
+| Non-numbered docs (FAQ, migration, business case) | 3 |
+| Lab files (lab01–lab05 + setup) | 6 |
+| Total markdown files validated | 27 |
+| Total Mermaid diagrams | 66 (65 validated — 1 in skipped dev artifact) |
+| Total code blocks | 386 |
+| Files with YAML front matter | 8 |
+
+### VBD Coverage Baseline
+
+| Metric | Value |
+|--------|-------|
+| Total agenda items | 22 |
+| Items with documentation | 11/22 (50.0%) |
+| Items with labs | 6/22 (27.3%) |
+| Doc references verified | 18 |
+| Lab references verified | 6 |
+| P0 items with docs | 9/13 (69%) |
+| P0 items with labs | 4/13 (31%) |
+
+### Known Issues Summary
+
+| Category | Count | Fix Phase |
+|----------|-------|-----------|
+| Broken external links (404) | 24 | Phase 3 |
+| Broken internal links (wrong paths) | 10 | Phase 3 |
+| False-positive links (auth walls, local-only) | 18 | No fix needed |
+| Freshness warnings (GHAS split, outdated actions) | 43 flags across 8 patterns | Phase 3 |
+| Structural issues (missing H1, L400→L300) | 3 | Phase 3/7 |
+| Content issues (missing duration, legacy patterns) | 4 | Phase 3 |
+| VBD coverage gaps | 11 missing docs, 16 missing labs | Phase 4/5 |
+| Dev artifacts to clean up | 2 | Phase 8 |
+
+### Test Suite Status
+
+| Suite | Status | Checks |
+|-------|--------|--------|
+| Markdown Lint | ✅ Pass | 28 files, 0 errors |
+| Front Matter | ✅ Pass | 34 checks |
+| Structure | ✅ Pass | 445 checks (27/27 files with expectations) |
+| Code Blocks | ✅ Pass | 321 checks, 1 warning |
+| Mermaid Diagrams | ✅ Pass | 65 checks |
+| Content Freshness | ✅ Pass | 28 checks, 43 warnings |
+| Spelling | ✅ Pass | 0 issues (120+ terms in dictionary) |
+| VBD Coverage | ✅ Pass | 24 checks, 11 warnings |
+| Lab Completeness | ✅ Pass | 35 checks |
+| Link Validation | ⚠️ 34 real broken links (24 external 404, 10 internal) | Phase 3 fixes |
 
 ## Adding New Tests
 
@@ -117,7 +173,7 @@ tests/
 ├── README.md               # This file
 └── fixtures/
     ├── vbd-coverage-map.json    # VBD agenda → content mapping
-    ├── doc-expectations.json    # (planned — Phase 1)
-    ├── lab-expectations.json    # (planned — Phase 1)
-    └── known-issues.json        # (planned — Phase 1)
+    ├── doc-expectations.json    # Expected structure for all 21 docs
+    ├── lab-expectations.json    # Expected structure for all 6 labs
+    └── known-issues.json        # 68 cataloged issues with fix-phase tags
 ```

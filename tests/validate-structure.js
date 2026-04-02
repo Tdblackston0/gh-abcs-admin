@@ -153,6 +153,9 @@ async function main() {
   const docExpectations = loadFixture('doc-expectations.json');
   const labExpectations = loadFixture('lab-expectations.json');
 
+  let matchedExpectations = 0;
+  let unmatchedFiles = [];
+
   for (const relPath of allFiles) {
     try {
       const parsed = parseMarkdown(relPath);
@@ -173,11 +176,13 @@ async function main() {
       }
 
       // Check against fixture expectations if available
+      let matched = false;
       if (docExpectations && category === 'doc') {
         const basename = path.basename(relPath, '.md');
         const expectation = docExpectations[basename];
         if (expectation) {
           validateAgainstExpectation(relPath, parsed, expectation);
+          matched = true;
         }
       }
 
@@ -186,10 +191,25 @@ async function main() {
         const expectation = labExpectations[basename];
         if (expectation) {
           validateAgainstExpectation(relPath, parsed, expectation);
+          matched = true;
         }
+      }
+
+      if (matched) {
+        matchedExpectations++;
+      } else if (docExpectations || labExpectations) {
+        unmatchedFiles.push(relPath);
       }
     } catch (err) {
       reporter.fail(relPath, `Error reading/parsing: ${err.message}`);
+    }
+  }
+
+  if (docExpectations || labExpectations) {
+    console.log(`\n  📊 Expectation Coverage:`);
+    console.log(`     Files with expectations: ${matchedExpectations}/${allFiles.length}`);
+    if (unmatchedFiles.length > 0) {
+      console.log(`     Files without expectations: ${unmatchedFiles.join(', ')}`);
     }
   }
 
@@ -210,6 +230,14 @@ function validateAgainstExpectation(relPath, parsed, expectation) {
       reporter.fail(relPath, `Expected H1 containing "${expectation.expectedH1}"`);
     } else {
       reporter.pass(`${relPath}: H1 matches expectation`);
+    }
+  } else if (expectation.expectedH1 === null) {
+    // Explicitly expected to have no H1 (known issue, e.g., doc 18)
+    const h1s = headings.filter(h => h.level === 1);
+    if (h1s.length > 0) {
+      reporter.warn(relPath, `Expected no H1 (known issue) but found "${h1s[0].text}" — was this fixed?`);
+    } else {
+      reporter.pass(`${relPath}: no H1 as expected (known issue)`);
     }
   }
 
@@ -232,7 +260,7 @@ function validateAgainstExpectation(relPath, parsed, expectation) {
     if (lineCount < expectation.minLines) {
       reporter.fail(relPath, `Expected at least ${expectation.minLines} lines, found ${lineCount}`);
     } else {
-      reporter.pass(`${relPath}: meets minimum line count`);
+      reporter.pass(`${relPath}: meets minimum line count (${lineCount})`);
     }
   }
 
@@ -244,6 +272,18 @@ function validateAgainstExpectation(relPath, parsed, expectation) {
         `Expected at least ${expectation.minMermaidDiagrams} Mermaid diagrams, found ${mermaidCount}`);
     } else {
       reporter.pass(`${relPath}: has ${mermaidCount} Mermaid diagram(s)`);
+    }
+  }
+
+  // Check front matter presence if specified
+  if (expectation.hasFrontMatter !== undefined) {
+    const hasFM = parsed.frontmatter !== null;
+    if (expectation.hasFrontMatter && !hasFM) {
+      reporter.fail(relPath, 'Expected YAML front matter but none found');
+    } else if (!expectation.hasFrontMatter && hasFM) {
+      reporter.warn(relPath, 'Found unexpected YAML front matter');
+    } else {
+      reporter.pass(`${relPath}: front matter presence matches expectation`);
     }
   }
 }
