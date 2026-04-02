@@ -29,20 +29,23 @@
     "hasDuration": true
   },
   "lab03": {
-    "expectedH1": "3 - Managing a branch protection rule",
+    "expectedH1": "3 - Repository Rulesets",
     "expectedH2s": [
-      "3.1 Add a branch protection rule"
+      "3.1 Create a branch ruleset",
+      "3.2 Configure bypass actors",
+      "3.3 Set target branches",
+      "3.4 Configure branch protection rules",
+      "3.5 Create and verify the ruleset",
+      "3.6 Test the ruleset",
+      "3.7 _(Optional)_ View Rule Insights"
     ],
-    "minLines": 24,
+    "minLines": 55,
     "minMermaidDiagrams": 0,
     "hasFrontMatter": false,
+    "hasDuration": true,
     "expectedCodeBlockLangs": [],
-    "linkCount": 2,
-    "externalLinkCount": 2,
-    "_knownIssues": [
-      "Missing duration field. Fix in Phase 3.",
-      "Uses legacy branch protection — should demonstrate Rulesets. Major rewrite in Phase 3."
-    ]
+    "linkCount": 5,
+    "externalLinkCount": 5
   },
   "lab04": {
     "expectedH1": "4 - GitHub Templates",
