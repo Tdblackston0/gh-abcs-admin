@@ -58,7 +58,7 @@
       "topic": "User privacy",
       "subtopics": ["Data residency", "Export", "GDPR"],
       "priority": "P1",
-      "docs": [],
+      "docs": ["docs/26-user-privacy-data-residency.md"],
       "labs": []
     },
     {
@@ -67,7 +67,7 @@
       "topic": "Licenses",
       "subtopics": ["License types", "Seat management", "Billing"],
       "priority": "P1",
-      "docs": [],
+      "docs": ["docs/19-licenses-billing.md"],
       "labs": []
     },
     {
@@ -76,7 +76,7 @@
       "topic": "GitHub Marketplace",
       "subtopics": ["Apps", "Actions", "Integrations marketplace"],
       "priority": "P1",
-      "docs": [],
+      "docs": ["docs/20-github-marketplace-apps.md"],
       "labs": []
     },
     {
@@ -103,7 +103,7 @@
       "topic": "Audit account activities",
       "subtopics": ["Audit log", "Streaming", "SIEM"],
       "priority": "P0",
-      "docs": ["docs/08-security-compliance.md", "docs/01-enterprise-hierarchy.md"],
+      "docs": ["docs/08-security-compliance.md", "docs/01-enterprise-hierarchy.md", "docs/22-audit-log-deep-dive.md"],
       "labs": []
     },
     {
@@ -121,7 +121,7 @@
       "topic": "Administer users",
       "subtopics": ["User lifecycle", "Invitations", "Roles"],
       "priority": "P0",
-      "docs": ["docs/03-identity-access-management.md", "docs/04-enterprise-managed-users.md"],
+      "docs": ["docs/03-identity-access-management.md", "docs/04-enterprise-managed-users.md", "docs/21-user-administration.md"],
       "labs": []
     },
     {
@@ -130,7 +130,7 @@
       "topic": "Manage dormant users",
       "subtopics": ["Identify inactive", "Reclaim licenses"],
       "priority": "P1",
-      "docs": [],
+      "docs": ["docs/21-user-administration.md"],
       "labs": []
     },
     {
@@ -148,7 +148,7 @@
       "topic": "The GitHub API",
       "subtopics": ["REST vs GraphQL", "Status API"],
       "priority": "P0",
-      "docs": [],
+      "docs": ["docs/24-scripts-automation.md", "docs/27-integrations-status-api.md"],
       "labs": ["labs/lab05.md"]
     },
     {
@@ -157,7 +157,7 @@
       "topic": "Integrate 3rd party tests and results",
       "subtopics": ["Status API", "Check runs"],
       "priority": "P1",
-      "docs": [],
+      "docs": ["docs/27-integrations-status-api.md"],
       "labs": []
     },
     {
@@ -166,7 +166,7 @@
       "topic": "Deploy with GitHub",
       "subtopics": ["Environments", "Protection rules", "OIDC"],
       "priority": "P1",
-      "docs": [],
+      "docs": ["docs/23-deployment-strategies.md"],
       "labs": []
     },
     {
@@ -175,7 +175,7 @@
       "topic": "Use webhooks",
       "subtopics": ["Webhook config", "Events", "Security"],
       "priority": "P0",
-      "docs": [],
+      "docs": ["docs/27-integrations-status-api.md"],
       "labs": ["labs/lab01.md"]
     },
     {
@@ -184,7 +184,7 @@
       "topic": "Scripts and automation",
       "subtopics": ["gh CLI", "API scripting", "Automation"],
       "priority": "P1",
-      "docs": [],
+      "docs": ["docs/24-scripts-automation.md"],
       "labs": []
     },
     {
@@ -193,7 +193,7 @@
       "topic": "Unhealthy repositories",
       "subtopics": ["Large files", "Stale branches", "Repo health"],
       "priority": "P1",
-      "docs": [],
+      "docs": ["docs/25-unhealthy-repos-git-history.md"],
       "labs": []
     },
     {
@@ -202,7 +202,7 @@
       "topic": "Changing history with Git",
       "subtopics": ["Rebase", "filter-repo", "BFG", "Sensitive data"],
       "priority": "P1",
-      "docs": [],
+      "docs": ["docs/25-unhealthy-repos-git-history.md"],
       "labs": []
     }
   ]

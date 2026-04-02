@@ -134,7 +134,13 @@
     "CalinL",
     "ghec",
     "dotcom",
-    "githubusercontent"
+    "githubusercontent",
+    "jdoe",
+    "contoso",
+    "octocorp",
+    "chargeback",
+    "deprovisioned",
+    "GiB"
   ],
   "flagWords": [],
   "dictionaries": ["en_US", "en-gb", "softwareTerms", "companies", "typescript", "node", "css", "html", "bash", "powershell"]
