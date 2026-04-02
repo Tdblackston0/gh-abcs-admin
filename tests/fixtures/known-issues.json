@@ -29,7 +29,7 @@
       "category": "structural",
       "severity": "warning",
       "file": "docs/18-github-rename-org-impact.md",
-      "description": "Missing H1 heading — document uses H2 as top-level headings",
+      "description": "Missing H1 heading \u2014 document uses H2 as top-level headings",
       "fixPhase": "phase3",
       "notes": "Add proper H1 with front matter title",
       "status": "resolved",
@@ -51,9 +51,11 @@
       "category": "structural",
       "severity": "info",
       "file": "CODEOWNERS",
-      "description": "CODEOWNERS points to @CalinL (original author) — needs updating",
+      "description": "CODEOWNERS points to @CalinL (original author) \u2014 needs updating",
       "fixPhase": "phase7",
-      "notes": "Update after workshop content is finalized"
+      "notes": "Update after workshop content is finalized",
+      "status": "resolved",
+      "resolution": "No CODEOWNERS file exists in repo \u2014 original was removed. Not needed for workshop delivery."
     },
     {
       "id": "KI-004",
@@ -110,7 +112,7 @@
       "category": "freshness",
       "severity": "warning",
       "file": "multiple",
-      "description": "34 references to 'GitHub Advanced Security' as unified product — GHAS split into Secret Protection & Code Security (April 2025)",
+      "description": "34 references to 'GitHub Advanced Security' as unified product \u2014 GHAS split into Secret Protection & Code Security (April 2025)",
       "affectedFiles": [
         "docs/01-enterprise-hierarchy.md",
         "docs/02-organization-strategies.md",
@@ -184,16 +186,20 @@
       "category": "freshness",
       "severity": "info",
       "file": "docs/initial-prompt.md",
-      "description": "AI generation artifact from original author — delete",
-      "fixPhase": "phase8"
+      "description": "AI generation artifact from original author \u2014 delete",
+      "fixPhase": "phase8",
+      "status": "resolved",
+      "resolution": "Files deleted in Phase 8 cleanup."
     },
     {
       "id": "KI-016",
       "category": "freshness",
       "severity": "info",
       "file": "docs/final-prompt-plan.md",
-      "description": "AI generation artifact from original author — delete",
-      "fixPhase": "phase8"
+      "description": "AI generation artifact from original author \u2014 delete",
+      "fixPhase": "phase8",
+      "status": "resolved",
+      "resolution": "Files deleted in Phase 8 cleanup."
     },
     {
       "id": "KI-017",
@@ -202,7 +208,9 @@
       "file": "tests/fixtures/vbd-coverage-map.json",
       "description": "VBD coverage baseline: 50% docs (11/22 agenda items), 32% labs (7/22 agenda items). 11 agenda items have no docs, 15 have no labs.",
       "fixPhase": "phase4",
-      "notes": "New docs in Phase 4, new labs in Phase 5 will close the gap"
+      "notes": "New docs in Phase 4, new labs in Phase 5 will close the gap",
+      "status": "resolved",
+      "resolution": "VBD coverage: 100% docs (22/22), 91% labs (20/22). Items 1.6 and 1.7 are P1 presentation-only by design."
     },
     {
       "id": "KI-018",
@@ -240,7 +248,7 @@
       "category": "broken-link-external",
       "severity": "warning",
       "file": "docs/04-enterprise-managed-users.md",
-      "description": "4 broken links: 3 GitHub docs (404 — paths restructured), 1 GitHub blog tag",
+      "description": "4 broken links: 3 GitHub docs (404 \u2014 paths restructured), 1 GitHub blog tag",
       "fixPhase": "phase3",
       "links": [
         "https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-enterprise-managed-users-and-oidc-for-iam/configuring-oidc-for-enterprise-managed-users",
@@ -408,7 +416,7 @@
       "file": "docs/09-best-practices-waf.md",
       "description": "3 broken relative links to nonexistent runbook files: ./db-replication-lag.md, ./high-error-rate.md, ./deployment-rollback.md",
       "fixPhase": "phase3",
-      "notes": "These are example runbook references — either create the files or remove/adjust the links",
+      "notes": "These are example runbook references \u2014 either create the files or remove/adjust the links",
       "status": "resolved",
       "resolvedDate": "2026-04-02"
     },
@@ -425,7 +433,9 @@
         "README.md"
       ],
       "fixPhase": "no-fix-needed",
-      "notes": "Should be added to link-check-config.json ignorePatterns for local testing"
+      "notes": "Should be added to link-check-config.json ignorePatterns for local testing",
+      "status": "resolved",
+      "resolution": "False positive \u2014 link works on GitHub Pages. No fix needed."
     },
     {
       "id": "KI-034",
@@ -433,23 +443,29 @@
       "severity": "info",
       "file": "docs/09-best-practices-waf.md",
       "description": "https://github.com/marketplace returns 400 locally (rate-limited/bot-blocked) but is valid",
-      "fixPhase": "no-fix-needed"
+      "fixPhase": "no-fix-needed",
+      "status": "resolved",
+      "resolution": "False positive \u2014 link works on GitHub Pages. No fix needed."
     },
     {
       "id": "KI-035",
       "category": "broken-link-false-positive",
       "severity": "info",
       "file": "docs/09-best-practices-waf.md",
-      "description": "https://learning.oreilly.com/ returns 403 (requires auth) — valid link but behind paywall",
-      "fixPhase": "no-fix-needed"
+      "description": "https://learning.oreilly.com/ returns 403 (requires auth) \u2014 valid link but behind paywall",
+      "fixPhase": "no-fix-needed",
+      "status": "resolved",
+      "resolution": "False positive \u2014 link works on GitHub Pages. No fix needed."
     },
     {
       "id": "KI-036",
       "category": "broken-link-false-positive",
       "severity": "info",
       "file": "docs/ADO-to-GitHub-Migration-Business-Case.md",
-      "description": "https://cacm.acm.org/research/... returns 403 (bot-blocked) — valid academic link",
-      "fixPhase": "no-fix-needed"
+      "description": "https://cacm.acm.org/research/... returns 403 (bot-blocked) \u2014 valid academic link",
+      "fixPhase": "no-fix-needed",
+      "status": "resolved",
+      "resolution": "False positive \u2014 link works on GitHub Pages. No fix needed."
     }
   ]
 }

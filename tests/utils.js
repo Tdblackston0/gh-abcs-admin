@@ -10,9 +10,7 @@ const ROOT = path.resolve(__dirname, '..');
 
 // Files to skip validation on (dev artifacts, not deliverables)
 const SKIP_FILES = [
-  'docs/PLAN.md',
-  'docs/initial-prompt.md',
-  'docs/final-prompt-plan.md'
+  'docs/PLAN.md'
 ];
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10 MB guard
