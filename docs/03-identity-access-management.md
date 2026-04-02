@@ -1363,12 +1363,12 @@ Common integrations for automated IAM:
 
 #### Okta
 - [Okta GitHub EMU Integration Guide](https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-GitHub-Enterprise-Managed-User.html)
-- [Okta Lifecycle Management](https://help.okta.com/en-us/Content/Topics/Provisioning/lcm/lcm-main.htm)
+- [Okta Lifecycle Management](https://help.okta.com/okta_help.htm?type=oie&id=csh-lcm-overview)
 - [Okta Group Push to GitHub](https://help.okta.com/en-us/Content/Topics/users-groups-profiles/usgp-group-push-main.htm)
 
 #### PingFederate
-- [PingFederate SAML Configuration](https://docs.pingidentity.com/r/en-us/pingfederate-112/help_samlquickconnectiontasklet_samlquickconnectionstate)
-- [PingFederate SP Connection Setup](https://docs.pingidentity.com/r/en-us/pingfederate-112/pf_sp_connections_overview)
+- [PingFederate SAML Configuration](https://docs.pingidentity.com/pingfederate/latest/getting_started_with_pingfederate/pf_setting_up_pf.html)
+- [PingFederate SP Connection Setup](https://docs.pingidentity.com/pingfederate/latest/administrators_reference_guide/pf_sp_connect_management.html)
 
 #### SAML & SCIM Standards
 - [SAML 2.0 Specification (OASIS)](http://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf)
@@ -1378,7 +1378,7 @@ Common integrations for automated IAM:
 #### Security Best Practices
 - [NIST Digital Identity Guidelines (SP 800-63)](https://pages.nist.gov/800-63-3/)
 - [OWASP Authentication Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html)
-- [CIS GitHub Enterprise Benchmark](https://www.cisecurity.org/benchmark/github)
+- [CIS GitHub Enterprise Benchmark](https://www.cisecurity.org/benchmark/software-supply-chain-security)
 
 ---
 

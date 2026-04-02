@@ -711,7 +711,7 @@ Implement layered policy controls where multiple independent policy mechanisms p
 
 **Example: Code Quality Enforcement**
 
-- **Enterprise layer:** Require GitHub Advanced Security license for all organizations
+- **Enterprise layer:** Require GitHub Secret Protection and Code Security licenses for all organizations
 - **Organization layer:** Enable required status checks for all repositories
 - **Repository layer:** Configure branch protection requiring code scanning and test passage
 - **Workflow layer:** Implement rulesets enforcing required workflows for CI/CD
@@ -1070,7 +1070,7 @@ Exclusion Configuration:
 **Objective:** Meet SOC 2, ISO 27001, and FedRAMP compliance requirements
 
 **Enterprise Policies:**
-- Enforce GitHub Advanced Security for all organizations
+- Enforce GitHub Secret Protection and Code Security for all organizations
 - Enforce secret scanning (no bypass)
 - Enforce two-factor authentication
 - Disable public and internal repositories (private only)
@@ -1128,17 +1128,17 @@ Understanding policy inheritance requires familiarity with the broader GitHub En
 
 **Enterprise Policy Management**
 - [Enforcing Policies in Your Enterprise](https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies) - Comprehensive guide to all enterprise policy domains
-- [About Enterprise Policies](https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/about-enterprise-policies) - Policy model and enforcement fundamentals
+- [About Enterprise Policies](https://docs.github.com/en/enterprise-cloud@latest/admin/concepts/security-and-compliance/enterprise-policies) - Policy model and enforcement fundamentals
 - [Enforcing Repository Management Policies](https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-repository-management-policies-in-your-enterprise) - Repository-specific policy controls
 
 **GitHub Actions Policies**
 - [Enforcing GitHub Actions Policies](https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-github-actions-in-your-enterprise) - Actions policy configuration and inheritance
-- [Managing GitHub Actions Settings](https://docs.github.com/en/enterprise-cloud@latest/admin/managing-github-actions-for-your-enterprise/managing-github-actions-settings-for-your-enterprise) - Enterprise Actions management
+- [Managing GitHub Actions Settings](https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-github-actions-in-your-enterprise) - Enterprise Actions management
 - [Security Hardening for GitHub Actions](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions) - Actions security best practices
 
 **Organization Settings**
 - [Managing Organization Settings](https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings) - Organization-level policy configuration
-- [Managing Security Settings for Your Organization](https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-organization-settings/managing-security-settings-for-your-organization) - Organization security policies
+- [Managing Security Settings for Your Organization](https://docs.github.com/en/enterprise-cloud@latest/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization) - Organization security policies
 - [Organization Base Permissions](https://docs.github.com/en/enterprise-cloud@latest/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/setting-base-permissions-for-an-organization) - Default access controls
 
 **Audit and Compliance**
@@ -1151,7 +1151,7 @@ Understanding policy inheritance requires familiarity with the broader GitHub En
 - [Configuring Content Exclusions](https://docs.github.com/en/enterprise-cloud@latest/copilot/managing-copilot/managing-copilot-for-your-enterprise/managing-policies-and-features-for-copilot-in-your-enterprise) - Content exclusion patterns
 
 **Security Features**
-- [GitHub Advanced Security](https://docs.github.com/en/enterprise-cloud@latest/get-started/learning-about-github/about-github-advanced-security) - GHAS features and licensing
+- [GitHub Advanced Security](https://docs.github.com/en/enterprise-cloud@latest/get-started/learning-about-github/about-github-advanced-security) - GHAS overview, Secret Protection and Code Security features and licensing
 - [Secret Scanning](https://docs.github.com/en/enterprise-cloud@latest/code-security/secret-scanning) - Secret detection policies
 - [Code Scanning](https://docs.github.com/en/enterprise-cloud@latest/code-security/code-scanning) - Automated security analysis
 
@@ -1175,7 +1175,7 @@ Understanding policy inheritance requires familiarity with the broader GitHub En
 
 **Regulatory Frameworks**
 - [SOC 2 Compliance](https://github.com/security) - GitHub's SOC 2 Type II certification
-- [FedRAMP Authorization](https://marketplace.fedramp.gov/products/github-enterprise-cloud) - Government compliance
+- [FedRAMP Authorization](https://marketplace.fedramp.gov/#/product/github-enterprise-cloud) - Government compliance
 - [ISO/IEC 27001](https://github.com/security) - Information security management
 
 **Industry Standards**

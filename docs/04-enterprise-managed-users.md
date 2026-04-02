@@ -1255,7 +1255,7 @@ Security Metrics:
 ```yaml
 GitHub:
   - Audit log streaming
-  - GitHub Advanced Security alerts
+  - Secret Protection and Code Security alerts
   - GitHub Actions usage metrics
   - API rate limit monitoring
 
@@ -1614,12 +1614,12 @@ Target Metrics:
 - [Configuring SCIM for EMU](https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-enterprise-managed-users-and-saml-for-iam/configuring-scim-provisioning-for-enterprise-managed-users)
 - [Abilities and Restrictions of Managed User Accounts](https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/understanding-iam-for-enterprises/abilities-and-restrictions-of-managed-user-accounts)
 - [Configuring SAML SSO for EMU](https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-enterprise-managed-users-and-saml-for-iam/configuring-saml-single-sign-on-for-enterprise-managed-users)
-- [Configuring OIDC for EMU](https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-enterprise-managed-users-and-oidc-for-iam/configuring-oidc-for-enterprise-managed-users)
+- [Configuring OIDC for EMU](https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/configuring-authentication-for-enterprise-managed-users/configuring-oidc-for-enterprise-managed-users)
 
 ### Identity Provider Guides
-- [Configuring Azure AD for EMU](https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-enterprise-managed-users-and-saml-for-iam/configuring-scim-provisioning-for-enterprise-managed-users-with-azure-active-directory)
+- [Configuring Azure AD for EMU](https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/provisioning-user-accounts-with-scim/configuring-scim-provisioning-for-users)
 - [Configuring Okta for EMU](https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-enterprise-managed-users-and-saml-for-iam/configuring-scim-provisioning-for-enterprise-managed-users-with-okta)
-- [Configuring PingFederate for EMU](https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-enterprise-managed-users-and-saml-for-iam/configuring-scim-provisioning-for-enterprise-managed-users-with-pingfederate)
+- [Configuring PingFederate for EMU](https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/provisioning-user-accounts-with-scim/configuring-scim-provisioning-for-users)
 
 ### Related Documentation
 - [Identity and Access Management Guide](./03-identity-access-management.md)
@@ -1631,7 +1631,7 @@ Target Metrics:
 - [OpenID Connect Core Specification](https://openid.net/specs/openid-connect-core-1_0.html)
 
 ### Additional Resources
-- [GitHub Enterprise Blog: EMU Announcements](https://github.blog/tag/enterprise-managed-users/)
+- [GitHub Enterprise Blog: EMU Announcements](https://github.blog/changelog/label/enterprise/)
 - [GitHub Skills: GitHub Administration](https://skills.github.com/)
 - [GitHub Support: EMU Troubleshooting](https://support.github.com/)
 - [GitHub Community Forum: EMU Discussions](https://github.community/)

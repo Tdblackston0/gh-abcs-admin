@@ -33,7 +33,7 @@ An enterprise account on GitHub Enterprise Cloud delivers advanced administrativ
 - Dependency management and security advisories
 
 **Advanced Features**
-- GitHub Advanced Security (GHAS) licensing and deployment
+- GitHub Advanced Security (GHAS) — comprising GitHub Secret Protection and GitHub Code Security — licensing and deployment
 - Enterprise Managed Users (EMU) for complete identity control
 - GitHub Connect for hybrid cloud/server environments
 - Premium support with configurable SLA tiers
@@ -128,7 +128,7 @@ The Enterprise Owner role carries the highest level of administrative privileges
 - Set and enforce organization policies across the enterprise
 - Access enterprise audit logs and security reports
 - Configure IP allow lists and security policies
-- Manage GitHub Advanced Security licensing and deployment
+- Manage GitHub Secret Protection and Code Security licensing and deployment
 - Set up required workflows and organization standards
 
 **Use Cases:**
@@ -582,7 +582,7 @@ For long-term retention and advanced analytics, configure audit log streaming:
 3. **Defense in Depth**
    - Layer policies at enterprise and organization levels
    - Use IP allow lists for sensitive organizations
-   - Enable GitHub Advanced Security across repositories
+   - Enable GitHub Secret Protection and Code Security across repositories
    - Implement required workflows for compliance
 
 ### Operational Excellence
@@ -677,7 +677,7 @@ GitHub Connect enables hybrid deployments connecting GitHub Enterprise Server to
 - [ ] Migrate existing organizations (if applicable)
 - [ ] Provision users via SCIM or bulk invite
 - [ ] Transfer repository ownership
-- [ ] Configure GitHub Advanced Security
+- [ ] Configure GitHub Secret Protection and Code Security
 - [ ] Test workflows and integrations
 
 **Phase 4: Enablement (Weeks 9-12)**

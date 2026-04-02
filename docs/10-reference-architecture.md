@@ -44,7 +44,8 @@ graph TB
         end
         
         subgraph "Security Layer"
-            GHAS[GitHub Advanced Security]
+            SecretProt[GitHub Secret Protection]
+            CodeSec[GitHub Code Security]
             CodeQL[Code Scanning]
             SecretScan[Secret Scanning]
             Dependabot[Dependabot]
@@ -74,11 +75,13 @@ graph TB
     Policies --> OrgDev
     Policies --> OrgSandbox
     
-    OrgProd --> GHAS
-    OrgDev --> GHAS
-    GHAS --> CodeQL
-    GHAS --> SecretScan
-    GHAS --> Dependabot
+    OrgProd --> SecretProt
+    OrgProd --> CodeSec
+    OrgDev --> SecretProt
+    OrgDev --> CodeSec
+    SecretProt --> SecretScan
+    CodeSec --> CodeQL
+    CodeSec --> Dependabot
     
     Policies --> Rulesets
     Rulesets --> OrgProd
@@ -89,7 +92,8 @@ graph TB
     OrgProd -->|Workflows| CICD
     
     style Enterprise fill:#0366d6,color:#fff
-    style GHAS fill:#28a745,color:#fff
+    style SecretProt fill:#28a745,color:#fff
+    style CodeSec fill:#0366d6,color:#fff
     style Policies fill:#6f42c1,color:#fff
 ```
 
@@ -98,7 +102,7 @@ graph TB
 1. **Identity Provider Layer**: Centralized authentication and user provisioning
 2. **IAM Layer**: SAML SSO, SCIM provisioning, and Enterprise Managed Users
 3. **Organization Layer**: Multi-org topology for environment separation
-4. **Security Layer**: GitHub Advanced Security features
+4. **Security Layer**: GitHub Advanced Security features (Secret Protection & Code Security)
 5. **Governance Layer**: Enterprise policies, rulesets, and audit logging
 6. **Integration Layer**: External systems (SIEM, backup, CI/CD)
 
@@ -328,7 +332,7 @@ graph LR
 
 ## Security Scanning Architecture
 
-### GitHub Advanced Security Pipeline
+### GitHub Advanced Security Pipeline (Secret Protection & Code Security)
 
 ```mermaid
 graph TB
@@ -726,17 +730,17 @@ graph TD
 
 ### Security Features Matrix
 
-| Feature | Free | Team | Enterprise with GHAS |
+| Feature | Free | Team | Enterprise with Secret Protection / Code Security |
 |---------|------|------|----------------------|
 | **Dependabot Alerts** | Public repos | All repos | All repos |
 | **Dependabot Security Updates** | Public repos | All repos | All repos |
 | **Dependabot Version Updates** | ✅ | ✅ | ✅ |
-| **Dependency Review** | Public repos | ❌ | ✅ |
-| **Code Scanning (CodeQL)** | Public repos | ❌ | ✅ |
-| **Secret Scanning** | Public repos | ❌ | ✅ |
-| **Secret Push Protection** | Public repos | ❌ | ✅ |
-| **Custom Secret Patterns** | ❌ | ❌ | ✅ |
-| **Security Overview** | ❌ | ❌ | ✅ |
+| **Dependency Review** (Code Security) | Public repos | ✅ | ✅ |
+| **Code Scanning (CodeQL)** (Code Security) | Public repos | ✅ | ✅ |
+| **Secret Scanning** (Secret Protection) | Public repos | ✅ | ✅ |
+| **Secret Push Protection** (Secret Protection) | Public repos | ✅ | ✅ |
+| **Custom Secret Patterns** (Secret Protection) | ❌ | ✅ | ✅ |
+| **Security Overview** | ❌ | ✅ | ✅ |
 
 ### Rulesets vs Branch Protection
 
@@ -969,7 +973,7 @@ This reference architecture document provides consolidated views of:
 1. **Complete Enterprise Architecture** - All components and relationships
 2. **Organization Topologies** - Single, multi-org, and business unit patterns
 3. **IAM Integration** - EMU and personal account flows
-4. **Security Architecture** - GHAS features and scanning pipelines
+4. **Security Architecture** - Secret Protection and Code Security features and scanning pipelines
 5. **CI/CD Governance** - Actions policies and deployment patterns
 6. **Hybrid Integration** - On-premises and multi-cloud connections
 7. **Migration Patterns** - Moving to GitHub Enterprise Cloud
@@ -984,7 +988,7 @@ This reference architecture document provides consolidated views of:
 - [Teams & Permissions](05-teams-permissions.md) - Team structures
 - [Policy Inheritance](06-policy-inheritance.md) - Policy enforcement
 - [Repository Governance](07-repository-governance.md) - Repo settings and rulesets
-- [Security & Compliance](08-security-compliance.md) - GHAS and compliance
+- [Security & Compliance](08-security-compliance.md) - Secret Protection, Code Security, and compliance
 - [Best Practices & WAF](09-best-practices-waf.md) - Well-Architected Framework
 
 ---

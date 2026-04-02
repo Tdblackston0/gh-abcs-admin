@@ -129,7 +129,7 @@
 |------|-------------|-------|--------|
 | **Assign Enterprise Owners** | Add 3-5 enterprise owners with hardware security keys (U2F/WebAuthn) | Enterprise Admin | ☐ |
 | **Assign Billing Managers** | Grant billing access to finance personnel (no admin access) | Enterprise Admin | ☐ |
-| **Assign Security Managers** | Grant security management permissions for GHAS features | Enterprise Admin | ☐ |
+| **Assign Security Managers** | Grant security management permissions for Secret Protection and Code Security features | Enterprise Admin | ☐ |
 | **Document Owner Access** | Record all enterprise owner assignments externally for audit | Security Team | ☐ |
 
 > **Best Practice:** Require hardware security keys for all Enterprise Owners. Implement quarterly access reviews.
@@ -141,7 +141,7 @@
 | **Configure Payment Method** | Set up enterprise billing with approved payment method | Billing Manager | ☐ |
 | **Set Spending Limits** | Configure spending limits for GitHub Actions and Packages | Billing Manager | ☐ |
 | **Enable Usage Reporting** | Enable detailed usage tracking for cost allocation | Billing Manager | ☐ |
-| **Plan License Allocation** | Determine GHAS and Copilot seat allocation strategy | Finance/Platform | ☐ |
+| **Plan License Allocation** | Determine Secret Protection, Code Security, and Copilot seat allocation strategy | Finance/Platform | ☐ |
 
 ---
 
@@ -289,11 +289,11 @@
 
 > **Reference:** [Security-by-Default Policies](./11-security-by-default-policies.md)
 
-#### 4.1.2 GitHub Advanced Security (GHAS) Policies
+#### 4.1.2 GitHub Advanced Security (GHAS) Policies — Secret Protection & Code Security
 
 | Policy | Recommended Setting | Rationale | Status |
 |--------|---------------------|-----------|--------|
-| **GHAS Availability** | **Enable for all organizations** | Enable security features - See note | ☐ |
+| **Secret Protection & Code Security Availability** | **Enable for all organizations** | Enable security features - See note | ☐ |
 | **Dependabot Alerts** | **Allow** | Repository admins can enable | ☐ |
 | **Secret Scanning** | **Enable** | Detect exposed secrets | ☐ |
 | **Code Scanning (CodeQL)** | **Enable** | Automated vulnerability detection | ☐ |
@@ -301,10 +301,10 @@
 | **Copilot Autofix** | **Enable** | AI-powered security fix suggestions - See note | ☐ |
 | **AI Detection for Secret Scanning** | **Enable** | Detect generic passwords/secrets - See note | ☐ |
 
-> **⚠️ GHAS Policy Notes (per [Security-by-Default Policies](./11-security-by-default-policies.md)):**
-> - **GHAS Availability:** This policy only impacts repository administrators; organization owners and security managers can always enable security features.
-> - **Copilot Autofix:** This policy controls Autofix for code scanning security queries only; Copilot Autofix is integral to GitHub Code Quality and cannot be disabled for that feature.
-> - **AI Detection for Secret Scanning:** This policy requires that repository administrators are allowed to enable Secret Protection (controlled by a separate policy).
+> **⚠️ Security Product Policy Notes (per [Security-by-Default Policies](./11-security-by-default-policies.md)):**
+> - **Secret Protection & Code Security Availability:** This policy only impacts repository administrators; organization owners and security managers can always enable security features.
+> - **Copilot Autofix** (Code Security): This policy controls Autofix for code scanning security queries only; Copilot Autofix is integral to GitHub Code Quality and cannot be disabled for that feature.
+> - **AI Detection for Secret Scanning** (Secret Protection): This policy requires that repository administrators are allowed to enable Secret Protection (controlled by a separate policy).
 
 ### 4.2 Organization-Level Security Configurations
 
@@ -638,7 +638,7 @@ updates:
 | **Validate Git History** | Confirm all commits, branches, tags migrated | Migration Team | ☐ |
 | **Validate PRs/Issues** (if applicable) | Confirm work items migrated | Migration Team | ☐ |
 | **Test CI/CD Workflows** | Validate Actions workflows execute correctly | Platform Team | ☐ |
-| **Test Security Scanning** | Confirm GHAS features activate on migrated repos | Security Team | ☐ |
+| **Test Security Scanning** | Confirm Secret Protection and Code Security features activate on migrated repos | Security Team | ☐ |
 | **Document Lessons Learned** | Capture issues for full migration planning | Migration Team | ☐ |
 
 ### 8.5 Post-Migration Checklist (Per Repository)
@@ -649,7 +649,7 @@ updates:
 | Verify CODEOWNERS file | ☐ |
 | Enable branch protection ruleset | ☐ |
 | Assign team access permissions | ☐ |
-| Enable security features (GHAS) | ☐ |
+| Enable security features (Secret Protection & Code Security) | ☐ |
 | Configure Dependabot | ☐ |
 | Set up CI/CD workflows | ☐ |
 | Verify Copilot access | ☐ |
@@ -819,7 +819,7 @@ gantt
 
 2. **Security Baseline Established**
    - Enterprise policies enforced
-   - GHAS enabled and configured
+   - Secret Protection and Code Security enabled and configured
    - Push protection enabled
    - Secret scanning active
 
@@ -865,7 +865,7 @@ gantt
 | IP allow list configured and tested | ☐ |
 | All enterprise security policies enforced | ☐ |
 | Organization rulesets active with required reviews | ☐ |
-| GHAS features enabled (secret scanning, code scanning) | ☐ |
+| Secret Protection and Code Security enabled (secret scanning, code scanning) | ☐ |
 | Push protection enabled | ☐ |
 | GitHub Actions policies configured | ☐ |
 | Copilot policies configured | ☐ |

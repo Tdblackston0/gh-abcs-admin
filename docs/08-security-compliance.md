@@ -6,72 +6,92 @@ render_with_liquid: false
 
 ## Overview
 
-GitHub Enterprise Cloud provides enterprise-grade security capabilities and compliance controls that enable organizations to protect intellectual property, secure software supply chains, and meet regulatory requirements. The GitHub Advanced Security (GHAS) suite delivers integrated security features that operate natively within the development workflow, enabling security teams to shift left while maintaining developer velocity.
+GitHub Enterprise Cloud provides enterprise-grade security capabilities and compliance controls that enable organizations to protect intellectual property, secure software supply chains, and meet regulatory requirements. The GitHub Advanced Security (GHAS) suite — comprising GitHub Secret Protection and GitHub Code Security — delivers integrated security features that operate natively within the development workflow, enabling security teams to shift left while maintaining developer velocity.
 
 Security in GitHub Enterprise Cloud operates across multiple layers: code-level security through static analysis and secret detection, supply chain security through dependency management, access security through identity controls, and operational security through audit logging and compliance monitoring. Each layer integrates with enterprise policy frameworks, enabling centralized governance while allowing organizational autonomy within defined boundaries.
 
 Modern compliance requirements demand not just security controls but also evidence collection, audit trails, and continuous monitoring capabilities. GitHub Enterprise Cloud addresses these requirements through comprehensive audit logging, SIEM integration, security advisories, and certifications aligned with industry standards including SOC 2, ISO 27001, FedRAMP, and GDPR. Understanding these capabilities and their enterprise-scale implementation patterns is essential for security architects and compliance officers.
 
-This document explores the technical architecture, configuration patterns, and operational practices for implementing security and compliance at enterprise scale. It covers GitHub Advanced Security features, vulnerability management workflows, compliance automation, and integration patterns with enterprise security infrastructure.
+This document explores the technical architecture, configuration patterns, and operational practices for implementing security and compliance at enterprise scale. It covers GitHub Advanced Security features (Secret Protection and Code Security), vulnerability management workflows, compliance automation, and integration patterns with enterprise security infrastructure.
 
-## GitHub Advanced Security (GHAS)
+## GitHub Advanced Security (GHAS) — Secret Protection & Code Security
 
 ### Architecture and Components
 
 GitHub Advanced Security represents an integrated security platform built directly into the GitHub development workflow. Unlike bolt-on security tools that operate externally, GHAS features are embedded in the code review process, pull request workflows, and repository security tabs, creating a frictionless security experience that encourages adoption and remediation.
 
-GHAS consists of three primary security scanning capabilities:
+As of 2025, GHAS comprises two standalone products — each available separately on GitHub Team and Enterprise plans:
 
-**Code Scanning** analyzes source code for security vulnerabilities, coding errors, and quality issues using semantic analysis engines. The primary engine, CodeQL, performs deep static analysis by treating code as queryable data, enabling complex security pattern detection that goes beyond simple pattern matching.
+#### GitHub Secret Protection ($19/active committer/month)
 
-**Secret Scanning** monitors repositories for accidentally committed credentials, API keys, tokens, and other sensitive data. It operates continuously, scanning historical commits, new pushes, and pull requests. Push protection extends this capability by preventing secrets from being committed in the first place.
+**Secret Scanning** monitors repositories for accidentally committed credentials, API keys, tokens, and other sensitive data. It operates continuously, scanning historical commits, new pushes, and pull requests.
 
-**Dependency Scanning** through Dependabot identifies vulnerable dependencies in project manifests and lockfiles across multiple ecosystems. It provides automated pull requests for dependency updates, security patches, and version upgrades, enabling proactive vulnerability management.
+**Push Protection** prevents secrets from being committed in the first place by blocking pushes that contain detected secrets, with a delegated bypass workflow and full audit trail.
 
-These three pillars work together to provide comprehensive security coverage across the software development lifecycle, from initial commit through production deployment.
+**Custom Secret Patterns** allow organizations to define patterns for proprietary or internal secret formats beyond the 200+ built-in partner patterns.
+
+**AI-Powered Generic Detection** uses machine learning to identify non-pattern-based secrets such as passwords and generic credentials.
+
+#### GitHub Code Security ($30/active committer/month)
+
+**Code Scanning (CodeQL)** analyzes source code for security vulnerabilities, coding errors, and quality issues using semantic analysis engines. CodeQL performs deep static analysis by treating code as queryable data, enabling complex security pattern detection that goes beyond simple pattern matching.
+
+**Copilot Autofix** generates AI-powered remediation code for detected code scanning vulnerabilities, dramatically reducing mean time to remediation.
+
+**Dependency Review** through Dependabot identifies vulnerable dependencies in project manifests and lockfiles across multiple ecosystems. It provides automated pull requests for dependency updates, security patches, and version upgrades, enabling proactive vulnerability management.
+
+**Security Campaigns** enable coordinated remediation of specific vulnerability types across hundreds of repositories at enterprise scale.
+
+These two products work together to provide comprehensive security coverage across the software development lifecycle, from initial commit through production deployment.
 
 ### Licensing and Enablement
 
-GitHub Advanced Security is licensed per active committer at the enterprise level. An active committer is defined as any user who has made at least one commit to a GHAS-enabled repository in the previous 90 days. This consumption-based licensing model ensures organizations only pay for security coverage on actively developed codebases.
+GitHub Advanced Security is licensed per active committer. GitHub Secret Protection costs $19/active committer/month and GitHub Code Security costs $30/active committer/month. Both products are now available on GitHub Team and Enterprise plans (not just Enterprise Cloud). An active committer is defined as any user who has made at least one commit to a repository with Secret Protection and/or Code Security enabled in the previous 90 days. This consumption-based licensing model ensures organizations only pay for security coverage on actively developed codebases.
 
 Enablement follows the enterprise policy hierarchy:
 
 ```mermaid
 graph TD
-    A[Enterprise GHAS License] -->|Allocates Seats| B[Organization Enablement]
-    B -->|Enables Features| C[Repository Configuration]
+    A[Enterprise Security Licensing] -->|Allocates Seats| B[Organization Enablement]
+    B -->|Enables Products| C[Repository Configuration]
     
     A -->|Policy: Enforced| D[All Orgs Must Use]
     A -->|Policy: Allowed| E[Org Chooses Enable/Disable]
     
-    D -->|Automatic| F[GHAS Active All Repos]
+    D -->|Automatic| F[Security Active All Repos]
     E -->|Manual| G[Per-Repo Enablement]
     
-    F --> H[Code Scanning Active]
-    F --> I[Secret Scanning Active]
-    F --> J[Dependabot Active]
+    F --> SP[Secret Protection]
+    F --> CS[Code Security]
     
-    G --> K[Selective Feature Enable]
-    K --> H
-    K --> I
-    K --> J
+    SP --> I[Secret Scanning Active]
+    SP --> PP[Push Protection Active]
+    CS --> H[Code Scanning Active]
+    CS --> J[Dependency Review Active]
+    CS --> CA[Copilot Autofix Active]
+    
+    G --> K[Selective Product Enable]
+    K --> SP
+    K --> CS
     
     style A fill:#e1f5ff
     style F fill:#d4edda
     style K fill:#fff3cd
+    style SP fill:#ffeeba
+    style CS fill:#b8daff
 ```
 
-Enterprise administrators can enforce GHAS enablement through enterprise policies, requiring organizations to enable features on all repositories, or allow organizations to selectively enable GHAS on specific repositories based on criticality, compliance requirements, or development maturity.
+Enterprise administrators can enforce security product enablement through enterprise policies, requiring organizations to enable Secret Protection and Code Security on all repositories, or allow organizations to selectively enable these products on specific repositories based on criticality, compliance requirements, or development maturity.
 
 ### Security Configurations at Scale
 
-Implementing GHAS across enterprise organizations requires standardized security posture management while respecting organizational autonomy. This involves:
+Implementing Secret Protection and Code Security across enterprise organizations requires standardized security posture management while respecting organizational autonomy. This involves:
 
 **Baseline Security Policies**: Establish minimum security standards across all organizations through enterprise policies. These may include mandatory code scanning on critical repositories, mandatory secret scanning with push protection, and required dependency vulnerability reviews before merge.
 
-**Organization Inheritance Hierarchy**: As described in [Policy Inheritance Architecture](./06-policy-inheritance.md), security configurations flow from enterprise to organization to repository levels. GHAS enablement policies cascade through this hierarchy, with organizations inheriting enterprise mandates while adding organization-specific controls.
+**Organization Inheritance Hierarchy**: As described in [Policy Inheritance Architecture](./06-policy-inheritance.md), security configurations flow from enterprise to organization to repository levels. Secret Protection and Code Security enablement policies cascade through this hierarchy, with organizations inheriting enterprise mandates while adding organization-specific controls.
 
-**Tiered Implementation Levels**: Organizations should classify repositories into tiers (critical, important, standard) and apply proportionate security scanning configurations. Critical repositories might require all GHAS features with strict blocking policies, while standard repositories enable core scanning with advisory-only configurations.
+**Tiered Implementation Levels**: Organizations should classify repositories into tiers (critical, important, standard) and apply proportionate security scanning configurations. Critical repositories might require all Secret Protection and Code Security features with strict blocking policies, while standard repositories enable core scanning with advisory-only configurations.
 
 **Security Scanning Strategy**: Define scanning frequency (continuous on PR, scheduled full scans), retention policies (how long to keep historical results), and alert management rules. Different repositories may require different strategies based on risk profile and development velocity.
 
@@ -101,7 +121,7 @@ CodeQL analysis operates through multiple phases:
 
 Default setup is ideal for:
 - Standard applications with single or dual primary languages
-- Teams new to GHAS adoption
+- Teams new to code scanning adoption
 - Projects with straightforward build configurations
 - Rapid enablement across many repositories
 
@@ -890,7 +910,7 @@ Implementing comprehensive security across enterprise organizations requires str
 
 **Layer 2 - Access Control**: Identity management integration (as described in [Identity and Access Management - Doc 03](./03-identity-access-management.md)) ensures least-privilege access, with enforcement at organization and team levels (as per [Teams and Permissions - Doc 05](./05-teams-permissions.md)).
 
-**Layer 3 - Vulnerability Management**: GHAS scanning capabilities identify vulnerabilities, which are prioritized and tracked through remediation.
+**Layer 3 - Vulnerability Management**: Secret Protection and Code Security scanning capabilities identify vulnerabilities, which are prioritized and tracked through remediation.
 
 **Layer 4 - Incident Response**: Automated playbooks detect patterns indicating compromise or policy violation, triggering investigation and response workflows.
 
@@ -902,21 +922,21 @@ Security governance operates across repository tiers:
 
 **Critical Repositories** (Tier 1):
 - Application: Production applications, core platform libraries, security infrastructure
-- GHAS Policy: All features enabled, mandatory before merge
+- Security Policy: All Secret Protection and Code Security features enabled, mandatory before merge
 - Code Review: Minimum 2 approvals, at least one from security team
 - Deployment: Automated security gates, production approval required
 - Audit: Daily scanning, weekly comprehensive security review
 
 **Important Repositories** (Tier 2):
 - Application: Staging environments, internal tools, development frameworks
-- GHAS Policy: Code scanning and secret scanning mandatory, dependency review advisory
+- Security Policy: Code scanning (Code Security) and secret scanning (Secret Protection) mandatory, dependency review advisory
 - Code Review: Minimum 1 approval
 - Deployment: Automated gates with fallback option
 - Audit: Weekly scanning, monthly review
 
 **Standard Repositories** (Tier 3):
 - Application: Development branches, experimental projects, archived code
-- GHAS Policy: Code scanning and secret scanning enabled, not blocking
+- Security Policy: Code scanning (Code Security) and secret scanning (Secret Protection) enabled, not blocking
 - Code Review: Self-approval option for non-production work
 - Deployment: Minimal gates
 - Audit: Monthly scanning
@@ -1095,26 +1115,26 @@ Continuous monitoring ensures security posture remains compliant:
 
 ## References
 
-### GitHub Advanced Security Documentation
+### GitHub Advanced Security Documentation (Secret Protection & Code Security)
 - [GitHub Code Scanning Documentation](https://docs.github.com/en/code-security/code-scanning)
-- [CodeQL Query Language Documentation](https://codeql.github.io/docs/)
+- [CodeQL Query Language Documentation](https://codeql.github.com/docs/)
 - [GitHub Secret Scanning Documentation](https://docs.github.com/en/code-security/secret-scanning)
 - [GitHub Dependabot Documentation](https://docs.github.com/en/code-security/dependabot)
 
 ### GitHub Enterprise Cloud Security
-- [Enterprise Security Documentation](https://docs.github.com/en/enterprise-cloud@latest/admin/security)
-- [Audit Log API Reference](https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-managing-and-maintaining-your-instance/reviewing-audit-logs-for-your-enterprise)
+- [Enterprise Security Documentation](https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-security-settings-in-your-enterprise)
+- [Audit Log API Reference](https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise)
 - [Private Vulnerability Reporting](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability)
 
 ### Compliance and Certifications
 - [GitHub Trust Center - Security Certifications](https://www.github.com/security)
-- [SOC 2 Type II Report](https://github.com/security/compliance)
-- [ISO 27001 Certification](https://github.com/security/compliance)
+- [SOC 2 Type II Report](https://github.com/security#compliance)
+- [ISO 27001 Certification](https://github.com/security#compliance)
 - [FedRAMP Authorization](https://marketplace.fedramp.gov/)
 
 ### Integration Patterns
 - [GitHub Actions Security](https://docs.github.com/en/actions/security-guides)
-- [SIEM Integration Best Practices](https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-managing-and-maintaining-your-instance/streaming-the-audit-log-for-your-enterprise)
+- [SIEM Integration Best Practices](https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise)
 - [GitHub Apps for Security Integration](https://docs.github.com/en/developers/apps)
 
 ### Policy and Process Documentation

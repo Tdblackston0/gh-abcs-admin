@@ -1490,7 +1490,7 @@ gh api \
 
 ### Additional Resources
 
-- [GitHub Blog: Repository Rulesets GA](https://github.blog/changelog/2023-07-24-github-repository-rules-now-generally-available/) - Announcement and feature overview
+- [GitHub Blog: Repository Rulesets GA](https://github.blog/news-insights/product-news/github-repository-rules-are-now-generally-available/) - Announcement and feature overview
 - [Innersource Commons](https://innersourcecommons.org/) - Patterns and best practices for innersource
 - [Git Flow vs GitHub Flow](https://docs.github.com/en/get-started/quickstart/github-flow) - Branching strategies and merge patterns
 - [Semantic Versioning](https://semver.org/) - Version numbering for tag protection strategies

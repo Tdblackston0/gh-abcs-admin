@@ -47,7 +47,7 @@ The following sections organize best practices around operational pillars that e
 - Enforce SAML SSO with IdP synchronization for all organization members
 - Require 2FA/MFA for all users, especially admins and privileged accounts
 - Implement IP allow lists for enterprise and organization access
-- Use GitHub Advanced Security (GHAS) with code scanning, secret scanning, and dependency review
+- Use GitHub Advanced Security (GHAS) — comprising GitHub Secret Protection (secret scanning, push protection) and GitHub Code Security (CodeQL code scanning, Copilot Autofix, dependency review)
 - Enable push protection to prevent secret commits in real-time
 - Configure branch protection rules with required reviews and status checks
 - Use environment protection rules with required reviewers for production deployments
@@ -120,7 +120,7 @@ The following sections organize best practices around operational pillars that e
 - Configure appropriate artifact and log retention periods
 - Optimize GitHub Packages storage usage with cleanup policies
 - Review and right-size GitHub Copilot seat assignments
-- Use GitHub Advanced Security efficiently with targeted repository enablement
+- Use GitHub Advanced Security (Secret Protection and Code Security) efficiently with targeted repository enablement
 - Implement workflow approval gates for expensive operations
 - Regular license utilization audits to remove unused seats
 - Use enterprise-level purchasing for volume discounts
@@ -182,7 +182,7 @@ graph TB
   - [ ] Define custom organization roles for fine-grained permissions
 
 - [ ] **Security Baseline**
-  - [ ] Enable GitHub Advanced Security at enterprise level
+  - [ ] Enable GitHub Secret Protection and Code Security at enterprise level
   - [ ] Configure secret scanning with custom patterns
   - [ ] Enable push protection for secrets
   - [ ] Set up audit log streaming to SIEM (Splunk, Azure Sentinel)
@@ -3188,7 +3188,7 @@ Initial Organization:
 
 ```yaml
 Security & Access:
-  - Enable GitHub Advanced Security
+  - Enable GitHub Secret Protection and Code Security
   - Configure secret scanning with custom patterns
   - Enable push protection for secrets
   - Set up audit log SIEM integration
@@ -3270,7 +3270,7 @@ Tools and Infrastructure:
 ### GitHub Documentation
 
 - [GitHub Enterprise Cloud Documentation](https://docs.github.com/en/enterprise-cloud@latest)
-- [GitHub Advanced Security Documentation](https://docs.github.com/en/code-security/secret-scanning)
+- [GitHub Advanced Security — Secret Protection & Code Security](https://docs.github.com/en/code-security/secret-scanning)
 - [GitHub Actions Documentation](https://docs.github.com/en/actions)
 - [GitHub REST API](https://docs.github.com/en/rest)
 - [GitHub GraphQL API](https://docs.github.com/en/graphql)
@@ -3318,7 +3318,7 @@ Tools and Infrastructure:
 
 ### External Resources
 
-- [GitHub Enterprise Blog](https://github.blog/enterprise/)
+- [GitHub Enterprise Blog](https://github.blog/enterprise-software/)
 - [GitHub Community Forum](https://github.community/)
 - [GitHub Education](https://education.github.com/)
 - [GitHub Skills](https://skills.github.com/)

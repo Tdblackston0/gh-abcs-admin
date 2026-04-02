@@ -85,18 +85,20 @@ Practical exercises to reinforce GitHub administration concepts.
 - [Configuring SCIM provisioning for Enterprise Managed Users](https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-enterprise-managed-users-and-saml-for-iam/configuring-scim-provisioning-for-enterprise-managed-users)
 - [About Enterprise Managed Users](https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-enterprise-managed-users-for-iam/about-enterprise-managed-users)
 - [Managing a branch protection rule](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/managing-a-branch-protection-rule)
-- [GitHub Blog Enterprise](https://github.blog/category/enterprise/)
+- [GitHub Blog Enterprise](https://github.blog/news-insights/product-news/)
 - [GitHub Actions - Security guides](https://docs.github.com/en/actions/security-guides)
 
 ### Admin Changelog
 - [GitHub Changelog](https://github.blog/changelog/)
-- [enterprise Archives | The GitHub Blog](https://github.blog/changelog/label/enterprise/)
-- [admin Archives | The GitHub Blog](https://github.blog/changelog/label/admin/)
+- [Enterprise Changelog | The GitHub Blog](https://github.blog/changelog/label/enterprise/)
 
 ### Videos
-- [What's new for GitHub Enterprise - GitHub Universe 2021 - YouTube](https://www.youtube-nocookie.com/embed/ZZviWZgrqhM)
-- [GitHub in the Enterprise - GitHub Universe 2021 - YouTube](https://www.youtube.com/watch?v=1-i39RqaxRs)
-- [Enforcing information security policy through GitHub Enterprise - GitHub Universe 2021 - YouTube](https://www.youtube-nocookie.com/embed/DCu-ZTT7WTI)
+- [Universe 2024: New Previews and Releases](https://github.blog/news-insights/product-news/universe-2024-previews-releases/) - Multi-model Copilot, Copilot Autofix, enterprise governance, EMU improvements
+- [Universe 2025: Welcome Home, Agents](https://github.blog/news-insights/company-news/welcome-home-agents/) - Agent HQ, mission control, enterprise AI controls, Code Quality, Copilot metrics dashboard
+- [GitHub Universe Recap — What's New](https://github.com/events/universe/recap) - Quick overview of the latest announcements
+- [Getting started with GitHub security](https://www.youtube.com/watch?v=zhxXaFzzJYA) - GitHub for Beginners security tutorial
+- [Let's Talk About GitHub Actions](https://github.blog/news-insights/product-news/lets-talk-about-github-actions/) - Actions re-architecture, YAML anchors, expanded caches, 2026 roadmap
+- [GitHub Copilot: The Agent Awakens](https://github.blog/news-insights/product-news/github-copilot-the-agent-awakens/) - Agent mode, Copilot Edits, Project Padawan
 - [GitHub Universe](https://githubuniverse.com/)
 
 ### Articles & Guides
