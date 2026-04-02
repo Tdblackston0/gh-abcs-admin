@@ -429,7 +429,7 @@ In the **"Branch protections"** section, enable the following rules:
 
 ## What to Cover in Workshop (L300)
 
-### Enterprise-Scale Governance Topics
+### Must-Cover Topics
 
 1. **Organization-level rulesets** — Creating rulesets that apply across all repositories in an org
    - Repository targeting: all repos, by naming convention, by custom properties, by static selection

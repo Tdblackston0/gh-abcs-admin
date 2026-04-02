@@ -379,7 +379,7 @@ Enterprise owners can require 2FA for all org members, billing managers, and out
 
 ## What to Cover in Workshop (L300)
 
-### Must-Cover Topics (P0)
+### Must-Cover Topics
 
 1. **Enterprise role hierarchy deep-dive** — Demonstrate that enterprise owners do NOT automatically have org access. Show how to join an org and the implications. Walk through custom enterprise roles.
 2. **EMU vs. personal accounts decision matrix** — When to choose which, migration considerations, and the impact on collaboration boundaries (EMU users cannot contribute to public repos).
@@ -389,7 +389,7 @@ Enterprise owners can require 2FA for all org members, billing managers, and out
 6. **Soft vs. hard deprovisioning** — Detailed comparison with audit log events. Emphasize that hard-deprovision is **irreversible** and deletes keys/tokens/repos.
 7. **PAT governance** — Configure enterprise PAT policies (access restriction, lifetime, approval). Demonstrate the admin exemption for SCIM tokens.
 
-### Should-Cover Topics (P1)
+### Advanced Topics (L300)
 
 8. **Outside collaborator management** — License impact, 2FA implications, the inability to remove via enterprise settings
 9. **SSH CA management** — Adding a CA, requiring SSH certificates, upgrading legacy CAs

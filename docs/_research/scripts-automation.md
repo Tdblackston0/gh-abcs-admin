@@ -766,7 +766,7 @@ steps:
 
 ## What to Cover in Workshop (L300)
 
-### Essential Topics
+### Must-Cover Topics
 1. **gh CLI scripting patterns** — Using `gh api` with `--paginate`, `--jq`, and `--template` for admin reporting. Demonstrate bulk operations across org repos.
 2. **REST vs GraphQL decision framework** — When to use each API, with concrete examples of the same task implemented both ways. Show the N+1 problem that GraphQL solves.
 3. **Webhook security** — Live demo of HMAC-SHA256 signature verification. Explain why constant-time comparison matters (timing attacks).
@@ -775,7 +775,7 @@ steps:
 6. **Enterprise audit log API** — Querying audit logs programmatically, streaming to external SIEM systems (Splunk, Azure Sentinel). Cover the 1,750 queries/hour rate limit.
 7. **actions/github-script v8** — Using the pre-authenticated Octokit client for inline API calls in workflows. Cover security best practices for script injection prevention.
 
-### Advanced Topics
+### Advanced Topics (L300)
 - Building custom gh CLI extensions for org-specific admin tasks
 - Probot app development for webhook-driven policy enforcement
 - GraphQL cursor-based pagination for large enterprise queries

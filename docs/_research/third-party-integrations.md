@@ -477,7 +477,7 @@ curl -L -X POST \
 
 7. **Actions as required checks:** Show how to name workflow jobs for use as required status checks, and the `skip-checks: true` commit trailer [2][6]
 
-### Advanced Topics for L300
+### Advanced Topics (L300)
 
 - **Check run requested actions:** Adding "Fix this" buttons to check runs that trigger `check_run.requested_action` webhooks [5]
 - **Audit log entries:** How check configurations appear in the organization audit log [5]

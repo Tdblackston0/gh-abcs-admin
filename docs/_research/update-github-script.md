@@ -7,7 +7,7 @@
 
 ## Overview
 
-`actions/github-script` is at **v8.0.0** (released September 2024). lab05 and its workflow
+`actions/github-script` is at **v8.0.0** (released September 2025). lab05 and its workflow
 `use-github-apis.yml` are pinned to **v6**, which runs Node 16 (EOL September 2023). The
 upgrade path is straightforward: **v6 → v7 (Node 20) → v8 (Node 24)**. The scripting API
 (`github.rest.*`, `github.graphql()`, `github.paginate()`) is **unchanged** across all three
@@ -24,8 +24,8 @@ runner ≥ v2.327.1, which may not be available on all GHES instances used in wo
 | v6.4.1  | Apr 2023    | 16      | 5.x             | 3.x           | Last v6 release |
 | v7.0.0  | Nov 2023    | 20      | 6.x             | 5.x           | Node 20, `base-url` input, `previews` scoped to GraphQL |
 | v7.0.1  | Nov 2023    | 20      | 6.x             | 5.x           | Bugfix release |
-| v7.1.0  | Sep 2024    | 20      | 6.x             | 5.x           | Dependency updates, improved docs, `exec` examples |
-| v8.0.0  | Sep 2024    | 24      | 6.x             | 5.x           | Node 24, requires runner ≥ v2.327.1 |
+| v7.1.0  | Sep 2025    | 20      | 6.x             | 5.x           | Dependency updates, improved docs, `exec` examples |
+| v8.0.0  | Sep 2025    | 24      | 6.x             | 5.x           | Node 24, requires runner ≥ v2.327.1 |
 
 ### Dependency Comparison (v6 vs v7/v8)
 

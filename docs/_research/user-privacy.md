@@ -294,14 +294,14 @@ GitHub personnel do not access private repository information without consent ex
 
 ## What to Cover in Workshop (L300)
 
-### Core Topics (Must Cover)
+### Must-Cover Topics
 1. **Data Residency Architecture:** Explain the GHE.com model, available regions (EU, AU, US, JP), what stays in-region vs. what doesn't, and how this differs from standard GitHub.com hosting. Walk through the data storage boundaries table from [3].
 2. **DPA and GDPR Compliance Flow:** Diagram the Data Controller (customer) → Data Processor (GitHub) relationship. Explain how DSRs flow through the system, especially in EMU environments.
 3. **Audit Log Deep Dive:** Demonstrate enabling IP disclosure, exporting audit logs (JSON/CSV), and configuring audit log streaming to Azure Event Hubs or Splunk. Show the audit log API.
 4. **Enterprise Privacy Policy Enforcement:** Walk through Enterprise → Policies → Member Privileges and demonstrate enforcing repository visibility, forking, and outside collaborator policies.
 5. **Subprocessor Awareness:** Review the subprocessor list and explain implications for customers with strict data processing chain requirements.
 
-### Advanced Topics (Recommended for L300)
+### Advanced Topics (L300)
 6. **Comparing Data Residency vs. GHES:** When should a customer choose GHE.com data residency over self-hosted GHES? Decision matrix based on compliance, feature availability, and operational overhead.
 7. **Audit Log Streaming Architecture:** Design a production audit log pipeline using streaming to Azure Event Hubs → Azure Sentinel for security analytics.
 8. **EMU Privacy Implications:** How managed user accounts change the privacy equation — the enterprise controls everything, users have no personal account access on the platform.

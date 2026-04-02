@@ -175,7 +175,7 @@ Searching GitHub Marketplace for "copilot" returns integrations that complement 
 5. **MCP and Copilot extensibility governance** — The MCP policy toggle, GitHub MCP Registry vs Marketplace, enterprise control surface for AI integrations [4][17]
 6. **Audit logging for app activity** — What events are captured, how to monitor for unauthorized app installations [15]
 
-### Advanced Topics (L300 Differentiation)
+### Advanced Topics (L300)
 - **GitHub App permission intersection model**: How user permissions AND app permissions combine when using user access tokens [6]
 - **OAuth app access restrictions vs GitHub App installation control**: Why these are fundamentally different governance models [2][7]
 - **Supply chain security for Actions**: Commit SHA pinning requirements, verified creator filtering [10]

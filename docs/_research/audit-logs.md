@@ -334,7 +334,7 @@ Enterprise → Settings → Audit log → "Export Git Events" dropdown → Selec
 7. **Git events** — Limited retention (7 days), streaming importance, API access pattern
 8. **SIEM integration patterns** — At-least-once delivery, deduplication strategy, health monitoring
 
-### Advanced Topics for L300 Audience
+### Advanced Topics (L300)
 - API request event streaming (opt-in, security-relevant endpoints only)
 - Multiple stream endpoints for redundancy
 - GraphQL audit log queries for complex cross-org analysis

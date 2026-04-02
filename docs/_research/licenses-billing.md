@@ -260,7 +260,7 @@ Three report types available from the UI:
 
 ## What to Cover in Workshop (L300)
 
-### Must-Cover Topics for Advanced Administrators
+### Must-Cover Topics
 
 1. **Billing model transition**: How to evaluate and migrate from volume to usage-based billing at contract renewal. Understand the implications for budgeting and procurement.
 
@@ -319,9 +319,10 @@ Build a GitHub Actions workflow that automates Copilot seat management:
 ### 2024
 
 - **August 2024**: Usage-based billing became the default for all new GHEC trials [3]. This was the pivotal shift from volume to consumption-based licensing.
-- **GHAS unbundling**: GitHub Advanced Security was split into two separately purchasable SKUs—Secret Protection and Code Security—allowing organizations to buy only what they need [5].
 
 ### 2025
+
+- **April 1, 2025**: GHAS unbundled — GitHub Advanced Security was split into two separately purchasable SKUs—Secret Protection ($19/committer/mo) and Code Security ($30/committer/mo)—allowing organizations to buy only what they need. Both products now available on GitHub Team plan (previously Enterprise-only) [5].
 
 - **November 1, 2025**: Premium requests for Spark and Copilot cloud agent were broken out into dedicated SKUs (`spark_premium_request`, `copilot_agent_premium_request`) for better cost visibility and budget control [11].
 - **December 1, 2025**: All self-serve, metered GHEC accounts paying by credit card migrated to a standardized billing date of the 1st of the month [6].
