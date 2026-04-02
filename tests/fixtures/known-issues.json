@@ -3,23 +3,23 @@
   "_version": "1.0.0",
   "_generated": "2026-04-02",
   "summary": {
-    "totalIssues": 68,
+    "totalEntries": 36,
+    "totalIndividualFindings": "See issue descriptions for aggregate counts (e.g., KI-009 covers 34 GHAS references, KI-033 covers 18 false-positive links)",
     "byCategory": {
-      "broken-link-external": 24,
-      "broken-link-internal": 10,
-      "broken-link-false-positive": 18,
+      "broken-link-external": 12,
+      "broken-link-internal": 3,
+      "broken-link-false-positive": 4,
       "freshness": 8,
       "structural": 3,
-      "content": 4,
+      "content": 5,
       "vbd-coverage": 1
     },
     "byFixPhase": {
-      "phase3": 42,
+      "phase3": 28,
       "phase4": 1,
-      "phase5": 1,
-      "phase7": 6,
+      "phase7": 1,
       "phase8": 2,
-      "no-fix-needed": 16
+      "no-fix-needed": 4
     }
   },
   "issues": [
@@ -95,7 +95,7 @@
       "category": "freshness",
       "severity": "warning",
       "file": "multiple",
-      "description": "31 references to 'GitHub Advanced Security' as unified product — GHAS split into Secret Protection & Code Security (April 2025)",
+      "description": "34 references to 'GitHub Advanced Security' as unified product — GHAS split into Secret Protection & Code Security (April 2025)",
       "affectedFiles": [
         "docs/01-enterprise-hierarchy.md",
         "docs/02-organization-strategies.md",

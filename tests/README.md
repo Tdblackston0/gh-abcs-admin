@@ -94,16 +94,16 @@ npm test -- --skip-links --fail-fast
 
 ### Known Issues Summary
 
-| Category | Count | Fix Phase |
-|----------|-------|-----------|
-| Broken external links (404) | 24 | Phase 3 |
-| Broken internal links (wrong paths) | 10 | Phase 3 |
-| False-positive links (auth walls, local-only) | 18 | No fix needed |
-| Freshness warnings (GHAS split, outdated actions) | 43 flags across 8 patterns | Phase 3 |
-| Structural issues (missing H1, L400→L300) | 3 | Phase 3/7 |
-| Content issues (missing duration, legacy patterns) | 4 | Phase 3 |
-| VBD coverage gaps | 11 missing docs, 16 missing labs | Phase 4/5 |
-| Dev artifacts to clean up | 2 | Phase 8 |
+| Category | Entries | Details | Fix Phase |
+|----------|---------|---------|-----------|
+| Broken external links (404) | 12 | 33 individual URLs across 12 entries | Phase 3 |
+| Broken internal links (wrong paths) | 3 | 7 individual links | Phase 3 |
+| False-positive links (auth walls, local-only) | 4 | 21 individual links | No fix needed |
+| Freshness warnings (GHAS split, outdated actions) | 8 | 43 individual warnings across 8 patterns | Phase 3 |
+| Structural issues (missing H1, L400→L300) | 3 | | Phase 3/7 |
+| Content issues (missing duration, legacy patterns) | 5 | | Phase 3 |
+| VBD coverage gaps | 1 | 11 missing docs, 14 missing labs | Phase 4/5 |
+| Dev artifacts to clean up | 2 | | Phase 8 |
 
 ### Test Suite Status
 
