@@ -198,6 +198,15 @@ async function main() {
         }
       }
 
+      if (docExpectations && category === 'vbd') {
+        const basename = path.basename(relPath, '.md');
+        const expectation = docExpectations[basename];
+        if (expectation) {
+          validateAgainstExpectation(relPath, parsed, expectation);
+          matched = true;
+        }
+      }
+
       if (matched) {
         matchedExpectations++;
       } else if (docExpectations || labExpectations) {

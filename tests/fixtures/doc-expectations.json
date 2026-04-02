@@ -608,5 +608,91 @@
     "minMermaidDiagrams": 1,
     "hasFrontMatter": true,
     "headingCount": 35
+  },
+  "AGENDA": {
+    "expectedH1": "Workshop Agenda",
+    "expectedH2s": [
+      "Workshop Overview",
+      "Day 1",
+      "Day 2",
+      "Self-Paced Extension Labs"
+    ],
+    "minLines": 120,
+    "minMermaidDiagrams": 0,
+    "hasFrontMatter": false,
+    "headingCount": 8
+  },
+  "INSTRUCTOR-GUIDE": {
+    "expectedH1": "Instructor Guide",
+    "expectedH2s": [
+      "Workshop Overview",
+      "Before the Workshop",
+      "Day 1 Module Guide",
+      "Day 2 Module Guide",
+      "Troubleshooting"
+    ],
+    "minLines": 350,
+    "minMermaidDiagrams": 0,
+    "hasFrontMatter": false,
+    "headingCount": 25
+  },
+  "PRE-WORKSHOP-CHECKLIST": {
+    "expectedH1": "Pre-Workshop Checklist",
+    "expectedH2s": [
+      "Participant Requirements",
+      "Instructor Requirements",
+      "Environment Verification"
+    ],
+    "minLines": 80,
+    "minMermaidDiagrams": 0,
+    "hasFrontMatter": false,
+    "headingCount": 6
+  },
+  "KNOWLEDGE-CHECKS": {
+    "expectedH1": "Knowledge Checks",
+    "expectedH2s": [
+      "Day 1",
+      "Day 2",
+      "Answer Key"
+    ],
+    "minLines": 200,
+    "minMermaidDiagrams": 0,
+    "hasFrontMatter": false,
+    "headingCount": 15
+  },
+  "POST-WORKSHOP-ASSESSMENT": {
+    "expectedH1": "Post-Workshop Assessment",
+    "expectedH2s": [
+      "Learning Outcomes Checklist",
+      "Participant Feedback",
+      "Action Planning"
+    ],
+    "minLines": 80,
+    "minMermaidDiagrams": 0,
+    "hasFrontMatter": false,
+    "headingCount": 6
+  },
+  "REFERENCE-CARD": {
+    "expectedH1": "Participant Reference Card",
+    "expectedH2s": [
+      "Key URLs",
+      "Permission Levels",
+      "Audit Log"
+    ],
+    "minLines": 100,
+    "minMermaidDiagrams": 0,
+    "hasFrontMatter": false,
+    "headingCount": 8
+  },
+  "SLIDE-DECK-OUTLINE": {
+    "expectedH1": "Slide Deck Outline",
+    "expectedH2s": [
+      "Day 1",
+      "Day 2"
+    ],
+    "minLines": 150,
+    "minMermaidDiagrams": 0,
+    "hasFrontMatter": false,
+    "headingCount": 15
   }
 }
