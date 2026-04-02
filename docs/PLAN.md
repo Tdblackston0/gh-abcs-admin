@@ -829,8 +829,8 @@ Every phase transition requires passing the weighted rubric with a score ≥ **9
 | 0 | Test Infrastructure | ✅ Complete | Pending QG | 2026-04-01 | 2026-04-01 |
 | 1 | Baseline Test Coverage | ✅ Complete | 72 | 100 | 100 |
 | 2 | Content Audit & Research | ✅ Complete | 92 → 96 | 2026-04-02 | 2026-04-02 |
-| 3 | Update Existing Content | 🔄 Pending QG | — | 2026-04-02 | 2026-04-02 |
-| 4 | New Documentation | ⬜ Not Started | — | — | — |
+| 3 | Update Existing Content | ✅ Complete | 99 | 2026-04-02 | 2026-04-02 |
+| 4 | New Documentation | 🔄 Pending QG | — | 2026-04-02 | 2026-04-02 |
 | 5 | New Hands-on Labs | ⬜ Not Started | — | — | — |
 | 6 | VBD Structural Materials | ⬜ Not Started | — | — | — |
 | 7 | Integration & Polish | ⬜ Not Started | — | — | — |
@@ -840,16 +840,16 @@ Every phase transition requires passing the weighted rubric with a score ≥ **9
 
 | Metric | Baseline | Current | Target |
 |--------|----------|---------|--------|
-| VBD Agenda Coverage (docs) | 50% (11/22) | 50% | 100% |
+| VBD Agenda Coverage (docs) | 50% (11/22) | 100% (22/22) | 100% |
 | VBD Agenda Coverage (labs) | 27% (6/22) | 32% (7/22) | 100% |
 | Total Lab Time | ~50 min | ~55 min | 4-5 hrs |
-| Test Checks | 594 (Phase 0) | 991 (Phase 3) | TBD |
+| Test Checks | 594 (Phase 0) | 1,306 (Phase 4) | TBD |
 | Known Issues (Phase 3) | 28 assigned | 28 resolved | 0 |
-| Docs Count | 21 (18 numbered + 3 non-numbered) | 21 | 27+ |
+| Docs Count | 21 (18 numbered + 3 non-numbered) | 30 (27 numbered + 3 non-numbered) | 27+ |
 | Labs Count | 6 (5 + setup) | 6 | 15 |
 | Broken Links | 34 (24 external + 10 internal) | 0 (all fixed) | 0 |
-| Freshness Warnings | 43 (8 patterns) | 4 (intentional umbrella term) | 0 |
-| Mermaid Diagrams | 66 | 65 | 66+ |
+| Freshness Warnings | 43 (8 patterns) | 9 (intentional umbrella term) | 0 |
+| Mermaid Diagrams | 66 | 80 | 66+ |
 
 ### Session Log
 
@@ -860,6 +860,7 @@ Every phase transition requires passing the weighted rubric with a score ≥ **9
 | 3 | 2026-04-02 | Phase 1 | Baseline test coverage — expectations, known issues, metrics |
 | 4 | 2026-04-02 | Phase 2 | Content audit & research — 15 research briefs (6,471 lines), all tests green |
 | 5 | 2026-04-02 | Phase 3 | Update existing content — 28 known issues resolved, 33 broken links fixed, GHAS terminology updated across 15 docs, lab03 rewritten for Rulesets, doc12 Copilot governance updated, README modernized |
+| 6 | 2026-04-02 | Phase 4 | New documentation — 9 new docs (8,671 lines, 15 Mermaid diagrams), VBD doc coverage 50%→100%, 36/36 expectation files matched, 9/9 test suites green |
 
 ---
 
