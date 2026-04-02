@@ -827,7 +827,7 @@ Every phase transition requires passing the weighted rubric with a score ≥ **9
 | Phase | Name | Status | Score | Started | Completed |
 |-------|------|--------|-------|---------|-----------|
 | 0 | Test Infrastructure | ✅ Complete | Pending QG | 2026-04-01 | 2026-04-01 |
-| 1 | Baseline Test Coverage | ⬜ Not Started | — | — | — |
+| 1 | Baseline Test Coverage | 🔄 In Progress | — | — | — |
 | 2 | Content Audit & Research | ⬜ Not Started | — | — | — |
 | 3 | Update Existing Content | ⬜ Not Started | — | — | — |
 | 4 | New Documentation | ⬜ Not Started | — | — | — |
@@ -840,20 +840,24 @@ Every phase transition requires passing the weighted rubric with a score ≥ **9
 
 | Metric | Baseline | Current | Target |
 |--------|----------|---------|--------|
-| VBD Agenda Coverage (docs) | ~60% | — | 100% |
-| VBD Agenda Coverage (labs) | ~30% | — | 100% |
-| Total Lab Time | ~50 min | — | 4-5 hrs |
-| Test Count | 0 | — | TBD |
-| Known Issues | TBD | — | 0 |
-| Docs Count | 18 | — | 27+ |
-| Labs Count | 5 | — | 15 |
+| VBD Agenda Coverage (docs) | 50% (11/22) | 50% | 100% |
+| VBD Agenda Coverage (labs) | 27% (6/22) | 27% | 100% |
+| Total Lab Time | ~50 min | ~50 min | 4-5 hrs |
+| Test Checks | 594 (Phase 0) | 952 (Phase 1) | TBD |
+| Known Issues | 68 cataloged | 68 | 0 |
+| Docs Count | 21 (18 numbered + 3 non-numbered) | 21 | 27+ |
+| Labs Count | 6 (5 + setup) | 6 | 15 |
+| Broken Links | 34 (24 external + 10 internal) | 34 | 0 |
+| Freshness Warnings | 43 (8 patterns) | 43 | 0 |
+| Mermaid Diagrams | 66 | 66 | 66+ |
 
 ### Session Log
 
 | Session | Date | Phases Worked | Notes |
 |---------|------|---------------|-------|
 | 1 | 2026-04-01 | Planning | Created plan, branch, initial analysis |
-| 2 | 2026-04-01 | Phase 0 | Test infrastructure — 8/8 suites green |
+| 2 | 2026-04-01 | Phase 0 | Test infrastructure — 9/9 suites green, QG 96/100 |
+| 3 | 2026-04-02 | Phase 1 | Baseline test coverage — expectations, known issues, metrics |
 
 ---
 

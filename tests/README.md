@@ -86,11 +86,11 @@ npm test -- --skip-links --fail-fast
 |--------|-------|
 | Total agenda items | 22 |
 | Items with documentation | 11/22 (50.0%) |
-| Items with labs | 6/22 (27.3%) |
-| Doc references verified | 18 |
-| Lab references verified | 6 |
-| P0 items with docs | 9/13 (69%) |
-| P0 items with labs | 4/13 (31%) |
+| Items with labs | 8/22 (36.4%) |
+| Doc references verified | 19 |
+| Lab references verified | 8 |
+| P0 items with docs | 11/13 (85%) |
+| P0 items with labs | 7/13 (54%) |
 
 ### Known Issues Summary
 

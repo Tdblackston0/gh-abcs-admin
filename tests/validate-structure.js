@@ -19,11 +19,14 @@ const {
 
 const reporter = new Reporter('Structure Validation');
 
-// Load optional expectation fixtures if they exist
-function loadFixture(name) {
+// Load expectation fixtures — fail loudly if expected but missing
+function loadFixture(name, required = false) {
   const fixturePath = rootPath('tests', 'fixtures', name);
   if (fs.existsSync(fixturePath)) {
     return JSON.parse(fs.readFileSync(fixturePath, 'utf-8'));
+  }
+  if (required) {
+    reporter.fail(`fixtures/${name}`, 'Required fixture file is missing — regression safety compromised');
   }
   return null;
 }
@@ -149,9 +152,9 @@ async function main() {
     process.exit(1);
   }
 
-  // Check custom expectations if fixture exists
-  const docExpectations = loadFixture('doc-expectations.json');
-  const labExpectations = loadFixture('lab-expectations.json');
+  // Load expectation fixtures — required for regression safety
+  const docExpectations = loadFixture('doc-expectations.json', true);
+  const labExpectations = loadFixture('lab-expectations.json', true);
 
   let matchedExpectations = 0;
   let unmatchedFiles = [];
@@ -284,6 +287,18 @@ function validateAgainstExpectation(relPath, parsed, expectation) {
       reporter.warn(relPath, 'Found unexpected YAML front matter');
     } else {
       reporter.pass(`${relPath}: front matter presence matches expectation`);
+    }
+  }
+
+  // Check minimum heading count (catches deletion of H3+ subsections)
+  if (expectation.headingCount) {
+    const actualCount = headings.length;
+    const minExpected = Math.floor(expectation.headingCount * 0.8);
+    if (actualCount < minExpected) {
+      reporter.fail(relPath,
+        `Expected at least ${minExpected} headings (80% of ${expectation.headingCount}), found ${actualCount}`);
+    } else {
+      reporter.pass(`${relPath}: heading count OK (${actualCount} ≥ ${minExpected})`);
     }
   }
 }

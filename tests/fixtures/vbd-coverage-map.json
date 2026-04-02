@@ -14,7 +14,7 @@
       "subtopics": ["Visibility", "Base permissions", "Custom roles"],
       "priority": "P0",
       "docs": ["docs/07-repository-governance.md", "docs/05-teams-permissions.md"],
-      "labs": []
+      "labs": ["labs/lab04.md"]
     },
     {
       "id": "1.2",
@@ -41,7 +41,7 @@
       "subtopics": ["CI integration", "Check suites"],
       "priority": "P0",
       "docs": ["docs/07-repository-governance.md"],
-      "labs": ["labs/lab02.md"]
+      "labs": ["labs/lab03.md"]
     },
     {
       "id": "1.5",
@@ -103,7 +103,7 @@
       "topic": "Audit account activities",
       "subtopics": ["Audit log", "Streaming", "SIEM"],
       "priority": "P0",
-      "docs": ["docs/08-security-compliance.md"],
+      "docs": ["docs/08-security-compliance.md", "docs/01-enterprise-hierarchy.md"],
       "labs": []
     },
     {
@@ -113,7 +113,7 @@
       "subtopics": ["Org-level configs", "Defaults"],
       "priority": "P0",
       "docs": ["docs/02-organization-strategies.md", "docs/06-policy-inheritance.md"],
-      "labs": ["labs/lab02.md"]
+      "labs": ["labs/lab02.md", "labs/lab04.md"]
     },
     {
       "id": "2.5",

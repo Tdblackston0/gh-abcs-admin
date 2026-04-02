@@ -38,12 +38,13 @@
     "minLines": 1000,
     "minMermaidDiagrams": 7,
     "hasFrontMatter": false,
-    "headingCount": 42
+    "headingCount": 41
   },
   "03-identity-access-management": {
     "expectedH1": "Identity and Access Management (IAM)",
     "expectedH2s": [
       "Overview",
+      "Table of Contents",
       "Enterprise Type Selection",
       "Authentication Methods Overview",
       "SAML Single Sign-On (SSO) Configuration",
@@ -57,7 +58,7 @@
     "minLines": 1250,
     "minMermaidDiagrams": 3,
     "hasFrontMatter": true,
-    "headingCount": 218
+    "headingCount": 70
   },
   "04-enterprise-managed-users": {
     "expectedH1": "Enterprise Managed Users (EMU)",
@@ -76,7 +77,7 @@
     "minLines": 1475,
     "minMermaidDiagrams": 8,
     "hasFrontMatter": false,
-    "headingCount": 64
+    "headingCount": 53
   },
   "05-teams-permissions": {
     "expectedH1": "Teams and Permissions",
@@ -98,7 +99,7 @@
     "minLines": 1415,
     "minMermaidDiagrams": 7,
     "hasFrontMatter": false,
-    "headingCount": 117
+    "headingCount": 58
   },
   "06-policy-inheritance": {
     "expectedH1": "Policy Enforcement and Inheritance",
@@ -141,7 +142,7 @@
     "minLines": 1345,
     "minMermaidDiagrams": 4,
     "hasFrontMatter": true,
-    "headingCount": 113
+    "headingCount": 46
   },
   "08-security-compliance": {
     "expectedH1": "Security and Compliance",
@@ -161,13 +162,14 @@
     "minLines": 1015,
     "minMermaidDiagrams": 5,
     "hasFrontMatter": true,
-    "headingCount": 57
+    "headingCount": 50
   },
   "09-best-practices-waf": {
     "expectedH1": "GitHub Well-Architected Framework: Best Practices and Principles",
     "expectedH2s": [
       "Overview",
       "Enterprise Deployment Pillars",
+      "Pillars Relationship",
       "Enterprise Setup Checklist",
       "Organization Design Recommendations",
       "Repository Naming and Structure Conventions",
@@ -180,17 +182,19 @@
       "Common Anti-Patterns to Avoid",
       "Key Performance Indicators (KPIs)",
       "Implementation Roadmap",
-      "References"
+      "References",
+      "Appendix: Configuration Templates"
     ],
     "minLines": 3100,
     "minMermaidDiagrams": 7,
     "hasFrontMatter": true,
-    "headingCount": 168,
-    "_note": "Many H2s in the initial extraction were inside code block examples (PR template, runbook template) and are correctly excluded by extractHeadings()"
+    "headingCount": 103,
+    "_note": "Many H2s in the initial extraction were inside code block examples (PR template, runbook template) and are correctly excluded by extractHeadings(). 'Pillars Relationship' and 'Appendix: Configuration Templates' are real non-code-block H2s that must be tracked."
   },
   "10-reference-architecture": {
     "expectedH1": "Reference Architecture",
     "expectedH2s": [
+      "Table of Contents",
       "Complete Enterprise Architecture",
       "Organization Topology Patterns",
       "IAM Integration Architecture",
@@ -207,11 +211,12 @@
     "minLines": 910,
     "minMermaidDiagrams": 16,
     "hasFrontMatter": false,
-    "headingCount": 64
+    "headingCount": 46
   },
   "11-security-by-default-policies": {
     "expectedH1": "GitHub Security-by-Default: Policies and Settings Recommendations",
     "expectedH2s": [
+      "Table of Contents",
       "Enterprise Level Policies",
       "Organization Level Settings",
       "Repository Level Settings",
@@ -227,6 +232,7 @@
   "12-github-copilot-governance": {
     "expectedH1": "GitHub Copilot Governance",
     "expectedH2s": [
+      "Table of Contents",
       "Overview",
       "GitHub Copilot Plans for Business",
       "Policy Architecture",
@@ -249,11 +255,12 @@
     "minLines": 875,
     "minMermaidDiagrams": 1,
     "hasFrontMatter": false,
-    "headingCount": 85
+    "headingCount": 71
   },
   "13-github-onboarding-implementation-plan": {
     "expectedH1": "GitHub Enterprise Cloud Onboarding Implementation Plan",
     "expectedH2s": [
+      "Table of Contents",
       "Phase 0: Pre-Implementation Planning",
       "Phase 1: Enterprise Foundation",
       "Phase 2: Identity and Access Management",
@@ -277,6 +284,7 @@
   "14-github-enterprise-importer-ado-guide": {
     "expectedH1": "GitHub Enterprise Importer: Azure DevOps to GitHub Migration Guide",
     "expectedH2s": [
+      "Table of Contents",
       "Overview",
       "What Gets Migrated",
       "What Does NOT Get Migrated",
@@ -291,12 +299,13 @@
     "minLines": 360,
     "minMermaidDiagrams": 0,
     "hasFrontMatter": false,
-    "headingCount": 41
+    "headingCount": 34
   },
   "15-azure-pipelines-github-repos-integration": {
     "expectedH1": "Azure Pipelines with GitHub Repositories: Impact Analysis After Migration",
     "expectedH2s": [
       "Executive Summary",
+      "Table of Contents",
       "Understanding the Hybrid Model",
       "Critical Impact Areas",
       "Pipeline Template References",
@@ -313,12 +322,13 @@
     "minLines": 600,
     "minMermaidDiagrams": 0,
     "hasFrontMatter": true,
-    "headingCount": 75
+    "headingCount": 57
   },
   "16-azure-devops-to-github-migration-analysis": {
     "expectedH1": "Azure DevOps to GitHub Migration: Pain Points Analysis and Solutions",
     "expectedH2s": [
       "Executive Summary",
+      "Table of Contents",
       "Pain Point #1: Open Security Access",
       "Pain Point #2: Overly Permissive Project Administrator Group",
       "Pain Point #3: External Collaborator Management",
@@ -382,6 +392,7 @@
   "FAQ-workshop": {
     "expectedH1": "GitHub Enterprise Admin Workshop - FAQ",
     "expectedH2s": [
+      "Table of Contents",
       "1. Git LFS Billing",
       "2. Outside Collaborators and Internal Repositories",
       "3. Migration from GitHub Enterprise Cloud to EMU",
@@ -418,6 +429,7 @@
     "expectedH1": "Azure DevOps to GitHub Migration Assessment",
     "expectedH2s": [
       "Comprehensive Analysis: ADO DevSecOps Recommendations Mapped to GitHub",
+      "Table of Contents",
       "1. R01–R71 Recommendations Mapped to GitHub",
       "2. GitHub vs Azure DevOps Comparison Table",
       "3. Impact Analysis: Staying on ADO vs Migrating to GitHub",
