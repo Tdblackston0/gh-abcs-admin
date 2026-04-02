@@ -158,7 +158,7 @@ jobs:
       - uses: actions/checkout@v4
       
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
           build-mode: ${{ matrix.build-mode }}
@@ -171,7 +171,7 @@ jobs:
           ./build-scripts/compile.sh
       
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3
         with:
           category: "/${{ matrix.language }}-analysis"
 ```
@@ -261,7 +261,7 @@ CodeQL analysis requires understanding the source code structure, which varies b
 
 ```yaml
 - name: CodeQL Analysis with Caching
-  uses: github/codeql-action/analyze@v2
+  uses: github/codeql-action/analyze@v3
   with:
     upload: always
     category: "/${{ matrix.language }}"

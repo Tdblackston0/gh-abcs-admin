@@ -712,7 +712,7 @@ jobs:
           fetch-depth: 0
       
       - name: Run CodeQL
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v3
         with:
           languages: ['javascript', 'python']
       
@@ -724,7 +724,7 @@ jobs:
           head: HEAD
       
       - name: CodeQL Analysis
-        uses: github/codeql-action/analyze@v2
+        uses: github/codeql-action/analyze@v3
 
   test:
     runs-on: ubuntu-latest
@@ -2322,8 +2322,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: github/codeql-action/init@v2
-      - uses: github/codeql-action/analyze@v2
+      - uses: github/codeql-action/init@v3
+      - uses: github/codeql-action/analyze@v3
       - uses: aquasecurity/trivy-action@master
         # Parallel with tests: 10-12 minutes total
 
@@ -3421,7 +3421,7 @@ jobs:
       
       - name: Run CodeQL
         if: inputs.scan-type == 'full' || inputs.scan-type == 'codeql'
-        uses: github/codeql-action/init@v2
+        uses: github/codeql-action/init@v3
       
       - name: Run Secret Scanning
         uses: trufflesecurity/trufflehog@main
@@ -3431,7 +3431,7 @@ jobs:
           head: HEAD
       
       - name: Upload results
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v3
         with:
           sarif_file: 'results.sarif'
 ```
