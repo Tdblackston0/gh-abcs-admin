@@ -944,7 +944,7 @@ rotation_policy:
 ```bash
 # GitHub Actions: Use GITHUB_TOKEN (automatic, scoped)
 - name: Checkout code
-  uses: actions/checkout@v3
+  uses: actions/checkout@v4
   with:
     token: ${{ secrets.GITHUB_TOKEN }}  # Preferred
 
@@ -1352,7 +1352,7 @@ Common integrations for automated IAM:
 
 - [Enterprise Managed Users Deep Dive](./04-enterprise-managed-users.md) - Comprehensive guide to EMU implementation and management
 - [Teams and Permissions Management](./05-teams-permissions.md) - Role-based access control and team hierarchies
-- [Security and Compliance](./06-security-compliance.md) - Enterprise security controls and compliance frameworks
+- [Security and Compliance](./08-security-compliance.md) - Enterprise security controls and compliance frameworks
 
 ### External Resources
 

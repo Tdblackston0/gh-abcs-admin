@@ -1,10 +1,10 @@
-# GitHub Administration & Governance Workshop (L400)
+# GitHub Administration & Governance Workshop (L300)
 
 > **Advanced Workshop** | Expert-level training for GitHub Enterprise Cloud administration, governance, and best practices. This workshop covers enterprise hierarchy, organization strategies, identity management (including Enterprise Managed Users), policy enforcement, security compliance, and the GitHub Well-Architected Framework.
 
 ## Workshop Documentation
 
-Comprehensive L400-level technical documentation for GitHub Enterprise Cloud administration and governance.
+Comprehensive L300-level technical documentation for GitHub Enterprise Cloud administration and governance.
 
 ### Enterprise Administration
 - [📘 Enterprise Hierarchy](docs/01-enterprise-hierarchy.md) - GHEC structure, roles, and multi-org management

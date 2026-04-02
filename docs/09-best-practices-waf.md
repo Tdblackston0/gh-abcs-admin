@@ -735,7 +735,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
@@ -1872,7 +1872,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: npm
@@ -2308,7 +2308,7 @@ jobs:
     # Run immediately, fail fast
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: npm
@@ -2335,7 +2335,7 @@ jobs:
         node-version: [18.x, 20.x]
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: npm
@@ -2401,7 +2401,7 @@ jobs:
             }
       
       # Enforce test coverage minimum
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: 18
           cache: npm
@@ -2689,9 +2689,9 @@ github_apps:
 
 #### Step 3: Execute Runbook
 Based on error pattern, execute appropriate runbook:
-- [Database replication lag](./db-replication-lag.md)
-- [High error rate](./high-error-rate.md)
-- [Deployment rollback](./deployment-rollback.md)
+- Database replication lag — verify replica status, check network latency, escalate to DBA
+- High error rate — identify error patterns, check recent deployments, enable debug logging
+- Deployment rollback — revert to last known good release, verify rollback success, run smoke tests
 
 #### Step 4: Communicate Status
 ```bash

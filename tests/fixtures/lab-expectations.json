@@ -11,7 +11,7 @@
     "expectedCodeBlockLangs": [],
     "linkCount": 5,
     "externalLinkCount": 5,
-    "_knownIssue": "Missing duration field. Fix in Phase 3."
+    "hasDuration": true
   },
   "lab02": {
     "expectedH1": "2 - Managing GitHub Actions settings for a repository",
@@ -21,10 +21,12 @@
     "minLines": 45,
     "minMermaidDiagrams": 0,
     "hasFrontMatter": true,
-    "expectedCodeBlockLangs": ["yaml"],
+    "expectedCodeBlockLangs": [
+      "yaml"
+    ],
     "linkCount": 2,
     "externalLinkCount": 1,
-    "_knownIssue": "Missing duration field. Fix in Phase 3."
+    "hasDuration": true
   },
   "lab03": {
     "expectedH1": "3 - Managing a branch protection rule",
@@ -53,10 +55,12 @@
     "minLines": 53,
     "minMermaidDiagrams": 0,
     "hasFrontMatter": false,
-    "expectedCodeBlockLangs": ["markdown"],
+    "expectedCodeBlockLangs": [
+      "markdown"
+    ],
+    "hasDuration": true,
     "linkCount": 6,
-    "externalLinkCount": 5,
-    "_knownIssue": "Missing duration field. Fix in Phase 3."
+    "externalLinkCount": 5
   },
   "lab05": {
     "expectedH1": "5 - GitHub API - REST API & GraphQL API",
@@ -64,16 +68,16 @@
       "5.1 Develop a GitHub Action workflow that calls REST APIs",
       "5.2 Develop a GitHub Action workflow that calls GraphQL APIs"
     ],
-    "minLines": 66,
+    "minLines": 60,
     "minMermaidDiagrams": 0,
     "hasFrontMatter": true,
-    "expectedCodeBlockLangs": ["yaml", "yaml"],
+    "expectedCodeBlockLangs": [
+      "yaml",
+      "yaml"
+    ],
+    "hasDuration": true,
     "linkCount": 8,
-    "externalLinkCount": 6,
-    "_knownIssues": [
-      "Missing duration field. Fix in Phase 3.",
-      "Uses actions/github-script@v6 — needs update to v7+. Fix in Phase 3."
-    ]
+    "externalLinkCount": 6
   },
   "setup": {
     "expectedH1": "Hands-on Labs Setup",

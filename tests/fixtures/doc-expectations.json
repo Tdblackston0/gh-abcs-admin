@@ -369,7 +369,7 @@
     "headingCount": 24
   },
   "18-github-rename-org-impact": {
-    "expectedH1": null,
+    "expectedH1": "Impact of Renaming a GitHub Organization on Copilot and Users",
     "expectedH2s": [
       "Overview",
       "How GitHub Copilot Authentication Works",
@@ -386,8 +386,7 @@
     "minLines": 140,
     "minMermaidDiagrams": 0,
     "hasFrontMatter": true,
-    "headingCount": 11,
-    "_knownIssue": "Missing H1 — uses H2 headings only. Fix in Phase 3."
+    "headingCount": 12
   },
   "FAQ-workshop": {
     "expectedH1": "GitHub Enterprise Admin Workshop - FAQ",

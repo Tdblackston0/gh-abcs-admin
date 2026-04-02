@@ -1623,8 +1623,8 @@ Target Metrics:
 
 ### Related Documentation
 - [Identity and Access Management Guide](./03-identity-access-management.md)
-- [Teams and Permissions](./02-teams-permissions.md)
-- [Security and Compliance](./05-security-compliance.md)
+- [Teams and Permissions](./05-teams-permissions.md)
+- [Security and Compliance](./08-security-compliance.md)
 - [GitHub Audit Logs](https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization)
 - [SCIM Specification (RFC 7644)](https://datatracker.ietf.org/doc/html/rfc7644)
 - [SAML 2.0 Specification](http://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0.html)
@@ -1638,4 +1638,4 @@ Target Metrics:
 
 ---
 
-*This document is part of the GitHub Administration Best Practices and Compliance Series (GitHub ABCs). For the complete series, see the [main documentation index](./README.md).*
+*This document is part of the GitHub Administration Best Practices and Compliance Series (GitHub ABCs). For the complete series, see the [main documentation index](../README.md).*
