@@ -440,5 +440,173 @@
     "minMermaidDiagrams": 0,
     "hasFrontMatter": true,
     "headingCount": null
+  },
+  "19-licenses-billing": {
+    "expectedH1": "Licenses and Billing",
+    "expectedH2s": [
+      "Overview",
+      "License Types",
+      "Billing Models",
+      "GitHub Copilot Licensing",
+      "Advanced Security Licensing",
+      "Billing Management and Cost Optimization",
+      "Budget Alerts and Cost Centers",
+      "Billing API and Reporting",
+      "License Compliance",
+      "References"
+    ],
+    "minLines": 400,
+    "minMermaidDiagrams": 1,
+    "hasFrontMatter": false,
+    "headingCount": 35
+  },
+  "20-github-marketplace-apps": {
+    "expectedH1": "GitHub Marketplace and Apps",
+    "expectedH2s": [
+      "Overview",
+      "GitHub Apps vs OAuth Apps",
+      "GitHub Marketplace",
+      "App Installation and Permissions",
+      "Creating Internal GitHub Apps",
+      "Enterprise App Governance",
+      "MCP and Copilot Extensions",
+      "Webhook-Driven Apps",
+      "References"
+    ],
+    "minLines": 400,
+    "minMermaidDiagrams": 1,
+    "hasFrontMatter": false,
+    "headingCount": 35
+  },
+  "21-user-administration": {
+    "expectedH1": "User Administration and Dormant Users",
+    "expectedH2s": [
+      "Overview",
+      "User Lifecycle",
+      "Enterprise and Organization Roles",
+      "Invitation and Onboarding",
+      "Outside Collaborator Management",
+      "Dormant User Identification",
+      "License Reclamation",
+      "Credential Governance",
+      "EMU User Management",
+      "References"
+    ],
+    "minLines": 450,
+    "minMermaidDiagrams": 1,
+    "hasFrontMatter": false,
+    "headingCount": 40
+  },
+  "22-audit-log-deep-dive": {
+    "expectedH1": "Audit Log Deep Dive",
+    "expectedH2s": [
+      "Overview",
+      "Audit Log Scope and Retention",
+      "Searching and Filtering",
+      "Audit Log API",
+      "Audit Log Streaming",
+      "SIEM Integration Patterns",
+      "Event Categories",
+      "Compliance Use Cases",
+      "References"
+    ],
+    "minLines": 450,
+    "minMermaidDiagrams": 1,
+    "hasFrontMatter": false,
+    "headingCount": 35
+  },
+  "23-deployment-strategies": {
+    "expectedH1": "Deployment Strategies",
+    "expectedH2s": [
+      "Overview",
+      "GitHub Environments",
+      "Deployment Protection Rules",
+      "OIDC for Cloud Deployments",
+      "Custom Deployment Gates",
+      "Deployment Tracking and Visibility",
+      "Enterprise Deployment Policies",
+      "Deployment Best Practices",
+      "References"
+    ],
+    "minLines": 400,
+    "minMermaidDiagrams": 1,
+    "hasFrontMatter": false,
+    "headingCount": 35
+  },
+  "24-scripts-automation": {
+    "expectedH1": "Scripts and Automation",
+    "expectedH2s": [
+      "Overview",
+      "GitHub CLI for Administration",
+      "REST API Patterns",
+      "GraphQL API Patterns",
+      "Webhook-Driven Automation",
+      "GitHub Actions for Admin Tasks",
+      "Terraform GitHub Provider",
+      "Policy-as-Code",
+      "Automation Best Practices",
+      "References"
+    ],
+    "minLines": 500,
+    "minMermaidDiagrams": 1,
+    "hasFrontMatter": false,
+    "headingCount": 40
+  },
+  "25-unhealthy-repos-git-history": {
+    "expectedH1": "Unhealthy Repositories and Git History",
+    "expectedH2s": [
+      "Overview",
+      "Identifying Repository Health Issues",
+      "Git LFS",
+      "Rewriting History with git-filter-repo",
+      "Removing Sensitive Data",
+      "Stale Branch Cleanup",
+      "Repository Archival Strategies",
+      "Monorepo Considerations",
+      "Prevention and Governance",
+      "References"
+    ],
+    "minLines": 400,
+    "minMermaidDiagrams": 1,
+    "hasFrontMatter": false,
+    "headingCount": 35
+  },
+  "26-user-privacy-data-residency": {
+    "expectedH1": "User Privacy and Data Residency",
+    "expectedH2s": [
+      "Overview",
+      "Data Residency",
+      "GDPR and Data Processing",
+      "Data Subject Requests",
+      "IP Address Controls",
+      "Audit Trail for Compliance",
+      "Data Retention Policies",
+      "Enterprise Managed User Privacy",
+      "User-Level Privacy Settings",
+      "References"
+    ],
+    "minLines": 350,
+    "minMermaidDiagrams": 1,
+    "hasFrontMatter": false,
+    "headingCount": 35
+  },
+  "27-integrations-status-api": {
+    "expectedH1": "Third-Party Integrations and Status API",
+    "expectedH2s": [
+      "Overview",
+      "Commit Status API",
+      "Check Runs and Check Suites",
+      "Required Status Checks",
+      "Integrating External CI/CD",
+      "SARIF Upload for Code Scanning",
+      "Deployment Status API",
+      "Webhooks for Integration",
+      "Best Practices",
+      "References"
+    ],
+    "minLines": 400,
+    "minMermaidDiagrams": 1,
+    "hasFrontMatter": false,
+    "headingCount": 35
   }
 }
