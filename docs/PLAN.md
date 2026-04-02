@@ -829,7 +829,7 @@ Every phase transition requires passing the weighted rubric with a score ≥ **9
 | 0 | Test Infrastructure | ✅ Complete | Pending QG | 2026-04-01 | 2026-04-01 |
 | 1 | Baseline Test Coverage | ✅ Complete | 72 | 100 | 100 |
 | 2 | Content Audit & Research | ✅ Complete | 92 → 96 | 2026-04-02 | 2026-04-02 |
-| 3 | Update Existing Content | ⬜ Not Started | — | — | — |
+| 3 | Update Existing Content | 🔄 Pending QG | — | 2026-04-02 | 2026-04-02 |
 | 4 | New Documentation | ⬜ Not Started | — | — | — |
 | 5 | New Hands-on Labs | ⬜ Not Started | — | — | — |
 | 6 | VBD Structural Materials | ⬜ Not Started | — | — | — |
@@ -842,14 +842,14 @@ Every phase transition requires passing the weighted rubric with a score ≥ **9
 |--------|----------|---------|--------|
 | VBD Agenda Coverage (docs) | 50% (11/22) | 50% | 100% |
 | VBD Agenda Coverage (labs) | 27% (6/22) | 32% (7/22) | 100% |
-| Total Lab Time | ~50 min | ~50 min | 4-5 hrs |
-| Test Checks | 594 (Phase 0) | 952 (Phase 1) | TBD |
-| Known Issues | 68 cataloged | 68 | 0 |
+| Total Lab Time | ~50 min | ~55 min | 4-5 hrs |
+| Test Checks | 594 (Phase 0) | 991 (Phase 3) | TBD |
+| Known Issues (Phase 3) | 28 assigned | 28 resolved | 0 |
 | Docs Count | 21 (18 numbered + 3 non-numbered) | 21 | 27+ |
 | Labs Count | 6 (5 + setup) | 6 | 15 |
-| Broken Links | 34 (24 external + 10 internal) | 34 | 0 |
-| Freshness Warnings | 43 (8 patterns) | 43 | 0 |
-| Mermaid Diagrams | 66 | 66 | 66+ |
+| Broken Links | 34 (24 external + 10 internal) | 0 (all fixed) | 0 |
+| Freshness Warnings | 43 (8 patterns) | 4 (intentional umbrella term) | 0 |
+| Mermaid Diagrams | 66 | 65 | 66+ |
 
 ### Session Log
 
@@ -859,6 +859,7 @@ Every phase transition requires passing the weighted rubric with a score ≥ **9
 | 2 | 2026-04-01 | Phase 0 | Test infrastructure — 9/9 suites green, QG 96/100 |
 | 3 | 2026-04-02 | Phase 1 | Baseline test coverage — expectations, known issues, metrics |
 | 4 | 2026-04-02 | Phase 2 | Content audit & research — 15 research briefs (6,471 lines), all tests green |
+| 5 | 2026-04-02 | Phase 3 | Update existing content — 28 known issues resolved, 33 broken links fixed, GHAS terminology updated across 15 docs, lab03 rewritten for Rulesets, doc12 Copilot governance updated, README modernized |
 
 ---
 
