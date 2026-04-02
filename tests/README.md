@@ -39,6 +39,7 @@ npm run test:links         # Link validation (slow — makes network requests)
 | **Freshness** | `test:freshness` | Flags deprecated GitHub features, outdated action versions, stale URLs |
 | **Spelling** | `test:spell` | Technical terminology. Config: `.cspell.json` with custom dictionary |
 | **VBD Coverage** | `test:vbd-coverage` | Every VBD agenda item has mapped docs/labs; referenced files exist |
+| **Lab Completeness** | `test:lab-completeness` | Labs have title, duration, objectives, references, numbered steps |
 | **Links** | `test:links` | Internal and external links resolve. Config: `link-check-config.json` |
 
 ## Test Runner Options
