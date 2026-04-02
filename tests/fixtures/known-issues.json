@@ -173,7 +173,7 @@
       "category": "vbd-coverage",
       "severity": "warning",
       "file": "tests/fixtures/vbd-coverage-map.json",
-      "description": "VBD coverage baseline: 50% docs (11/22 agenda items), 27% labs (6/22 agenda items). 11 agenda items have no docs, 16 have no labs.",
+      "description": "VBD coverage baseline: 50% docs (11/22 agenda items), 32% labs (7/22 agenda items). 11 agenda items have no docs, 15 have no labs.",
       "fixPhase": "phase4",
       "notes": "New docs in Phase 4, new labs in Phase 5 will close the gap"
     },
@@ -195,7 +195,7 @@
       "category": "broken-link-external",
       "severity": "warning",
       "file": "docs/03-identity-access-management.md",
-      "description": "3 broken external links (404): Okta LCM, PingFederate SAML, CIS benchmark",
+      "description": "4 broken external links (404): Okta LCM, 2x PingFederate, CIS benchmark",
       "fixPhase": "phase3",
       "links": [
         "https://help.okta.com/en-us/Content/Topics/Provisioning/lcm/lcm-main.htm",

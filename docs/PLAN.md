@@ -841,7 +841,7 @@ Every phase transition requires passing the weighted rubric with a score ≥ **9
 | Metric | Baseline | Current | Target |
 |--------|----------|---------|--------|
 | VBD Agenda Coverage (docs) | 50% (11/22) | 50% | 100% |
-| VBD Agenda Coverage (labs) | 27% (6/22) | 27% | 100% |
+| VBD Agenda Coverage (labs) | 27% (6/22) | 32% (7/22) | 100% |
 | Total Lab Time | ~50 min | ~50 min | 4-5 hrs |
 | Test Checks | 594 (Phase 0) | 952 (Phase 1) | TBD |
 | Known Issues | 68 cataloged | 68 | 0 |
