@@ -929,7 +929,7 @@ This document is part of the GitHub Enterprise Cloud Administration series:
 
 - [Enterprise Hierarchy](01-enterprise-hierarchy.md) - GHEC structure and multi-org management
 - [Policy Inheritance](06-policy-inheritance.md) - Enterprise → Org → Repo policy enforcement
-- [Security & Compliance](08-security-compliance.md) - GHAS, code scanning, audit logs
+- [Security & Compliance](08-security-compliance.md) - GitHub Secret Protection and Code Security (GHAS), code scanning, audit logs
 - [Security-by-Default Policies](11-security-by-default-policies.md) - Comprehensive security settings recommendations
 
 ## References

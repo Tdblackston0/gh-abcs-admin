@@ -345,7 +345,7 @@ Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
 - **SAML SSO** — how it works with GHEC, linking existing identities, requiring SAML for org access
 - **Enterprise Managed Users** — when to use EMU vs. standard SAML; trade-offs (control vs. flexibility)
 - **SCIM provisioning** — automated user creation, team sync, deprovisioning on IdP removal
-- **OIDC and conditional access** — integrating with Azure AD/Entra ID for location and device-based policies
+- **OIDC and conditional access** — integrating with Microsoft Entra ID for location and device-based policies
 - **PAT and SSH key policies** — restricting personal access tokens and SSH keys at the enterprise level
 
 **Demo Script:**
@@ -365,7 +365,7 @@ Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
 
 - Q: "Can we migrate from SAML to EMU?" → A: This requires creating a new enterprise with EMU-enabled orgs. It is not an in-place migration.
 - Q: "Does EMU prevent users from contributing to public repos?" → A: EMU accounts can only interact with resources within the enterprise — they cannot fork or contribute outside.
-- Q: "What IdPs are supported?" → A: Azure AD (Entra ID), Okta, and PingFederate are officially supported for EMU. SAML SSO works with any SAML 2.0 provider.
+- Q: "What IdPs are supported?" → A: Microsoft Entra ID, Okta, and PingFederate are officially supported for EMU. SAML SSO works with any SAML 2.0 provider.
 
 **Timing Notes:**
 
@@ -451,7 +451,7 @@ Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
 
 **Common Questions:**
 
-- Q: "Can I sync teams with Active Directory groups?" → A: Yes, team sync works with Azure AD, Okta, and other supported IdPs.
+- Q: "Can I sync teams with Microsoft Entra ID groups?" → A: Yes, team sync works with Microsoft Entra ID, Okta, and other supported IdPs.
 - Q: "What's the difference between org admin and enterprise owner?" → A: Org admins manage one org; enterprise owners manage all orgs and enterprise-level policies.
 - Q: "How do I bulk-invite users?" → A: Use the GitHub API or `gh` CLI to script bulk invitations.
 
@@ -625,7 +625,7 @@ Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
 | Insufficient permissions | "You don't have access" or 403 errors | Verify the user is an org admin; check enterprise policies for restrictions |
 | Actions disabled | Workflows won't run or are greyed out | Check **org settings → Actions → General** — ensure Actions is enabled for all repositories |
 | Branch protection conflicts | Can't push to or merge into protected branch | Check ruleset bypass actors; verify the user has admin override if needed |
-| Secret scanning not available | No security alerts or scanning tab missing | Verify GHEC plan includes advanced security; check **repo settings → Code security** |
+| Secret scanning not available | No security alerts or scanning tab missing | Verify GHEC plan includes GitHub Secret Protection and GitHub Code Security (formerly GHAS); check **repo settings → Code security** |
 | API rate limiting | 403 responses with "rate limit exceeded" | Use authenticated requests; check rate limit headers with `gh api /rate_limit` |
 | `gh` CLI not installed | "command not found: gh" errors | Direct participant to [setup.md](../labs/setup.md) installation instructions |
 | `gh` CLI not authenticated | "authentication required" errors | Run `gh auth login` and follow the browser-based OAuth flow |

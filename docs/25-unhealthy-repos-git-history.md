@@ -1049,7 +1049,7 @@ Enable secret scanning and push protection at the organization level to prevent 
 **Organization-level enablement:**
 
 1. Navigate to **Organization Settings > Code security and analysis**
-2. Enable **GitHub Advanced Security** (required for private/internal repos)
+2. Enable **GitHub Advanced Security** (now GitHub Secret Protection and GitHub Code Security) (required for private/internal repos)
 3. Enable **Secret scanning**
 4. Enable **Push protection**
 

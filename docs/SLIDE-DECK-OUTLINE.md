@@ -192,7 +192,7 @@ This outline provides the structure for creating a slide deck for the GitHub Adm
 - Speaker Notes: Allow = orgs choose. Enforce = all orgs must comply. Block = no org can enable. Choose based on governance needs.
 
 **Slide 5: Transition to Lab**
-- Title: "Hands-on: Lab 15 — Enterprise Administration"
+- Title: "Hands-on: Lab 15 — Copilot Governance Configuration"
 - Duration: 10 minutes
 - Quick description of what they'll do
 
@@ -275,7 +275,7 @@ This outline provides the structure for creating a slide deck for the GitHub Adm
 - Speaker Notes: Webhooks enable event-driven automation. Configure at repo, org, or enterprise level. Always verify webhook signatures.
 
 **Slide 5: Transition to Lab**
-- Title: "Hands-on: Lab 5 — Webhooks"
+- Title: "Hands-on: Lab 5 — GitHub API"
 - Duration: 10 minutes
 - Quick description of what they'll do
 

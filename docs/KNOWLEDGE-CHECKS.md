@@ -141,7 +141,7 @@ These questions validate understanding of key concepts from each workshop module
 
 ### Integrations and Authentication (2.1)
 
-**Q2.1.1:** Your enterprise uses Azure AD. You want users to be provisioned and deprovisioned automatically when they join or leave the company. Which combination of protocols should you configure?
+**Q2.1.1:** Your enterprise uses Microsoft Entra ID (formerly Azure AD). You want users to be provisioned and deprovisioned automatically when they join or leave the company. Which combination of protocols should you configure?
 
 - A) SAML SSO only
 - B) SAML SSO + SCIM provisioning
@@ -201,7 +201,7 @@ These questions validate understanding of key concepts from each workshop module
 - C) Change the repository visibility to private
 - D) Ask the contractor to delete their GitHub account
 
-**Q2.7.1:** Your organization uses Azure AD groups synced via SCIM. You want team membership to mirror AD groups. What feature enables this?
+**Q2.7.1:** Your organization uses Microsoft Entra ID groups synced via SCIM. You want team membership to mirror AD groups. What feature enables this?
 
 - A) Manual team membership management
 - B) Team synchronization (IdP sync)
@@ -298,6 +298,22 @@ These questions validate understanding of key concepts from each workshop module
 - C) `git reset --hard`
 - D) Delete and recreate the repository
 
+### Copilot Governance (2.15)
+
+**Q2.15.1:** Your enterprise has set a Copilot policy to "Disabled" at the enterprise level, but an organization admin enables Copilot for their org. Which level takes precedence?
+
+- A) Organization policy overrides enterprise policy
+- B) Enterprise policy overrides organization policy
+- C) The most recently changed policy takes precedence
+- D) Users can choose which policy to follow
+
+**Q2.15.2:** You want to prevent GitHub Copilot from using specific repositories as context when generating suggestions. How should you configure this?
+
+- A) Delete the repositories
+- B) Set the repositories to private visibility
+- C) Configure content exclusion rules in enterprise/organization Copilot settings
+- D) Disable Copilot for all users in the organization
+
 ---
 
 ## Answer Key
@@ -351,5 +367,7 @@ These questions validate understanding of key concepts from each workshop module
 | Q2.10.2 | D | Combining environment rules, workflow gates, and deployment dependencies provides layered enforcement |
 | Q2.12.1 | B | GitHub CLI scripting with `gh repo create` is the most efficient and repeatable approach for bulk creation |
 | Q2.14.1 | B | `git-filter-repo` and BFG Repo-Cleaner are purpose-built tools for rewriting Git history to remove large files |
+| Q2.15.1 | B | Enterprise-level Copilot policies override organization-level settings; enterprise "Disabled" cannot be overridden by org admins |
+| Q2.15.2 | C | Content exclusion rules in enterprise/organization Copilot settings prevent specific repositories from being used as context |
 
 </details>

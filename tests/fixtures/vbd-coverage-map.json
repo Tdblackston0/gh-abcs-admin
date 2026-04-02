@@ -59,7 +59,8 @@
       "subtopics": ["Data residency", "Export", "GDPR"],
       "priority": "P1",
       "docs": ["docs/26-user-privacy-data-residency.md"],
-      "labs": []
+      "labs": [],
+      "labNote": "P1 presentation-only — covered in 10-min overview slot (Day 1, slot #12). Data residency and GDPR settings are enterprise-level configurations not suitable for hands-on lab in a training org."
     },
     {
       "id": "1.7",
@@ -68,7 +69,8 @@
       "subtopics": ["License types", "Seat management", "Billing"],
       "priority": "P1",
       "docs": ["docs/19-licenses-billing.md"],
-      "labs": []
+      "labs": [],
+      "labNote": "P1 presentation-only — covered in 10-min overview slot (Day 1, slot #12). License and billing management requires enterprise owner access to real billing data, not available in training environments."
     },
     {
       "id": "1.8",
