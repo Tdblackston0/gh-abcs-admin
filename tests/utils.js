@@ -54,7 +54,9 @@ async function findValidationFiles({ includeReadme = false } = {}) {
   const docFiles = await findMarkdownFiles('docs/**/*.md');
   const labFiles = await findMarkdownFiles('labs/**/*.md');
   const readmeFiles = includeReadme ? await findMarkdownFiles('README.md') : [];
-  return [...docFiles, ...labFiles, ...readmeFiles].filter(f => !SKIP_FILES.includes(f));
+  return [...docFiles, ...labFiles, ...readmeFiles].filter(f =>
+    !SKIP_FILES.includes(f) && !f.startsWith('docs/_research/')
+  );
 }
 
 /**

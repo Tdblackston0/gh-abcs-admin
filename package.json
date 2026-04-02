@@ -5,7 +5,7 @@
   "description": "GitHub Enterprise Cloud Admin Training — VBD Workshop",
   "scripts": {
     "test": "node tests/run-all.js",
-    "test:lint": "markdownlint-cli2 'docs/**/*.md' 'labs/**/*.md' 'README.md' '#docs/PLAN.md' '#docs/initial-prompt.md' '#docs/final-prompt-plan.md'",
+    "test:lint": "markdownlint-cli2 'docs/**/*.md' 'labs/**/*.md' 'README.md' '#docs/PLAN.md' '#docs/initial-prompt.md' '#docs/final-prompt-plan.md' '#docs/_research/**'",
     "test:links": "node tests/validate-links.js",
     "test:spell": "cspell lint --no-progress 'docs/**/*.md' 'labs/**/*.md' 'README.md'",
     "test:structure": "node tests/validate-structure.js",

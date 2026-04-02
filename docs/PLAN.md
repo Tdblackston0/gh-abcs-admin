@@ -828,7 +828,7 @@ Every phase transition requires passing the weighted rubric with a score ≥ **9
 |-------|------|--------|-------|---------|-----------|
 | 0 | Test Infrastructure | ✅ Complete | Pending QG | 2026-04-01 | 2026-04-01 |
 | 1 | Baseline Test Coverage | ✅ Complete | 72 | 100 | 100 |
-| 2 | Content Audit & Research | ⬜ Not Started | — | — | — |
+| 2 | Content Audit & Research | 🔄 Pending QG | — | 2026-04-02 | — |
 | 3 | Update Existing Content | ⬜ Not Started | — | — | — |
 | 4 | New Documentation | ⬜ Not Started | — | — | — |
 | 5 | New Hands-on Labs | ⬜ Not Started | — | — | — |
@@ -858,6 +858,7 @@ Every phase transition requires passing the weighted rubric with a score ≥ **9
 | 1 | 2026-04-01 | Planning | Created plan, branch, initial analysis |
 | 2 | 2026-04-01 | Phase 0 | Test infrastructure — 9/9 suites green, QG 96/100 |
 | 3 | 2026-04-02 | Phase 1 | Baseline test coverage — expectations, known issues, metrics |
+| 4 | 2026-04-02 | Phase 2 | Content audit & research — 15 research briefs (6,471 lines), all tests green |
 
 ---
 
