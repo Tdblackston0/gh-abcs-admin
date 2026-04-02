@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # Third-Party Integrations and Status API
 
 **Level:** L300 (Advanced)  

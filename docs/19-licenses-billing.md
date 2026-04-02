@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # Licenses and Billing
 
 **Level:** L300 (Advanced)  

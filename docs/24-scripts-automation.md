@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # Scripts and Automation
 
 **Level:** L300 (Advanced)  

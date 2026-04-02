@@ -457,7 +457,7 @@
     ],
     "minLines": 400,
     "minMermaidDiagrams": 1,
-    "hasFrontMatter": false,
+    "hasFrontMatter": true,
     "headingCount": 35
   },
   "20-github-marketplace-apps": {
@@ -530,7 +530,7 @@
     ],
     "minLines": 400,
     "minMermaidDiagrams": 1,
-    "hasFrontMatter": false,
+    "hasFrontMatter": true,
     "headingCount": 35
   },
   "24-scripts-automation": {
@@ -549,7 +549,7 @@
     ],
     "minLines": 500,
     "minMermaidDiagrams": 1,
-    "hasFrontMatter": false,
+    "hasFrontMatter": true,
     "headingCount": 40
   },
   "25-unhealthy-repos-git-history": {
@@ -606,7 +606,7 @@
     ],
     "minLines": 400,
     "minMermaidDiagrams": 1,
-    "hasFrontMatter": false,
+    "hasFrontMatter": true,
     "headingCount": 35
   }
 }

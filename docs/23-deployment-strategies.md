@@ -1,3 +1,7 @@
+---
+render_with_liquid: false
+---
+
 # Deployment Strategies
 
 **Level:** L300 (Advanced)  
