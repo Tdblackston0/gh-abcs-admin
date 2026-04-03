@@ -140,6 +140,8 @@ In a small workshop organization, you may see few or no dormant users — this i
    cat dormant-report.csv | column -t -s ','
    ```
 
+> **Troubleshooting:** If the report script hangs or runs very slowly, you may be hitting API rate limits (5,000 requests/hour). Add `sleep 1` inside the `while` loop to throttle requests, or reduce the scope with `| head -20` after the `--jq` filter. See the [Instructor Guide](../docs/INSTRUCTOR-GUIDE.md) for additional help.
+
 2. Run the script and review the output. Users showing `none` for their last event are your primary candidates for further investigation.
 3. Cross-reference the public events report with the **org audit log** to capture private activity that the public events API misses:
 

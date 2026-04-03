@@ -71,6 +71,9 @@ References:
 6. Note the difference between **suspending** and **uninstalling** an app:
    - **Suspend** — temporarily disables the app. It retains its configuration and permissions but stops receiving events and cannot make API calls. Useful for troubleshooting or temporary disablement.
    - **Uninstall** — permanently removes the app from the organization. All configuration is lost and the app must be reinstalled from scratch.
+
+> **Troubleshooting:** If the **Suspend** option is grayed out or missing, the app may not support suspension. Not all GitHub Apps implement the suspension webhook — in that case, uninstalling and reinstalling is the only option to temporarily disable the app. See the [Instructor Guide](../docs/INSTRUCTOR-GUIDE.md) for additional help.
+
 7. Discuss with your group: what governance controls would you put in place to ensure apps installed in your organization are regularly reviewed for appropriate permissions?
 
 ## 11.4 Evaluate OAuth App vs GitHub App

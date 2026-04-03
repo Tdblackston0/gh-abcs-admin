@@ -58,6 +58,9 @@ GitHub's built-in repository permission levels are:
 3. Click **Add teams** and search for `engineering`.
 4. Select the `engineering` team and assign it the **Read** role. Click **Add engineering to this repository**.
 5. Click **Add teams** again, search for `engineering-frontend`, and assign it the **Write** role.
+
+> **Troubleshooting:** If the team doesn't appear in the search results when adding teams to a repository, verify the team was created in the same organization that owns the repository. Cross-organization team assignments are not supported. See the [Instructor Guide](../docs/INSTRUCTOR-GUIDE.md) for additional help.
+
 6. Observe the **Collaborators and teams** page. You should see:
    - `engineering` with **Read**
    - `engineering-frontend` with **Write**
