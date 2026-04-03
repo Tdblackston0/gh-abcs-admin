@@ -1,6 +1,8 @@
 # 8 - Audit Log Exploration
-In this lab you will navigate, filter, and query the GitHub Enterprise Cloud audit log to understand how organizational and enterprise-level events are tracked, and explore options for streaming audit data to external systems.
+In this lab you will navigate, filter, and query the GitHub audit log to understand how organizational events are tracked, and explore options for streaming audit data to external systems.
 > Duration: 20-25 minutes
+
+> **Environment note:** This lab is written for **organization-level** access. All hands-on steps work with an org admin account — no enterprise account is needed. Enterprise-level alternatives are included in collapsible sections for participants who have enterprise access.
 
 References:
 - [Reviewing the audit log for your organization](https://docs.github.com/en/organizations/keeping-your-organization-secure/managing-security-settings-for-your-organization/reviewing-the-audit-log-for-your-organization)
@@ -13,15 +15,22 @@ References:
 ## 8.1 Navigate the audit log UI
 
 1. To view the **organization audit log**, navigate to your organization page, then go to **Settings** → in the left sidebar under **Archives**, click **Logs** → **Audit log**.
-2. To view the **enterprise audit log**, navigate to your enterprise account, then go to **Settings** → **Audit log**.
-3. Observe the timeline view. Each entry displays:
+2. Observe the timeline view. Each entry displays:
    - **Action** — the event that occurred (e.g., `repo.create`, `org.invite_member`)
    - **Actor** — the user who performed the action
    - **Timestamp** — when the event occurred
    - **IP address** — the source IP (only visible if IP address disclosure has been explicitly enabled by an enterprise owner)
-4. Note that the default view shows approximately the last 3 months of events, but the full retention period is **180 days** for web-based events and **7 days** for Git events (clone, push, fetch).
-5. Locate the **Export** button in the upper-right area of the audit log page. You can export results as **CSV** or **JSON** for offline analysis.
-6. If your enterprise uses **Enterprise Managed Users (EMU)**, note that the enterprise audit log also includes user-level security log events for all managed accounts.
+3. Note that the default view shows approximately the last 3 months of events, but the full retention period is **180 days** for web-based events and **7 days** for Git events (clone, push, fetch).
+4. Locate the **Export** button in the upper-right area of the audit log page. You can export results as **CSV** or **JSON** for offline analysis.
+
+<details>
+<summary>🏛️ Enterprise Path — view the enterprise audit log (requires enterprise owner access)</summary>
+
+1. To view the **enterprise audit log**, navigate to your enterprise account, then go to **Settings** → **Audit log**.
+2. The enterprise audit log aggregates events from all organizations under the enterprise account, plus enterprise-level events (SAML SSO, SCIM provisioning, enterprise policy changes).
+3. If your enterprise uses **Enterprise Managed Users (EMU)**, note that the enterprise audit log also includes user-level security log events for all managed accounts.
+
+</details>
 
 ## 8.2 Filter by event type and actor
 
@@ -44,7 +53,7 @@ References:
    - `org.*` — organization membership, settings changes
    - `team.*` — team creation, membership changes
    - `members.*` — member permission changes, removals
-   - `business.*` — enterprise-level events (available only in the enterprise audit log)
+   - `business.*` — enterprise-level events (available only in the **enterprise** audit log — not visible at the org level)
 7. If IP address disclosure is enabled, add `country:US` or check the **IP address** column to identify the geographic origin of actions.
 
 ## 8.3 Query the audit log API
@@ -61,14 +70,30 @@ References:
      --jq '.[0:3]'
    ```
    Replace `YOUR-ORG` with the name of your workshop organization.
-3. Query the **enterprise audit log** for member invitation events (requires enterprise admin access):
+3. Query the organization audit log for **member invitation events**:
    ```bash
-   gh api /enterprises/YOUR-ENTERPRISE/audit-log \
+   gh api /orgs/YOUR-ORG/audit-log \
      -F phrase='action:org.invite_member' \
      -F per_page=5 \
      --jq '.[] | {action, actor, created_at}'
    ```
-   Replace `YOUR-ENTERPRISE` with the slug of your enterprise account.
+
+<details>
+<summary>🏛️ Enterprise Path — query the enterprise audit log API (requires enterprise admin access)</summary>
+
+If you have enterprise admin access, you can query the enterprise-level audit log which aggregates events across all organizations:
+
+```bash
+gh api /enterprises/YOUR-ENTERPRISE/audit-log \
+  -F phrase='action:org.invite_member' \
+  -F per_page=5 \
+  --jq '.[] | {action, actor, created_at}'
+```
+
+Replace `YOUR-ENTERPRISE` with the slug of your enterprise account. The enterprise audit log includes `business.*` events not available at the org level.
+
+</details>
+
 4. Fetch **Git events** by including the `include=git` parameter. Git events have a 7-day retention period:
    ```bash
    gh api /orgs/YOUR-ORG/audit-log \
@@ -134,35 +159,59 @@ References:
 
 ## 8.5 Discuss streaming configuration
 
-1. Navigate to your enterprise account, then go to **Settings** → **Audit log** → **Log streaming** (if you have enterprise admin access). If you do not have access, follow along with the discussion.
-2. Review the supported streaming targets. GitHub Enterprise Cloud can stream audit log events to:
+Audit log streaming is an **enterprise-level** feature that forwards events in real time to external SIEM and storage systems. Even without enterprise access, understanding streaming capabilities is essential for admins planning a production deployment.
+
+1. Review the supported streaming targets. GitHub Enterprise Cloud can stream audit log events to:
    - **Splunk** — via HTTP Event Collector (HEC)
    - **Azure Event Hubs** — for integration with Azure Monitor or Microsoft Sentinel
    - **Azure Blob Storage** — for archival and batch processing
    - **Amazon S3** — for storage and integration with AWS-based SIEM tools
    - **Google Cloud Storage** — for integration with Google Cloud operations
    - **Datadog** — for direct integration with Datadog's log management
-3. Discuss why audit log streaming is essential for most enterprises:
+2. Discuss why audit log streaming is essential for most enterprises:
    - Web-based events are retained for only **180 days** in the UI and API
    - Git events (clone, push, fetch) are retained for only **7 days**
    - Compliance frameworks (SOC 2, FedRAMP, HIPAA) often require longer retention periods
    - Streaming enables real-time alerting on suspicious activity through your SIEM
-4. Review important operational details for audit log streaming:
+3. Review important operational details for audit log streaming:
    - Delivery guarantee: **at-least-once** (consumers must handle duplicate events)
    - Format: **compressed JSON** (one event per line)
    - If streaming is paused, events are buffered for up to **7 days** — events older than 7 days are dropped
    - GitHub performs **health checks every 24 hours** on configured streams
    - If a stream becomes misconfigured, you have a **6-day window** to fix it before the stream is automatically disabled
+4. **Organization-level workaround for long-term retention:** Without enterprise streaming, you can build a scheduled GitHub Actions workflow that calls the org audit log API daily and archives events to your own storage:
+
+   ```bash
+   # Example: export the last 24 hours of org audit events to a JSON file
+   gh api /orgs/YOUR-ORG/audit-log \
+     -F phrase="created:>=$(date -u -d '1 day ago' +%Y-%m-%d)" \
+     -F per_page=100 \
+     --paginate > "audit-export-$(date +%Y-%m-%d).json"
+   ```
+
+   This gives you long-term retention without enterprise streaming — schedule this in a cron-based Actions workflow and push the output to your archival system.
+
 5. Discuss with your group: _"Given your organization's existing SIEM and cloud infrastructure, which streaming target would you choose and why?"_
+
+<details>
+<summary>🏛️ Enterprise Path — configure streaming in the UI (requires enterprise owner access)</summary>
+
+1. Navigate to your enterprise account, then go to **Settings** → **Audit log** → **Log streaming**.
+2. Click **Set up stream** and select your target (Splunk, Azure Event Hubs, S3, etc.).
+3. Configure the connection credentials and endpoint URL.
+4. Save and verify the health check passes within 24 hours.
+5. Enterprise streaming supports **multi-endpoint streaming** — you can send audit data to two destinations simultaneously.
+
+</details>
 
 ## 8.6 Verify your work
 
 1. Confirm you completed the following tasks during this lab:
-   - [ ] Navigated the audit log UI for your organization or enterprise
+   - [ ] Navigated the audit log UI for your organization
    - [ ] Applied search filters using `action:`, `actor:`, and `created:` qualifiers
-   - [ ] Successfully queried the audit log REST API with `gh api`
+   - [ ] Successfully queried the organization audit log REST API with `gh api`
    - [ ] Examined an audit log event payload and identified key fields
-   - [ ] Discussed audit log streaming targets and retention implications
+   - [ ] Discussed audit log streaming targets, retention implications, and the org-level export workaround
 2. Run this command to verify your API access is working:
    ```bash
    gh api /orgs/YOUR-ORG/audit-log \

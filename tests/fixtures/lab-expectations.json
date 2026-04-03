@@ -178,7 +178,7 @@
     "expectedH2s": [
       "10.1 List organization members with activity",
       "10.2 Identify dormant users",
-      "10.3 Script a dormant user report",
+      "10.3 Generate a comprehensive dormant user report",
       "10.4 Plan a reclamation workflow",
       "10.5 Verify your work"
     ],
