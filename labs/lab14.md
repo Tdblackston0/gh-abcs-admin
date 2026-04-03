@@ -2,6 +2,13 @@
 In this lab you will detect repository health issues, manage large files in Git history, rewrite history to remove sensitive data, clean up stale branches, and plan a repository archival strategy.
 > Duration: 20-25 minutes
 
+> **⏱️ Estimated time:** 25 minutes | **Type:** Self-Paced Extension
+>
+> **What you'll learn:**
+> - How to detect large files and assess repository health
+> - How to remove sensitive data from Git history using git-filter-repo
+> - How to clean up stale branches and plan a repository archival strategy
+
 References:
 - [About large files on GitHub](https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github)
 - [Removing sensitive data from a repository](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/removing-sensitive-data-from-a-repository)
@@ -65,6 +72,8 @@ GitHub officially recommends **git-filter-repo** for rewriting history. It repla
    ```bash
    pip install git-filter-repo
    ```
+
+> **Troubleshooting:** If `pip install` fails, try `pip3 install git-filter-repo` or `brew install git-filter-repo` (macOS). On Windows, ensure Python is in your PATH. If you get a "command not found" error after installation, verify the pip scripts directory is in your PATH (`pip show git-filter-repo` shows the install location).
 
 2. Clone the repository fresh. Do **not** use `--mirror` when working with git-filter-repo:
 

@@ -642,7 +642,7 @@ excludes:
 curl -X POST \
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: Bearer <token>" \
-  https://api.github.com/orgs/ORG/custom_roles \
+  https://api.github.com/orgs/ORG/custom-repository-roles \
   -d '{
     "name": "security-reviewer",
     "description": "Security review role",

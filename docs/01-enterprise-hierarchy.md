@@ -655,6 +655,26 @@ GitHub Connect enables hybrid deployments connecting GitHub Enterprise Server to
 - Hybrid workforce with distributed access needs
 - Air-gapped environments with periodic sync
 
+### Codespaces Administration
+
+GitHub Codespaces provides cloud-based development environments that enterprise admins can govern at the organization level:
+
+**Organization Policies:**
+- **Enable/disable Codespaces** per organization
+- **Machine type restrictions** — limit available machine types (2-core to 32-core) to control costs
+- **Idle timeout** — automatically stop inactive Codespaces (default 30 min, configurable 5 min to 4 hours)
+- **Retention period** — auto-delete stopped Codespaces after a configurable period (default 30 days)
+- **Maximum lifetime** — enforce a maximum time a Codespace can remain active
+
+**Cost Controls:**
+- Set **spending limits** per organization (default $0 — must be explicitly increased)
+- Monitor usage via the **billing dashboard** (compute hours and storage)
+- Use **prebuilds** to reduce Codespace creation time (billed at storage rates, not compute)
+
+**Dev Container Governance:** Standardize development environments using `devcontainer.json` files in repository templates. This ensures all Codespaces include required tools, extensions, and configurations.
+
+> **Note:** Codespaces are not available with Enterprise Managed Users (EMU) enterprises. EMU users must use local development environments or GitHub.dev for lightweight editing.
+
 ## Migration and Onboarding Strategies
 
 ### Enterprise Onboarding Checklist

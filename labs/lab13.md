@@ -51,6 +51,8 @@ References:
 
 5. Consider how `gh api` compares to plain `curl`. With `gh api` you do not need to manage authentication headers, construct full URLs, or handle link-based pagination — `gh` does all of this for you. Authenticated REST requests are rate-limited to **5,000 requests per hour**.
 
+> **Troubleshooting:** If `gh api` returns a 403 Forbidden error, run `gh auth status` to verify your authentication. Ensure your token has `admin:org` and `repo` scopes. If using a fine-grained PAT, verify it has organization permissions for the target org. You can refresh your token with `gh auth refresh -s admin:org,repo`.
+
 ## 13.2 Manage teams with gh CLI
 
 1. List the existing teams in your organization:

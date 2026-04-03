@@ -870,7 +870,8 @@ GitHub supports IdP group → GitHub team synchronization:
 
 ### Token Types
 
-**1. Fine-Grained Personal Access Tokens (Beta)**
+**1. Fine-Grained Personal Access Tokens (GA)**
+- Generally available since late 2024 (no longer in beta)
 - Granular repository and permission scope
 - Expiration required (1-365 days, or custom)
 - Organization-level approval workflow

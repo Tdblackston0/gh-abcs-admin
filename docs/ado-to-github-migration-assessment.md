@@ -591,7 +591,7 @@ GitHub Advanced Security (GHAS) — comprising GitHub Secret Protection and GitH
 | Actions Policies (Enterprise) | <https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-github-actions-in-your-enterprise> |
 | PAT Policies (Enterprise) | <https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-personal-access-tokens-in-your-enterprise> |
 | Encrypted Secrets | <https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions> |
-| GitHub Advanced Security | <https://docs.github.com/en/get-started/learning-about-github/about-github-advanced-security> |
+| GitHub Advanced Security (now Secret Protection + Code Security) | <https://docs.github.com/en/get-started/learning-about-github/about-github-advanced-security> |
 | Code Scanning Default Setup | <https://docs.github.com/en/code-security/code-scanning/enabling-code-scanning/configuring-default-setup-for-code-scanning> |
 | Code Scanning Merge Protection | <https://docs.github.com/en/code-security/code-scanning/managing-your-code-scanning-configuration/set-code-scanning-merge-protection> |
 | Secret Scanning | <https://docs.github.com/en/code-security/secret-scanning/introduction/about-secret-scanning> |

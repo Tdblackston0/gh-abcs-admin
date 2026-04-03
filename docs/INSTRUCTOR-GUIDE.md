@@ -28,7 +28,7 @@ By the end of this workshop, participants will be able to:
 - Administer users, teams, and organizational settings at enterprise scale
 - Leverage the GitHub API, webhooks, and gh CLI for automation
 - Apply audit logging and dormant user management best practices
-- Understand deployment strategies, marketplace apps, and third-party integrations
+- Evaluate deployment strategies, marketplace apps, and third-party integrations
 
 ### Workshop Flow
 
@@ -651,6 +651,32 @@ Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
 - **Break is flexible:** can be 5–15 minutes based on pacing and participant needs
 - **Day 1 buffer:** the 1.6–1.8 combined slot (10 min) is lightweight — use it as buffer time if earlier modules ran long
 - **Day 2 buffer:** the wrap-up slot can flex between 5–15 minutes depending on how much time the knowledge check and Q&A need
+
+### Audience Adaptation
+
+**For less experienced groups (L200):**
+
+- Spend more time on Day 1 foundations (enterprise hierarchy, rulesets basics, template governance)
+- Simplify Lab 06 (skip JSON export/import, focus on UI configuration)
+- Skip Lab 13 (advanced API automation) in favor of extended Lab 05 walkthrough
+- Use extension labs as post-workshop homework rather than in-session stretch goals
+- Add more live demos where participants watch before attempting labs independently
+
+**For advanced groups (L400):**
+
+- Compress Day 1 presentation time to ~10 min per module; focus on labs and discussion
+- Promote extension labs (10, 11, 14) to in-session activities
+- Deep-dive on API automation (Lab 13), custom roles, and security campaigns
+- Add a discussion block: "What governance challenges does your org face?" with group problem-solving
+- Reference the Scripts & Automation doc (24) for production-grade patterns participants can take home
+
+**For a shortened 1-day delivery (3 hours):**
+
+- **Core modules:** 1.1 (Enterprise Hierarchy), 1.2 (Rulesets), 1.5 (Security), 2.1 (IAM), 2.3 (Audit), 2.6 (Copilot)
+- **Core labs:** Lab 03, Lab 06, Lab 07, Lab 08, Lab 15
+- **Skip:** Templates, webhooks, marketplace, dormant users, deployment environments
+- **Assign as self-paced:** All skipped labs + extension labs
+- **Adjust timing:** 15 min presentation + 15 min lab per module, 10 min break, 10 min wrap-up
 
 ### Remote Delivery Best Practices
 

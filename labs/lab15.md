@@ -42,6 +42,8 @@ References:
 ## 15.2 Configure content exclusions
 
 1. Navigate to your organization **Settings** → **Copilot** → **Content exclusion** (this may appear as a tab or subsection on the Copilot settings page).
+
+> **Troubleshooting:** If the Copilot settings page doesn't appear in your org settings, verify the organization has a Copilot Business or Enterprise license assigned at the enterprise level. If you see Copilot settings but they're grayed out, the enterprise-level policy may be set to "Disabled" — contact your enterprise admin.
 2. Click **Add exclusion** (or **New rule**) to create a new content exclusion rule.
 3. In the **Repository** field, select a specific repository from your organization — or enter `*` to apply the rule to all repositories in the organization.
 4. In the **Paths** field, add the following glob patterns to exclude sensitive files from Copilot suggestions:

@@ -1328,7 +1328,7 @@ done
 
 # Backup custom roles
 echo "Fetching custom roles..."
-gh api "orgs/${ORG}/roles/custom_roles" --jq '.[] | {id, name, permissions}' \
+gh api "orgs/${ORG}/custom-repository-roles" --jq '.custom_roles[] | {id, name, permissions}' \
     > custom-roles.json 2>/dev/null || true
 
 # Commit and push
@@ -2591,7 +2591,7 @@ jobs:
 # Principle of Least Privilege
 organizations:
   acme-platform:
-    custom_roles:
+    custom_repository_roles:
       - name: junior_developer
         permissions:
           - pull_requests: write

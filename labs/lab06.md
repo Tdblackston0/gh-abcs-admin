@@ -17,6 +17,8 @@ In Lab 03, you created a basic branch ruleset scoped to a single repository. Org
 1. Navigate to your **organization** page on GitHub.com
 2. Click **Settings** in the organization navigation bar
 3. In the left sidebar under **"Code, planning, and automation"**, click **Rules**, then click **Rulesets**
+
+> **Troubleshooting:** If you don't see the **Rules** option in the sidebar, verify you have organization **Owner** permissions. Members and non-admin roles cannot create org-level rulesets.
 4. Click **New ruleset**, then select **New branch ruleset**
 5. Set the **Ruleset name** to `YOUR-HANDLE-org-branch-standards` (replace `YOUR-HANDLE` with your GitHub username to avoid naming conflicts in a shared workshop org)
 6. Set **Enforcement status** to **Evaluate** — this is a GHEC-only feature that lets you dry-run the ruleset against real traffic without blocking anyone. You will see results in Rule Insights.
@@ -120,6 +122,9 @@ Rulesets can be exported as JSON and imported into other organizations or reposi
 
 5. To import a ruleset, navigate to **Organization Settings > Rules > Rulesets**
 6. Click **New ruleset**, then click **Import a ruleset** at the top of the page
+
+> **Troubleshooting:** If the **Import a ruleset** option is not visible, verify you are on the organization-level **New ruleset** page (not a repository-level page). Ruleset import requires the organization Owner role. See the [Instructor Guide](../docs/INSTRUCTOR-GUIDE.md) for additional help.
+
 7. Select the JSON file — GitHub pre-populates all fields from the file. The ruleset is created in **Disabled** status by default so you can review before activating.
 8. _(Optional)_ Browse the [github/ruleset-recipes](https://github.com/github/ruleset-recipes) repository for pre-built ruleset JSON files covering common patterns (e.g., signed commits, status checks, code review). Download one and import it into your organization.
 9. Review the imported ruleset, adjust settings as needed, and change the enforcement status to **Active** or **Evaluate**

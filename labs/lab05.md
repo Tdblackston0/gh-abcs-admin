@@ -18,18 +18,25 @@ References:
 
 1. Open the workflow file [use-github-apis.yml](/.github/workflows/use-github-apis.yml)
 2. Edit the file and copy the following YAML content at the end of the `rest-api-create-and-close-issue` job:
+
+> **Note:** The `actions/github-script` action provides the authenticated `github` client (Octokit) and `context` object automatically. You do not need to create a personal access token — the action uses the workflow's `GITHUB_TOKEN`.
+
 ```YAML
       - uses: actions/github-script@v7
         id: close-issue
         with:
           script: |
-            const result = await github.rest.issues.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: ${{fromJSON(steps.create-issue.outputs.result).number}},
-              state: 'closed'
-            })            
-            console.log(result)
+            try {
+              const result = await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: ${{fromJSON(steps.create-issue.outputs.result).number}},
+                state: 'closed'
+              })
+              console.log(result)
+            } catch (error) {
+              core.setFailed(`Failed to close issue: ${error.message}`)
+            }
 ```
 3. Commit the changes into the `main` branch
 4. Go to `Actions` and see the details of your running workflow
@@ -38,6 +45,9 @@ References:
 
 1. Open the workflow file [use-github-apis.yml](/.github/workflows/use-github-apis.yml)
 2. Edit the file and copy the following YAML content at the end of the file:
+
+> **Tip:** GraphQL queries are more efficient than REST for retrieving nested data. A single GraphQL query can fetch labels and their associated issues in one API call, whereas REST would require multiple paginated requests.
+
 ```YAML
   graphql-api-query-labels:
     runs-on: ubuntu-latest
@@ -46,27 +56,41 @@ References:
         id: labels-result
         with:
           script: |
-            const query = `query($owner:String!, $name:String!) {
-              repository(owner:$owner, name:$name){
-                labels (last:100) {
-                  nodes {
-                    name,
-                    color,
-                    issues(last:100) {
-                      nodes {
-                        number
+            try {
+              const query = `query($owner:String!, $name:String!) {
+                repository(owner:$owner, name:$name){
+                  labels (last:100) {
+                    nodes {
+                      name,
+                      color,
+                      issues(last:100) {
+                        nodes {
+                          number
+                        }
                       }
                     }
                   }
                 }
+              }`;
+              const variables = {
+                owner: context.repo.owner,
+                name: context.repo.repo
               }
-            }`;
-            const variables = {
-              owner: context.repo.owner,
-              name: context.repo.repo
+              const result = await github.graphql(query, variables)
+              console.log(result.repository.labels.nodes)
+            } catch (error) {
+              core.setFailed(`GraphQL query failed: ${error.message}`)
             }
-            const result = await github.graphql(query, variables)
-            console.log(result.repository.labels.nodes)
 ```
 3. Commit the changes into the `main` branch
 4. Go to `Actions` and see the details of your running workflow
+
+> **Note:** If the workflow fails with a permissions error, check that the `GITHUB_TOKEN` has write access to issues. If you set the default token to read-only in Lab 2, you may need to add `permissions: issues: write` to the workflow file.
+
+## ✅ Verification Checklist
+
+Before moving on, confirm:
+
+- [ ] The REST API job successfully created and closed an issue in your repository
+- [ ] The GraphQL API job queried repository labels and printed the results
+- [ ] Both workflow jobs completed with a green checkmark in the Actions tab

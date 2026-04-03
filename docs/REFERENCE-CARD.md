@@ -182,3 +182,15 @@ Key principle: **Policies cascade downward. Lower levels can add restrictions bu
 | Enable secret scanning org-wide | Org Security Settings | Org → Settings → Code security |
 | Stream audit log to SIEM | Audit Log Streaming | Enterprise → Settings → Audit log |
 | Automate user provisioning | SCIM | Enterprise → Settings → Authentication |
+
+### Rate Limit Quick Check
+
+```bash
+# Check remaining API quota
+gh api rate_limit --jq '.resources.core | "\(.remaining)/\(.limit) remaining, resets \(.reset | strftime("%H:%M UTC"))"'
+
+# Check GraphQL rate limit
+gh api rate_limit --jq '.resources.graphql | "\(.remaining)/\(.limit) remaining"'
+```
+
+> **Tip:** Authenticated REST requests are limited to **5,000/hour**. GitHub Apps scale up to **12,500/hour**. GraphQL uses a point system with **5,000 points/hour**. If you hit limits during automation, add `sleep` between calls or switch to GraphQL to reduce request count.

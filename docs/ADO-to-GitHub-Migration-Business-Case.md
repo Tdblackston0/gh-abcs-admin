@@ -549,7 +549,7 @@ Forrester's 2025 TEI study of GitHub Enterprise Cloud (composite: 5,000-develope
 ### Governance & Security
 11. [Enforcing Code Governance with Rulesets](https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-code-governance) -- GitHub Docs
 12. [Rulesets Best Practices](https://wellarchitected.github.com/library/governance/recommendations/managing-repositories-at-scale/rulesets-best-practices/) -- GitHub Well-Architected
-13. [GitHub Advanced Security (GHAS)](https://www.microsoft.com/en-us/securityengineering/sdl/ghas) -- Microsoft Security Engineering
+13. [GitHub Advanced Security (GHAS — now Secret Protection + Code Security)](https://www.microsoft.com/en-us/securityengineering/sdl/ghas) -- Microsoft Security Engineering
 14. [Introducing GitHub Secret Protection and GitHub Code Security](https://github.blog/changelog/2025-03-04-introducing-github-secret-protection-and-github-code-security/) -- GitHub Changelog
 
 ### Research & Metrics

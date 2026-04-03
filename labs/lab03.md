@@ -18,6 +18,8 @@ References:
 5. Set the **Ruleset name** to `default-branch-protection`
 6. Leave **Enforcement status** as **Active**
 
+> **Note:** If you do not see the **Rulesets** option under **Rules**, ensure you are on GitHub Enterprise Cloud or a repository in an organization. Rulesets are not available on personal free-tier repositories.
+
 ## 3.2 Configure bypass actors
 
 1. In the **"Bypass list"** section, click **Add bypass**
@@ -47,6 +49,8 @@ In the **"Branch protections"** section, enable the following rules:
     - ✅ Check **"Require branches to be up to date before merging"**
 4. **Block force pushes** — ✅ Already enabled by default. Leave enabled.
 
+> **Tip:** If the `build` status check does not appear in the search results, verify that you completed Lab 2 and that the workflow ran at least once. Status checks only appear in the list after they have been reported at least once on the repository.
+
 ## 3.5 Create and verify the ruleset
 
 1. Click **Create** at the bottom of the page
@@ -64,6 +68,9 @@ In the **"Branch protections"** section, enable the following rules:
     - ❌ Review required (code owner approval needed)
     - ❌ Status check `build` pending/required
 7. Wait for the `build` check to pass (or trigger it if needed)
+
+> **Note:** If you are the only participant in the workshop, you may not be able to fully test the code owner approval requirement. In that case, you can use the admin bypass configured in section 3.2 to merge the PR, or temporarily reduce the required approvals to 0.
+
 8. Ask the code owner to review and approve your PR
 9. Once all checks pass and the review is approved, merge the PR
 
@@ -74,3 +81,12 @@ In the **"Branch protections"** section, enable the following rules:
 3. _(Note)_ On GitHub Enterprise Cloud, you can set rulesets to **Evaluate** mode to dry-run rules against real traffic before activating them
 
 > **Note: Legacy branch protection** — Prior to rulesets (GA July 2023), branch protection rules were the only way to protect branches. They are found at **Settings > Branches** and still function today. Rulesets are the recommended modern approach because they support layering multiple rules, provide an Active/Disabled/Evaluate status, give visibility to all contributors (not just admins), and can be applied at the organization level across multiple repositories. Legacy branch protection rules and rulesets coexist — the most restrictive combination of both applies.
+
+## ✅ Verification Checklist
+
+Before moving on, confirm:
+
+- [ ] A branch ruleset named `default-branch-protection` exists and is active
+- [ ] The ruleset targets the default branch and requires pull requests with at least 1 approval
+- [ ] Direct commits to `main` are blocked — GitHub forces you to create a branch and PR
+- [ ] The `build` status check is required before merging

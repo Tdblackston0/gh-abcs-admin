@@ -15,6 +15,9 @@ References:
 ## 8.1 Navigate the audit log UI
 
 1. To view the **organization audit log**, navigate to your organization page, then go to **Settings** → in the left sidebar under **Archives**, click **Logs** → **Audit log**.
+
+> **Troubleshooting:** If the **Audit log** option doesn't appear under Settings, verify you have organization **Owner** permissions. The audit log is not visible to regular members, moderators, or billing managers. See the [Instructor Guide](../docs/INSTRUCTOR-GUIDE.md) for additional help.
+
 2. Observe the timeline view. Each entry displays:
    - **Action** — the event that occurred (e.g., `repo.create`, `org.invite_member`)
    - **Actor** — the user who performed the action
@@ -109,6 +112,8 @@ Replace `YOUR-ENTERPRISE` with the slug of your enterprise account. The enterpri
      -F after='CURSOR_VALUE'
    ```
 6. Keep in mind the rate limit for audit log API queries is **1,750 requests per hour** per enterprise or organization.
+
+> **Troubleshooting:** If the audit log API returns empty results, verify your PAT has the `admin:org` scope (or `admin:enterprise` for enterprise-level logs). Also confirm you're querying the correct org name — audit logs are org-scoped, not repo-scoped.
 
 ## 8.4 Explore event payloads
 

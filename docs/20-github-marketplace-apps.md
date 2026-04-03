@@ -662,7 +662,7 @@ The Copilot cloud agent (coding agent) supports MCP servers configured at the re
 
 **Push Protection:**
 
-- Push protection secures GitHub MCP server interactions for public repos and repos with GitHub Advanced Security (GHAS) enabled
+- Push protection secures GitHub MCP server interactions for public repos and repos with GitHub Advanced Security (GHAS — now Secret Protection + Code Security) enabled
 - Blocks secrets from appearing in AI-generated responses
 
 **Access Control:**

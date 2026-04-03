@@ -64,6 +64,8 @@ In this section you will intentionally trigger a push protection block to unders
    git push origin test/secret-push-protection
    ```
 6. Observe the push protection block — Git will reject the push with a message identifying the detected secret type (in this case, an AWS Access Key ID) and the file and line where it was found
+
+> **Troubleshooting:** If the push goes through without being blocked, verify push protection is enabled at the repository level (Settings → Code security → Push protection). Also confirm the test string uses the exact `AKIA` prefix — AWS key detection requires this format. See the [Instructor Guide](../docs/INSTRUCTOR-GUIDE.md) for additional help.
 7. Review the bypass options presented in the terminal output:
    - **It's used in tests** — marks the secret as a test credential
    - **It's a false positive** — the detected string is not actually a secret
@@ -93,6 +95,8 @@ Code scanning with CodeQL is part of **GitHub Code Security** ($30/active commit
    - Default setup covers the most common security queries for each detected language
 5. Click **Enable CodeQL** to confirm
 6. Navigate to the **Actions** tab to observe the CodeQL analysis workflow running — it may take several minutes depending on repository size and language
+
+> **Troubleshooting:** If the CodeQL scan hasn't appeared in the Actions tab after 5 minutes, verify the workflow was created by checking `.github/workflows/` for a `codeql.yml` file. If the scan fails, check the workflow logs for language detection issues — you may need to switch to Advanced setup for compiled languages.
 
 > **Timing note:** The initial CodeQL scan can take anywhere from 1 to 15+ minutes depending on repository size and languages. **Continue to the next section (7.4 Dependabot) while the scan runs** and return to review results afterward. This avoids idle waiting during the workshop.
 

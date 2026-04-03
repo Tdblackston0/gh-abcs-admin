@@ -96,6 +96,8 @@ Custom roles can be assigned to both teams and individual collaborators. When co
 
 > Keep the 5-role limit in mind when planning your role strategy. Design roles around personas (contractor, security reviewer, release manager) rather than individual permission combinations, to maximize reuse across teams.
 
+> **Troubleshooting:** If the custom role doesn't appear in repository access dropdowns, refresh the page — role creation can take up to 30 seconds to propagate. If you've hit the 5-role limit, you'll need to delete an existing custom role before creating a new one.
+
 ## 9.4 Test permission inheritance
 
 In this section you will verify that the nested team and permission structure you created works as expected.

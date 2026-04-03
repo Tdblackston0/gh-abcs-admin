@@ -133,7 +133,7 @@ GitHub charges for three distinct categories of products:
 
 | Category | Type | Examples |
 |----------|------|----------|
-| **Plans** | Fixed monthly per-user | GitHub Pro, GitHub Team, GitHub Enterprise Cloud |
+| **Plans** | Fixed monthly per-user | GitHub Pro, GitHub Team, GitHub Enterprise Cloud ($21/user/month) |
 | **Subscriptions** | Fixed monthly per-user | GitHub Secret Protection, GitHub Code Security |
 | **Metered usage** | Variable / consumption-based | GitHub Actions, Packages, Codespaces, Copilot premium requests, Git LFS |
 
@@ -143,7 +143,7 @@ flowchart TD
     A --> C[Subscriptions]
     A --> D[Metered Usage]
 
-    B --> B1[GHEC License<br/>per user/month]
+    B --> B1[GHEC License<br/>$21/user/month]
 
     C --> C1[Secret Protection<br/>$19/committer/month]
     C --> C2[Code Security<br/>$30/committer/month]
@@ -288,7 +288,7 @@ The seat breakdown response from the API includes: `total`, `added_this_cycle`, 
 
 ## Advanced Security Licensing
 
-GitHub Advanced Security (GHAS) has been split into two independently purchasable SKUs since April 1, 2025. This unbundling allows organizations to adopt only the security capabilities they need.
+GitHub Advanced Security (GHAS) — now GitHub Secret Protection and GitHub Code Security — has been split into two independently purchasable SKUs since April 1, 2025. This unbundling allows organizations to adopt only the security capabilities they need.
 
 ### Secret Protection
 
@@ -639,7 +639,7 @@ For programmatic budget creation and usage queries, use these product and SKU id
 | `packages` | GitHub Packages |
 | `codespaces` | GitHub Codespaces |
 | `copilot` | GitHub Copilot |
-| `ghas` | GitHub Advanced Security |
+| `ghas` | GitHub Advanced Security (now Secret Protection + Code Security) |
 | `ghec` | GitHub Enterprise Cloud |
 
 #### Key SKU Identifiers
@@ -770,25 +770,25 @@ Enterprise administrators should be aware of compliance requirements that may af
 
 ## References
 
-1. [How GitHub billing works](https://docs.github.com/en/billing/get-started/how-billing-works)
-2. [Billing for GitHub Enterprise](https://docs.github.com/en/billing/concepts/enterprise-billing/billing-for-enterprises)
-3. [Usage-based billing for enterprise licenses](https://docs.github.com/en/billing/concepts/enterprise-billing/usage-based-licenses)
-4. [GitHub Actions billing](https://docs.github.com/en/billing/concepts/product-billing/github-actions)
-5. [GitHub Advanced Security license billing](https://docs.github.com/en/billing/concepts/product-billing/github-advanced-security)
-6. [Billing cycles](https://docs.github.com/en/billing/concepts/billing-cycles)
-7. [Cost centers](https://docs.github.com/en/billing/concepts/cost-centers)
-8. [Azure subscription payments](https://docs.github.com/en/billing/concepts/azure-subscriptions)
-9. [People who consume a license](https://docs.github.com/en/billing/reference/github-license-users)
-10. [Plans for GitHub Copilot](https://docs.github.com/en/copilot/about-github-copilot/plans-for-github-copilot)
-11. [GitHub Copilot premium requests](https://docs.github.com/en/billing/concepts/product-billing/github-copilot-premium-requests)
-12. [Product usage included with each plan](https://docs.github.com/en/billing/reference/product-usage-included)
-13. [REST API endpoints for billing usage](https://docs.github.com/en/rest/billing/usage)
-14. [REST API endpoints for Copilot user management](https://docs.github.com/en/rest/copilot/copilot-user-management)
-15. [Managing user licenses](https://docs.github.com/en/billing/how-tos/manage-plan-and-licenses/manage-user-licenses)
-16. [License reports reference](https://docs.github.com/en/billing/reference/license-reports)
-17. [GitHub Product and SKU names](https://docs.github.com/en/billing/reference/product-and-sku-names)
-18. [Billing reports reference](https://docs.github.com/en/billing/reference/billing-reports)
-19. [GitHub Copilot licenses](https://docs.github.com/en/billing/concepts/product-billing/github-copilot-licenses)
-20. [Budgets and alerts](https://docs.github.com/en/billing/concepts/budgets-and-alerts)
-21. [Automating usage reporting with the REST API](https://docs.github.com/en/billing/tutorials/automate-usage-reporting)
-22. [REST API endpoints for billing](https://docs.github.com/en/rest/billing/billing)
+1. [How GitHub billing works](https://docs.github.com/en/enterprise-cloud@latest/billing/get-started/how-billing-works)
+2. [Billing for GitHub Enterprise](https://docs.github.com/en/enterprise-cloud@latest/billing/concepts/enterprise-billing/billing-for-enterprises)
+3. [Usage-based billing for enterprise licenses](https://docs.github.com/en/enterprise-cloud@latest/billing/concepts/enterprise-billing/usage-based-licenses)
+4. [GitHub Actions billing](https://docs.github.com/en/enterprise-cloud@latest/billing/concepts/product-billing/github-actions)
+5. [GitHub Advanced Security (now Secret Protection + Code Security) license billing](https://docs.github.com/en/enterprise-cloud@latest/billing/concepts/product-billing/github-advanced-security)
+6. [Billing cycles](https://docs.github.com/en/enterprise-cloud@latest/billing/concepts/billing-cycles)
+7. [Cost centers](https://docs.github.com/en/enterprise-cloud@latest/billing/concepts/cost-centers)
+8. [Azure subscription payments](https://docs.github.com/en/enterprise-cloud@latest/billing/concepts/azure-subscriptions)
+9. [People who consume a license](https://docs.github.com/en/enterprise-cloud@latest/billing/reference/github-license-users)
+10. [Plans for GitHub Copilot](https://docs.github.com/en/enterprise-cloud@latest/copilot/about-github-copilot/plans-for-github-copilot)
+11. [GitHub Copilot premium requests](https://docs.github.com/en/enterprise-cloud@latest/billing/concepts/product-billing/github-copilot-premium-requests)
+12. [Product usage included with each plan](https://docs.github.com/en/enterprise-cloud@latest/billing/reference/product-usage-included)
+13. [REST API endpoints for billing usage](https://docs.github.com/en/enterprise-cloud@latest/rest/billing/usage)
+14. [REST API endpoints for Copilot user management](https://docs.github.com/en/enterprise-cloud@latest/rest/copilot/copilot-user-management)
+15. [Managing user licenses](https://docs.github.com/en/enterprise-cloud@latest/billing/how-tos/manage-plan-and-licenses/manage-user-licenses)
+16. [License reports reference](https://docs.github.com/en/enterprise-cloud@latest/billing/reference/license-reports)
+17. [GitHub Product and SKU names](https://docs.github.com/en/enterprise-cloud@latest/billing/reference/product-and-sku-names)
+18. [Billing reports reference](https://docs.github.com/en/enterprise-cloud@latest/billing/reference/billing-reports)
+19. [GitHub Copilot licenses](https://docs.github.com/en/enterprise-cloud@latest/billing/concepts/product-billing/github-copilot-licenses)
+20. [Budgets and alerts](https://docs.github.com/en/enterprise-cloud@latest/billing/concepts/budgets-and-alerts)
+21. [Automating usage reporting with the REST API](https://docs.github.com/en/enterprise-cloud@latest/billing/tutorials/automate-usage-reporting)
+22. [REST API endpoints for billing](https://docs.github.com/en/enterprise-cloud@latest/rest/billing/billing)

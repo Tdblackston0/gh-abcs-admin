@@ -2,6 +2,13 @@
 In this lab you will identify inactive users in your GitHub organization, generate dormant user reports using API scripts, and design a license reclamation workflow to optimize seat costs.
 > Duration: 15-20 minutes
 
+> **⏱️ Estimated time:** 20 minutes | **Type:** Self-Paced Extension
+>
+> **What you'll learn:**
+> - How to list organization members and query their activity via the GitHub API
+> - How to identify dormant users using public events and audit log data
+> - How to design a license reclamation workflow to optimize seat costs
+
 > **Environment note:** This lab is written for **organization-level** access. All hands-on steps work with an org admin account — no enterprise account is needed. The enterprise dormant users dashboard is covered in collapsible sections for participants who have enterprise access.
 
 References:
@@ -73,6 +80,8 @@ done
 
 Review the output and note the limitations:
 - Only **public events** are returned — private repository activity is not visible through this endpoint
+
+> **Troubleshooting:** If the dormant user script returns zero results or errors, check that: (1) you replaced `YOUR-ORG` with your actual org name, (2) your PAT has `read:org` and `read:user` scopes, and (3) the org has more than one member. If all members show "none" for last activity, your org may be too new — adjust the detection threshold or use the audit log approach below instead.
 - API rate limits apply (5,000 requests per hour for authenticated requests)
 - Enterprise Managed User (EMU) accounts may not generate public events
 

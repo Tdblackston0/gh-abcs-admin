@@ -18,7 +18,7 @@ This document explores the technical architecture, configuration patterns, and o
 
 ### Architecture and Components
 
-GitHub Advanced Security represents an integrated security platform built directly into the GitHub development workflow. Unlike bolt-on security tools that operate externally, GHAS features are embedded in the code review process, pull request workflows, and repository security tabs, creating a frictionless security experience that encourages adoption and remediation.
+GitHub Advanced Security (now GitHub Secret Protection + GitHub Code Security) represents an integrated security platform built directly into the GitHub development workflow. Unlike bolt-on security tools that operate externally, GHAS features are embedded in the code review process, pull request workflows, and repository security tabs, creating a frictionless security experience that encourages adoption and remediation.
 
 As of 2025, GHAS comprises two standalone products — each available separately on GitHub Team and Enterprise plans:
 
@@ -88,6 +88,8 @@ Enterprise administrators can enforce security product enablement through enterp
 Implementing Secret Protection and Code Security across enterprise organizations requires standardized security posture management while respecting organizational autonomy. This involves:
 
 **Baseline Security Policies**: Establish minimum security standards across all organizations through enterprise policies. These may include mandatory code scanning on critical repositories, mandatory secret scanning with push protection, and required dependency vulnerability reviews before merge.
+
+**Code Security Configurations**: GitHub provides [code security configurations](https://docs.github.com/en/enterprise-cloud@latest/code-security/securing-your-organization/introduction-to-securing-your-organization-at-scale/about-enabling-security-features-at-scale) as an organization-level feature for applying pre-built or custom security settings across multiple repositories at once. Organizations can use the GitHub-recommended default configuration or create custom configurations that specify which security features (code scanning, secret scanning, Dependabot, etc.) to enable, and then apply them to groups of repositories in a single action — eliminating the need to configure each repository individually.
 
 **Organization Inheritance Hierarchy**: As described in [Policy Inheritance Architecture](./06-policy-inheritance.md), security configurations flow from enterprise to organization to repository levels. Secret Protection and Code Security enablement policies cascade through this hierarchy, with organizations inheriting enterprise mandates while adding organization-specific controls.
 
@@ -878,6 +880,38 @@ GitHub Cloud for Government meets FedRAMP Moderate baseline requirements:
 - Data deletion capabilities and privacy rights management
 - Transparency in data collection and processing
 
+### Security Campaigns
+
+Security campaigns allow you to coordinate large-scale remediation of security alerts across your organization:
+
+- **Create a campaign:** Select alerts from the Security Overview dashboard. Group by vulnerability type or severity. Create campaign with a title, description, and due date
+- **Assign to teams:** Campaign alerts can be assigned to specific teams or individual developers
+- **Track progress:** Monitor remediation rates, pending alerts, and overdue items from the campaign dashboard
+- **Automate with Copilot Autofix:** For CodeQL alerts, enable Copilot Autofix to generate suggested fixes that developers can review and merge
+
+Campaigns are most effective for addressing systematic issues (e.g., "remediate all SQL injection findings across the org by Q2") rather than individual alerts.
+
+### Software Bill of Materials (SBOM)
+
+GitHub supports generating SBOMs for supply chain transparency and regulatory compliance:
+
+- **Generate via UI:** Repository. Insights. Dependency graph. Export SBOM (SPDX format)
+- **Generate via CLI:** `gh api /repos/{owner}/{repo}/dependency-graph/sbom` returns SPDX JSON
+- **Supported formats:** SPDX 2.3 (JSON) — the industry standard for software component inventory
+- **Scope:** Includes all dependencies detected by the dependency graph (manifest files + lock files)
+
+**Governance recommendation:** Include SBOM generation in CI/CD pipelines for release artifacts. Many compliance frameworks (NIST, EO 14028, EU CRA) now require SBOM documentation for software supply chain transparency.
+
+### Artifact Attestations & Build Provenance
+
+Artifact attestations provide cryptographic proof of where and how a software artifact was built:
+
+- **Generate attestations:** Use `actions/attest-build-provenance@v2` in your GitHub Actions workflow to create a signed attestation for build outputs
+- **Verify attestations:** Use `gh attestation verify <artifact> --owner <org>` to verify that an artifact was built in a trusted workflow
+- **SLSA compliance:** Attestations conform to SLSA (Supply-chain Levels for Software Artifacts) Build Level 2, providing tamper-evident build provenance
+
+**Enterprise policy:** Consider requiring attestations for all production deployments. Combine with deployment environment protection rules to enforce that only attested artifacts can be deployed.
+
 ## Enterprise-Scale Security Implementation
 
 ### Security Architecture at Scale
@@ -1116,15 +1150,15 @@ Continuous monitoring ensures security posture remains compliant:
 ## References
 
 ### GitHub Advanced Security Documentation (Secret Protection & Code Security)
-- [GitHub Code Scanning Documentation](https://docs.github.com/en/code-security/code-scanning)
+- [GitHub Code Scanning Documentation](https://docs.github.com/en/enterprise-cloud@latest/code-security/code-scanning)
 - [CodeQL Query Language Documentation](https://codeql.github.com/docs/)
-- [GitHub Secret Scanning Documentation](https://docs.github.com/en/code-security/secret-scanning)
-- [GitHub Dependabot Documentation](https://docs.github.com/en/code-security/dependabot)
+- [GitHub Secret Scanning Documentation](https://docs.github.com/en/enterprise-cloud@latest/code-security/secret-scanning)
+- [GitHub Dependabot Documentation](https://docs.github.com/en/enterprise-cloud@latest/code-security/dependabot)
 
 ### GitHub Enterprise Cloud Security
 - [Enterprise Security Documentation](https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-security-settings-in-your-enterprise)
 - [Audit Log API Reference](https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise)
-- [Private Vulnerability Reporting](https://docs.github.com/en/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability)
+- [Private Vulnerability Reporting](https://docs.github.com/en/enterprise-cloud@latest/code-security/security-advisories/guidance-on-reporting-and-writing-information-about-vulnerabilities/privately-reporting-a-security-vulnerability)
 
 ### Compliance and Certifications
 - [GitHub Trust Center - Security Certifications](https://www.github.com/security)
@@ -1133,7 +1167,7 @@ Continuous monitoring ensures security posture remains compliant:
 - [FedRAMP Authorization](https://marketplace.fedramp.gov/)
 
 ### Integration Patterns
-- [GitHub Actions Security](https://docs.github.com/en/actions/security-guides)
+- [GitHub Actions Security](https://docs.github.com/en/enterprise-cloud@latest/actions/security-guides)
 - [SIEM Integration Best Practices](https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise)
 - [GitHub Apps for Security Integration](https://docs.github.com/en/developers/apps)
 

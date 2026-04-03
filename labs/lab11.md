@@ -2,6 +2,13 @@
 In this lab you will browse the GitHub Marketplace, install and configure a GitHub App, review app permissions from an admin perspective, and evaluate the differences between GitHub Apps and OAuth Apps for enterprise governance.
 > Duration: 15-20 minutes
 
+> **⏱️ Estimated time:** 20 minutes | **Type:** Self-Paced Extension
+>
+> **What you'll learn:**
+> - How to evaluate and install GitHub Apps from the Marketplace
+> - How to review and manage app permissions for your organization
+> - The key differences between GitHub Apps and OAuth Apps for enterprise governance
+
 References:
 - [About GitHub Apps](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps)
 - [GitHub Marketplace](https://github.com/marketplace)
@@ -36,6 +43,8 @@ References:
 
 1. Return to [https://github.com/marketplace](https://github.com/marketplace) and choose a free, low-risk GitHub App to install. Good candidates include labeling apps, notification bots, or stale-issue managers.
 2. On the app's Marketplace listing, click the **Install it for free** (or **Set up a plan**) button.
+
+> **Troubleshooting:** If the installation prompt doesn't appear or you receive a permissions error, verify you have org Owner or App Manager role. If you see "This app is not available for your organization," check whether your enterprise has a policy restricting GitHub App installations to approved apps only (Enterprise → Policies → GitHub Apps).
 3. Select the organization where you want to install the app. If prompted, choose a free plan.
 4. On the installation page, you will be asked to choose repository access:
    - **All repositories** — the app gains access to every repository in the organization, including future repositories.

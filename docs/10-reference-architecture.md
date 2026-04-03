@@ -520,6 +520,30 @@ graph LR
     style Prod fill:#dc3545,color:#fff
 ```
 
+### GitHub-Hosted Larger Runners
+
+GitHub Enterprise Cloud provides larger runner options beyond the standard 2-vCPU runner for demanding workloads:
+
+| Runner Type | vCPU | RAM | Storage | OS |
+|-------------|------|-----|---------|-----|
+| Standard | 2 | 7 GB | 14 GB | Linux, Windows |
+| 4-vCPU | 4 | 16 GB | 150 GB | Linux, Windows |
+| 8-vCPU | 8 | 32 GB | 300 GB | Linux, Windows |
+| 16-vCPU | 16 | 64 GB | 600 GB | Linux, Windows |
+| 32-vCPU | 32 | 128 GB | 1200 GB | Linux, Windows |
+| 64-vCPU | 64 | 256 GB | 2040 GB | Linux, Windows |
+| GPU (Linux) | 4 | 28 GB | 176 GB | Linux (T4 GPU) |
+| macOS M1 | 3 | 7 GB | 14 GB | macOS |
+
+**Azure Private Networking (VNET Injection):** GitHub-hosted runners can be deployed into your Azure VNET for secure access to internal resources without exposing services to the public internet. This is configured at the enterprise or organization level and requires an Azure subscription linked to your GitHub enterprise.
+
+**Runner Groups:** Organize runners into groups to control which repositories and workflows can use specific runner types. Use runner groups to enforce cost controls (e.g., restrict GPU runners to ML repositories only) and security boundaries.
+
+**When to use larger runners vs self-hosted:**
+- **Larger runners:** Zero maintenance, clean environment per job, best for most build workloads needing more resources
+- **Self-hosted with VNET:** When you need private network access AND custom software preinstalled
+- **GPU runners:** ML model training, GPU-accelerated testing
+
 ---
 
 ## Hybrid and Multi-Cloud Integration

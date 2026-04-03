@@ -88,3 +88,40 @@ Based on what you learned, identify your top 3 action items to implement in your
 - Schedule a 30-minute check-in 2-4 weeks post-workshop
 - Share any new GitHub features or announcements relevant to workshop topics
 - Offer async support via GitHub Discussions or email
+
+---
+
+## 🎓 Certification & Continuing Education Paths
+
+### GitHub Certifications
+
+GitHub offers certifications that directly align with this workshop's content. Use the mapping below to plan your certification journey:
+
+| Certification | Workshop Alignment | Key Modules |
+|--------------|-------------------|-------------|
+| **[GitHub Administration](https://examregistration.github.com/certification/GHAD)** | ⭐ Primary — directly maps to this workshop | All modules (IAM, governance, security, policies, audit) |
+| **[GitHub Actions](https://examregistration.github.com/certification/GHAC)** | Strong — CI/CD and automation content | Deployment strategies, Actions security, API automation |
+| **[GitHub Advanced Security (Secret Protection & Code Security)](https://examregistration.github.com/certification/GHAS)** | Strong — security modules | Secret Protection, Code Security, Dependabot, push protection |
+| **[GitHub Copilot](https://examregistration.github.com/certification/GHCP)** | Moderate — governance perspective | Copilot governance, enterprise policies, content exclusions |
+
+### Microsoft Learn Paths
+
+| Learning Path | Relevance |
+|---------------|-----------|
+| [GitHub Administration](https://learn.microsoft.com/en-us/collections/mom7u1gzjdxw03) | Directly complements this workshop |
+| [Manage source control with GitHub](https://learn.microsoft.com/en-us/training/paths/manage-source-control/) | Repository management foundations |
+| [Build with GitHub Actions](https://learn.microsoft.com/en-us/training/paths/build-applications-github-actions/) | CI/CD pipeline design and automation |
+| [GitHub Security (Secret Protection & Code Security)](https://learn.microsoft.com/en-us/collections/rqymc6yw8q5rey) | Security configuration and monitoring |
+
+### Azure Certification Overlap
+
+The **[AZ-400: Azure DevOps Engineer Expert](https://learn.microsoft.com/en-us/credentials/certifications/devops-engineer/)** certification covers GitHub integration topics addressed in this workshop, including GitHub Actions for CI/CD, GitHub security features (Secret Protection & Code Security), and GitHub-Azure OIDC federation.
+
+### What to Study Next
+
+Based on your workshop experience, here's a recommended progression:
+
+1. **Weeks 1-2:** Complete self-paced extension labs (Labs 1, 2, 10, 11, 12, 14)
+2. **Weeks 2-4:** Work through the [GitHub Administration MS Learn collection](https://learn.microsoft.com/en-us/collections/mom7u1gzjdxw03)
+3. **Month 2:** Take the **GitHub Administration** certification exam
+4. **Month 3:** Pursue **GitHub Security** or **GitHub Actions** certification based on your role focus

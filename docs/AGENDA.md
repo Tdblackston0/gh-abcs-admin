@@ -25,7 +25,7 @@ By the end of this workshop, participants will be able to:
 - Administer users, teams, and organizational settings at enterprise scale
 - Leverage the GitHub API, webhooks, and gh CLI for automation
 - Apply audit logging and dormant user management best practices
-- Understand deployment strategies, marketplace apps, and third-party integrations
+- Evaluate deployment strategies, marketplace apps, and third-party integrations
 
 ---
 

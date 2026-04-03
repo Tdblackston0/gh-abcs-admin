@@ -7,6 +7,13 @@ In this lab you will configure GitHub environments with protection rules and cre
 
 > Duration: 20-25 minutes
 
+> **⏱️ Estimated time:** 25 minutes | **Type:** Self-Paced Extension
+>
+> **What you'll learn:**
+> - How to create and configure deployment environments with protection rules
+> - How to enforce approval gates, wait timers, and branch policies
+> - How environment protection integrates with GitHub Actions workflows
+
 References:
 - [Using environments for deployment](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment)
 - [Managing environments for deployment](https://docs.github.com/en/actions/deployment/targeting-different-environments/managing-environments-for-deployment)
@@ -106,6 +113,8 @@ jobs:
    - The `workflow_dispatch` trigger allows you to manually run this workflow from the **Actions** tab without pushing a commit.
 6. Set the commit message to `Add deployment workflow` and commit directly to the `main` branch.
 7. Because the workflow triggers on `push` to `main`, committing this file will immediately start a workflow run.
+
+> **Troubleshooting:** If the workflow doesn't trigger after committing, verify: (1) the YAML file is in `.github/workflows/` on the default branch, (2) GitHub Actions is enabled for the repository (Settings → Actions → General), and (3) the file has valid YAML syntax (indentation matters). Check the Actions tab for any workflow parse errors.
 
 > **Advanced:** In real-world deployments, replace the `echo` commands with actual deployment steps — for example, authenticating to a cloud provider via OIDC federation and deploying infrastructure or application code. To use environment secrets and variables in a build or test job without creating a deployment record, consider using a separate job that reads the secrets from the environment and passes them as outputs, or reference the environment only in jobs that perform actual deployments.
 

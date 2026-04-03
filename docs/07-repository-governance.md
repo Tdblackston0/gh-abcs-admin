@@ -221,7 +221,7 @@ GitHub provides two mechanisms for enforcing repository policies: legacy **Branc
 
 3. **Advanced Targeting:**
    - Include/exclude patterns: `main`, `develop`, `release/**`, `~hotfix/*`
-   - Target by repository properties (visibility, template origin)
+   - Target by repository properties (visibility, template origin) — see [Properties-Based Ruleset Targeting](#properties-based-ruleset-targeting) below
    - Default branch vs all branches
    - Tag protection with version patterns (`v*`, `v[0-9].[0-9].[0-9]`)
 
@@ -624,6 +624,23 @@ prod-*          # Production deployments
 - Unprotected pre-release tags (`alpha-*`, `beta-*`)
 - Tag/branch naming conflicts
 - Manual tag creation without CI validation
+
+### Properties-Based Ruleset Targeting
+
+Custom repository properties enable fine-grained ruleset targeting based on metadata rather than naming patterns:
+
+**Define custom properties** at the organization level:
+- Navigate to Organization Settings. Custom properties. New property
+- Examples: `environment` (production, staging, development), `team` (platform, frontend, data), `compliance-level` (high, medium, low)
+
+**Target rulesets by property values:**
+- When creating an org-level ruleset, under "Target repositories," select "Target by property"
+- Configure conditions like: `environment = production AND compliance-level = high`
+- The ruleset automatically applies to all matching repositories — including newly created ones
+
+**Automation:** Properties can be set via the REST API (`PATCH /repos/{owner}/{repo}/properties/values`) or Terraform (`github_repository` resource), enabling automated classification at repository creation time.
+
+This approach scales better than name-based patterns for large organizations where repositories may not follow consistent naming conventions.
 
 ## Push Rulesets and File Path Restrictions
 
@@ -1471,16 +1488,16 @@ gh api \
 ### Official Documentation
 
 - [Repository Settings and Features](https://docs.github.com/en/enterprise-cloud@latest/repositories/managing-your-repositorys-settings-and-features) - Comprehensive guide to repository configuration options
-- [Managing Branch Protection Rules](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/managing-a-branch-protection-rule) - Legacy branch protection configuration
+- [Managing Branch Protection Rules](https://docs.github.com/en/enterprise-cloud@latest/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/managing-a-branch-protection-rule) - Legacy branch protection configuration
 - [About Repository Rulesets](https://docs.github.com/en/enterprise-cloud@latest/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets) - Modern ruleset capabilities and advantages
 - [Creating Rulesets for Repositories](https://docs.github.com/en/enterprise-cloud@latest/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/creating-rulesets-for-a-repository) - Step-by-step ruleset configuration
-- [Managing Code Review Settings](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches#require-pull-request-reviews-before-merging) - Pull request review requirements
-- [About Code Owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) - CODEOWNERS file syntax and behavior
-- [Managing Merge Queue](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue) - Merge queue configuration and usage
-- [About Commit Signature Verification](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification) - GPG and SSH commit signing
-- [About Tag Protection Rules](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/configuring-tag-protection-rules) - Protecting release tags
-- [Archiving Repositories](https://docs.github.com/en/repositories/archiving-a-github-repository/archiving-repositories) - Repository archival procedures
-- [Transferring a Repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/transferring-a-repository) - Ownership transfer process
+- [Managing Code Review Settings](https://docs.github.com/en/enterprise-cloud@latest/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/about-protected-branches#require-pull-request-reviews-before-merging) - Pull request review requirements
+- [About Code Owners](https://docs.github.com/en/enterprise-cloud@latest/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners) - CODEOWNERS file syntax and behavior
+- [Managing Merge Queue](https://docs.github.com/en/enterprise-cloud@latest/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue) - Merge queue configuration and usage
+- [About Commit Signature Verification](https://docs.github.com/en/enterprise-cloud@latest/authentication/managing-commit-signature-verification/about-commit-signature-verification) - GPG and SSH commit signing
+- [About Tag Protection Rules](https://docs.github.com/en/enterprise-cloud@latest/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/configuring-tag-protection-rules) - Protecting release tags
+- [Archiving Repositories](https://docs.github.com/en/enterprise-cloud@latest/repositories/archiving-a-github-repository/archiving-repositories) - Repository archival procedures
+- [Transferring a Repository](https://docs.github.com/en/enterprise-cloud@latest/repositories/creating-and-managing-repositories/transferring-a-repository) - Ownership transfer process
 
 ### Related Documentation
 
