@@ -34,8 +34,8 @@ By the end of this workshop, participants will be able to:
 
 | Day | Theme | Focus Areas |
 |-----|-------|-------------|
-| **Day 1** | Working on GitHub | Repository governance, rulesets, security scanning, privacy, licenses |
-| **Day 2** | Integrations, Admin, API, and Advanced Topics | Identity, enterprise policies, audit log, API, automation, deployment |
+| **Day 1** | Enterprise, Organization & Governance | Enterprise hierarchy, policies, identity, teams, audit log |
+| **Day 2** | Repository, Security, API & Advanced Topics | Repository governance, rulesets, security scanning, API, automation |
 
 Each day follows a consistent rhythm: **presentation → lab → presentation → lab**, with a 10-minute break near the midpoint. Presentations should stay under 20 minutes to keep participants engaged before the next hands-on lab.
 
@@ -75,9 +75,9 @@ The VBD specification defines the following **mandatory prerequisites** that the
 
 **Instructor action:** Before Day 1, confirm each of these items with the customer's technical contact. If any item is unresolved, escalate immediately — the workshop cannot proceed without admin access for all participants.
 
-## Day 1 Module Guide
+## Day 2 Module Guide
 
-Day 1 focuses on **"Working on GitHub"** — repository governance, branch protection, security, and policy. Total time: 180 minutes (3 hours).
+Day 2 focuses on **"Repository, Security, API & Advanced Topics"** — repository governance, rulesets, security scanning, API automation, and deployment. Total time: 180 minutes (3 hours).
 
 Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
 
@@ -307,26 +307,29 @@ Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
 
 ---
 
-### Day 1 Timing Summary
+### Day 2 Timing Summary
 
 | Slot | Duration | Content |
 |------|----------|---------|
-| Welcome | 10 min | Introduction, objectives, logistics |
-| Setup | 5 min | Environment verification |
-| Module 1.1 | 25 min | Repository permissions + Lab 4 |
-| Module 1.2–1.3 | 40 min | Branches, PRs, Rulesets + Lab 3 |
+| Welcome | 5 min | Day 2 kickoff, recap Day 1 |
+| Module 1.1 | 25 min | Repository governance, templates + Lab 4 |
+| Module 1.2–1.3 | 30 min | Rulesets deep dive + Lab 3 |
+| Module 1.3–1.4 | 15 min | Advanced Rulesets: Lab 6 |
 | ☕ Break | 10 min | — |
-| Module 1.4 | 35 min | Required status checks + Lab 6 |
-| Module 1.5 | 40 min | Security in the cloud + Lab 7 |
-| Module 1.6–1.8 | 10 min | Privacy, Licenses, Marketplace (presentation only) |
-| Wrap-up | 5 min | Day 1 summary, Q&A, preview Day 2 |
+| Module 1.5 | 35 min | Security scanning, push protection + Lab 7 |
+| Module 2.8–2.11 | 25 min | API and webhooks + Lab 5 |
+| Module 2.9–2.14 | 25 min | Actions, automation, Marketplace + Lab 13 |
+| Module 1.6–1.8 | 5 min | Privacy, licenses, repo health overview |
+| Wrap-up | 5 min | Knowledge check, assessment, next steps |
 | **Total** | **180 min** | — |
 
-## Day 2 Module Guide
+## Day 1 Module Guide
 
-Day 2 focuses on **"Integrations, Admin, API, and Advanced Topics"** — identity management, enterprise policies, audit logging, API automation, and deployment. Total time: 180 minutes (3 hours).
+Day 1 focuses on **"Enterprise, Organization & Governance"** — enterprise hierarchy, policies, identity management, team structure, and audit logging. Total time: 180 minutes (3 hours).
 
 Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
+
+> **Note:** Modules 2.8–2.11 (API/Webhooks) and 2.9–2.14 (Integrations/Automation) appear at the end of this section for document organization by VBD module number, but they are delivered on **Day 2** per the [AGENDA.md](AGENDA.md). See the Day 2 Timing Summary above for their scheduled slots.
 
 ### Module 2.1: Integrations and Authentication
 
@@ -601,19 +604,23 @@ Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
 
 ---
 
-### Day 2 Timing Summary
+### Day 1 Timing Summary
 
 | Slot | Duration | Content |
 |------|----------|---------|
-| Welcome | 5 min | Day 2 kickoff, recap Day 1 |
-| Module 2.1 | 15 min | Integrations and authentication |
-| Module 2.2 | 25 min | Enterprise administration + Lab 15 |
-| Module 2.4–2.5–2.7 | 35 min | Org settings, user admin, teams + Lab 9 |
+| Welcome | 10 min | Introduction, objectives, logistics |
+| Setup | 5 min | Environment verification |
+| Enterprise overview | 20 min | GHEC vs GHES, billing, plans |
+| Permission flow | 15 min | Hierarchy, visibility, base permissions, roles |
+| Enterprise admin | 15 min | Enterprise policies, settings, Copilot governance |
+| Lab 15 | 15 min | Copilot Governance Configuration |
 | ☕ Break | 10 min | — |
-| Module 2.3–2.6 | 30 min | Audit log and dormant users + Lab 8 |
-| Module 2.8–2.11 | 25 min | GitHub API and webhooks + Lab 5 |
-| Module 2.9–2.14 | 25 min | Integrations, deployment, automation + Lab 13 |
-| Wrap-up | 10 min | Knowledge check, assessment, next steps |
+| Org overview | 15 min | SSO, SAML/SCIM, org settings |
+| Org admin | 15 min | Teams, nested teams, team sync |
+| Lab 9 | 20 min | User and Team Administration |
+| Audit & dormant | 10 min | Audit log, dormant user management |
+| Lab 8 | 20 min | Audit Log Exploration |
+| Wrap-up | 10 min | Day 1 Q&A, preview Day 2 |
 | **Total** | **180 min** | — |
 
 ## Troubleshooting
@@ -694,3 +701,25 @@ Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
 - Provide the [REFERENCE-CARD.md](REFERENCE-CARD.md) as a quick-reference bookmark
 - Follow up on any unanswered questions from the workshop within 1 week
 - Collect delivery feedback to improve future workshop iterations
+
+## PPT Slide Reference
+
+This section maps each slide in the official "Offering - GitHub Administration Training" deck to the corresponding workshop module, documentation, and lab.
+
+The PPT deck follows a **top-down flow**: Enterprise → Organization → Repository → API & Authentication → Actions & Marketplace. The workshop [AGENDA](AGENDA.md) may order sessions differently for pedagogical reasons (e.g., starting with repository governance on Day 1 so participants get hands-on experience early). Use this table to quickly locate the supporting documentation and lab for any slide you are presenting.
+
+| Slide # | Slide Title / Topic | Module / Topic | Repo Doc(s) | Lab(s) |
+|---------|---------------------|----------------|-------------|--------|
+| 1 | Title | — | — | — |
+| 2 | Objectives | — | — | — |
+| 3–4 | Agenda | — | [AGENDA.md](AGENDA.md) | — |
+| 5–9 | GitHub Enterprise Overview (Platforms, GHEC, GHES, Billing) | VBD: Enterprise Overview | [01-enterprise-hierarchy](01-enterprise-hierarchy.md), [19-licenses-billing](19-licenses-billing.md) | — |
+| 10–15 | Permission Flow (hierarchy, visibility, base permissions, roles) | VBD 1.1 | [05-teams-permissions](05-teams-permissions.md), [07-repository-governance](07-repository-governance.md) | Lab 4 (Templates) |
+| 16–17 | Enterprise Administration (demo) | VBD 2.2 | [01-enterprise-hierarchy](01-enterprise-hierarchy.md), [06-policy-inheritance](06-policy-inheritance.md) | Lab 15 (Copilot Governance) |
+| 18–31 | Organization Overview (namespaces, users, SSO, teams) | VBD 2.1, 2.4, 2.5, 2.7 | [02-org-strategies](02-org-strategies.md), [03-iam](03-iam.md), [04-emu](04-emu.md), [05-teams-permissions](05-teams-permissions.md) | Lab 9 (Teams) |
+| 32–45 | Organization Administration (settings, nested teams, team sync, insights, security) | VBD 2.3, 2.5, 2.6 | [21-user-admin](21-user-admin.md), [08-security-compliance](08-security-compliance.md), [22-audit-log-deep-dive](22-audit-log-deep-dive.md) | Lab 8 (Audit), Lab 9 (Teams) |
+| 46–49 | Repository (overview, settings, rulesets, CODEOWNERS) | VBD 1.1–1.4 | [07-repository-governance](07-repository-governance.md) | Lab 3 (Rulesets), Lab 6 (Advanced Rulesets) |
+| 50–61 | API & Authentication Methods (REST, GraphQL, GitHub Apps, OAuth, PATs) | VBD 2.8, 2.11 | [24-scripts-automation](24-scripts-automation.md), [27-integrations-status-api](27-integrations-status-api.md) | Lab 5 (API) |
+| 62–67 | Actions Overview (policies, sharing, best practices) | VBD 2.4, 2.12 | [24-scripts-automation](24-scripts-automation.md) | Lab 2 (Actions Settings), Lab 13 (Automation) |
+| 68–69 | Marketplace Overview | VBD 1.8 | [20-github-marketplace-apps](20-github-marketplace-apps.md) | Lab 11 (Apps/Marketplace) |
+| 70–71 | Q&A / Thank You | — | — | — |
