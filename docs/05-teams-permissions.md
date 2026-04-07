@@ -194,7 +194,7 @@ Team sync enables automatic team membership management through IdP groups, ensur
 
 ```mermaid
 sequenceDiagram
-    participant IdP as Identity Provider<br/>(Azure AD/Okta)
+    participant IdP as Identity Provider<br/>(Entra ID/Okta)
     participant SCIM as SCIM Bridge
     participant GH as GitHub Enterprise
     participant Team as GitHub Team

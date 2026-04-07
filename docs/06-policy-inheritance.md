@@ -212,7 +212,7 @@ graph TD
     C --> F[Repo B1 Workflow]
     
     A -->|Enforced: Only Approved Actions| G[Enterprise Allowlist]
-    G -->|Contains| H["actions/checkout@v4<br/>actions/setup-node@v4<br/>github/codeql-action/*"]
+    G -->|Contains| H["actions/checkout@v6<br/>actions/setup-node@v4<br/>github/codeql-action/*"]
     
     B -->|Org A Adds| I["Org-Specific Actions<br/>org-a/deploy-action@v1"]
     C -->|Org B Restricts Further| J[No Self-Hosted Runners]
@@ -291,15 +291,67 @@ Controls the publication of static websites from repositories:
 
 Pages policies balance the value of documentation and project websites against security concerns about inadvertent data exposure. Many enterprises disable public Pages or require approval workflows for Pages publication.
 
-### Project Visibility Policies
+### Projects (New) Administration
 
-GitHub Projects (project boards) have separate visibility controls:
+GitHub Projects (new) provide flexible planning and tracking capabilities at both the organization and repository level. For comprehensive documentation, see the [GitHub Projects docs](https://docs.github.com/en/issues/planning-and-tracking-with-projects).
 
-- **Organization projects:** Whether organizations can create projects visible to all organization members
-- **Repository projects:** Controls on repository-level project visibility
-- **Enterprise-wide projects:** Availability of enterprise-level project tracking
+#### Organization-Level Project Settings
 
-Projects can contain sensitive planning information, making visibility controls important for enterprises with confidential product roadmaps or competitive intelligence concerns.
+- **Project creation permissions:** Org owners can control who creates org-level projects—all members or admins only
+- **Repository linking:** Projects can be linked to one or more repositories, enabling cross-repo issue and PR tracking within a single board
+- **Org-level visibility:** Org-level projects are visible based on the project's visibility setting (see below), not repository permissions
+
+#### Project Visibility
+
+Projects support three visibility levels, each with distinct access implications:
+
+- **Private** — only users explicitly added to the project can view or access it
+- **Organization** — all organization members can view the project (default for org-level projects)
+- **Public** — anyone on GitHub can view the project (available only for user-owned projects)
+
+Enterprise policy can restrict project visibility options at the organization level, preventing org projects from being made public or limiting creation to administrators. This is critical for enterprises managing confidential roadmaps or competitive intelligence.
+
+#### Project Roles and Permissions
+
+Access to a project is controlled through four permission levels:
+
+- **No access** — the user cannot see the project at all
+- **Read** — the user can view the project and its items but cannot make changes
+- **Write** — the user can edit items, modify field values, and manage views
+- **Admin** — full control including project settings, field definitions, workflow configuration, and member management
+
+Org-level projects also inherit a base permission for all organization members (similar to repository base permissions). Org owners can set this base to Read, Write, or No access depending on governance needs.
+
+#### Custom Fields and Field Types
+
+Projects support several field types for structured tracking:
+
+- **Text** — free-form text for notes or descriptions
+- **Number** — numeric values for sizing, priority scores, or estimates
+- **Date** — calendar dates for deadlines or milestones
+- **Single select** — predefined options for status tracking (e.g., Todo / In Progress / Done)
+- **Iteration** — time-boxed sprint cycles with configurable start and end dates
+
+Fields are defined per-project and are not shared across projects. Organizations should establish naming conventions to maintain consistency (e.g., always using "Status" and "Priority" with the same option values across team projects).
+
+#### Built-in Workflows (Automations)
+
+Projects include configurable automation workflows accessible via the **Workflows** tab:
+
+- **Auto-add:** Automatically add issues or pull requests when they are opened in linked repositories
+- **Auto-set status:** Set a field value when items are closed, merged, or reopened
+- **Auto-archive:** Archive items after a configurable period of inactivity
+- **Auto-close:** Mark items as done when the linked issue or PR is closed
+
+Workflows are configured per-project and do not cascade from org-level settings. Each project owner or admin must enable the desired automations independently.
+
+#### Governance Recommendations
+
+- Use **org-level projects** for cross-team or leadership visibility into work streams
+- **Standardize field definitions** across projects using documented naming conventions to enable consistent reporting
+- Enterprise admins should **set a policy on who can create org-level projects** to prevent sprawl and ensure projects align with organizational structure
+- Consider creating **project templates** (by duplicating a well-configured project) to ensure consistent structure, fields, and workflows across teams
+- Regularly audit project membership to ensure access aligns with current team composition, especially for private projects containing sensitive planning data
 
 ### Member Privilege Policies
 
@@ -516,9 +568,9 @@ When policies apply to different scopes, narrower scope policies apply within br
 
 **Scenario 2: Actions Workflow Conflict**
 
-- Enterprise: Enforces approved Actions list containing `actions/checkout@v4`
-- Organization: Further restricts to specific actions, excluding `actions/checkout@v4`
-- Repository: Workflow attempts to use `actions/checkout@v4`
+- Enterprise: Enforces approved Actions list containing `actions/checkout@v6`
+- Organization: Further restricts to specific actions, excluding `actions/checkout@v6`
+- Repository: Workflow attempts to use `actions/checkout@v6`
 
 **Resolution:** Workflow execution is blocked because organization policy explicitly excludes the action. Both enterprise and organization policies must be satisfied, and organization policy is more restrictive.
 
@@ -541,7 +593,7 @@ When policies apply to different scopes, narrower scope policies apply within br
 ### Policy Precedence Matrix
 
 | Enterprise Policy | Organization Policy | Effective Result |
-|------------------|---------------------|------------------|
+| --- | --- | --- |
 | Enforced (Required) | Any | Enterprise policy applies, organization cannot change |
 | Allowed | Enabled | Feature available, organization choice respected |
 | Allowed | Disabled | Feature unavailable in organization |
@@ -942,7 +994,7 @@ Allowed Actions:
 ├── Allow actions created by GitHub: enabled
 ├── Allow actions by verified creators: enabled  
 ├── Allow specified actions and reusable workflows:
-│   ├── actions/checkout@v4
+│   ├── actions/checkout@v6
 │   ├── actions/setup-node@v4
 │   ├── actions/cache@v3
 │   ├── github/codeql-action/*

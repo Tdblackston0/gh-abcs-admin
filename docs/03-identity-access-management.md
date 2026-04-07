@@ -279,7 +279,7 @@ SAML (Security Assertion Markup Language) enables federated authentication by al
 ### IdP Setup: Microsoft Entra ID
 
 #### Prerequisites
-- Azure AD Premium P1/P2 license (for CAP support with OIDC)
+- Microsoft Entra ID P1/P2 license (for CAP support with OIDC)
 - Global Administrator or Application Administrator role
 - GitHub Enterprise Cloud with EMU (for enterprise-level SSO)
 
@@ -586,9 +586,9 @@ Azure Portal → Enterprise Applications → GitHub EMU → Provisioning:
 
 **2. Attribute Mapping**
 
-Azure AD → GitHub EMU → Provisioning → Mappings → "Provision Azure AD Users":
+Entra ID → GitHub EMU → Provisioning → Mappings → "Provision Entra ID Users":
 
-| Azure AD Attribute | GitHub Attribute | Notes |
+| Entra ID Attribute | GitHub Attribute | Notes |
 |--------------------|------------------|-------|
 | `userPrincipalName` | `userName` | Normalized to lowercase, special chars removed |
 | `mail` | `emails[type eq "work"].value` | Primary email address |
@@ -596,13 +596,13 @@ Azure AD → GitHub EMU → Provisioning → Mappings → "Provision Azure AD Us
 | `surname` | `name.familyName` | Last name |
 | `displayName` | `displayName` | Full display name |
 | `accountEnabled` | `active` | `true` = active, `false` = suspended |
-| `externalId` | `externalId` | Azure AD object ID (immutable) |
+| `externalId` | `externalId` | Entra ID object ID (immutable) |
 
 **3. Group Provisioning (Team Synchronization)**
 
-Azure AD → GitHub EMU → Provisioning → Mappings → "Provision Azure AD Groups":
+Entra ID → GitHub EMU → Provisioning → Mappings → "Provision Entra ID Groups":
 
-| Azure AD Attribute | GitHub Attribute | Notes |
+| Entra ID Attribute | GitHub Attribute | Notes |
 |--------------------|------------------|-------|
 | `displayName` | `displayName` | Group/team name on GitHub |
 | `members` | `members` | Group membership synchronization |
@@ -610,7 +610,7 @@ Azure AD → GitHub EMU → Provisioning → Mappings → "Provision Azure AD Gr
 
 **Configuration:**
 - Enable group provisioning in provisioning settings
-- Assign Azure AD groups to GitHub EMU application
+- Assign Entra ID groups to GitHub EMU application
 - Map groups to GitHub teams via IdP groups feature
 
 **4. Scoping Filters**
@@ -618,7 +618,7 @@ Azure AD → GitHub EMU → Provisioning → Mappings → "Provision Azure AD Gr
 Define which users to provision:
 ```bash
 # Example: Only provision users with specific attribute
-# Azure AD → Provisioning → Mappings → Scope
+# Entra ID → Provisioning → Mappings → Scope
 - Filter: extensionAttribute1 Equals "github_user"
 - Filter: department Equals "Engineering" OR department Equals "Product"
 ```
@@ -808,7 +808,7 @@ PATCH /scim/v2/enterprises/{ENTERPRISE}/Groups/{id}
 **Team Membership Management:**
 
 GitHub supports IdP group → GitHub team synchronization:
-- **IdP Groups:** Define in identity provider (Azure AD, Okta, etc.)
+- **IdP Groups:** Define in identity provider (Entra ID, Okta, etc.)
 - **GitHub Teams:** Organizational units for repository access control
 - **Synchronization:** Automatic via SCIM group provisioning
 
@@ -871,7 +871,7 @@ GitHub supports IdP group → GitHub team synchronization:
 ### Token Types
 
 **1. Fine-Grained Personal Access Tokens (GA)**
-- Generally available since late 2024 (no longer in beta)
+- Generally available since March 2025 (no longer in beta)
 - Granular repository and permission scope
 - Expiration required (1-365 days, or custom)
 - Organization-level approval workflow
@@ -945,7 +945,7 @@ rotation_policy:
 ```bash
 # GitHub Actions: Use GITHUB_TOKEN (automatic, scoped)
 - name: Checkout code
-  uses: actions/checkout@v4
+  uses: actions/checkout@v6
   with:
     token: ${{ secrets.GITHUB_TOKEN }}  # Preferred
 
@@ -1358,7 +1358,7 @@ Common integrations for automated IAM:
 ### External Resources
 
 #### Microsoft Entra ID (Azure AD)
-- [Tutorial: Azure AD SSO Integration with GitHub](https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/github-tutorial)
+- [Tutorial: Microsoft Entra ID SSO Integration with GitHub](https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/github-tutorial)
 - [Configure SCIM Provisioning with GitHub EMU](https://learn.microsoft.com/en-us/azure/active-directory/saas-apps/github-enterprise-managed-user-provisioning-tutorial)
 - [Conditional Access Policies Overview](https://learn.microsoft.com/en-us/azure/active-directory/conditional-access/overview)
 

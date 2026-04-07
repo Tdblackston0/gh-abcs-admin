@@ -104,7 +104,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging   # Only allows deployments from 'main'
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: ./deploy.sh staging
 
   deploy-production:
@@ -112,7 +112,7 @@ jobs:
     environment: production  # Only allows deployments from 'release/*' tags
     needs: deploy-staging
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: ./deploy.sh production
 ```
 
@@ -173,7 +173,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: npm ci && npm run build
       - uses: actions/upload-artifact@v4
         with:
@@ -348,7 +348,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Azure Login via OIDC
         uses: azure/login@v2
@@ -404,7 +404,7 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -430,7 +430,7 @@ jobs:
       id-token: write
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Authenticate to GCP
         uses: google-github-actions/auth@v2
         with:
@@ -497,7 +497,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: ./deploy.sh staging
 
   deploy-production:
@@ -505,7 +505,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production  # Custom gate App evaluates before this job runs
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: ./deploy.sh production
 ```
 
@@ -585,7 +585,7 @@ jobs:
       group: production-deploy
       cancel-in-progress: false  # Queue rather than cancel
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: ./deploy.sh production
 ```
 
@@ -775,7 +775,7 @@ jobs:
       group: production-deploy
       cancel-in-progress: false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: ${{ inputs.version }}
 

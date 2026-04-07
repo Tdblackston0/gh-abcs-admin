@@ -175,7 +175,7 @@ graph TB
   - [ ] Configure enterprise-level IP allow lists
 
 - [ ] **Identity and Access Management**
-  - [ ] Configure SAML SSO with corporate IdP (Okta, Azure AD, Ping)
+  - [ ] Configure SAML SSO with corporate IdP (Okta, Entra ID, Ping)
   - [ ] Enable SCIM provisioning for automated user lifecycle
   - [ ] Enforce 2FA/MFA for all enterprise members
   - [ ] Create initial team structure aligned with organizational hierarchy
@@ -707,7 +707,7 @@ jobs:
     permissions:
       security-events: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       
@@ -733,7 +733,7 @@ jobs:
       matrix:
         node-version: [18.x, 20.x]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - uses: actions/setup-node@v4
         with:
@@ -751,7 +751,7 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     environment: production
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Deploy to production
         run: |
           echo "Deploying to production..."
@@ -770,7 +770,7 @@ jobs:
   check-policies:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Verify file changes
         run: |
@@ -1394,7 +1394,7 @@ jobs:
   validate-backups:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Download latest backups
         run: |
@@ -1833,7 +1833,7 @@ jobs:
       frontend: ${{ steps.detect.outputs.frontend }}
       infrastructure: ${{ steps.detect.outputs.infrastructure }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       
@@ -1859,7 +1859,7 @@ jobs:
       matrix:
         service: [auth-service, api-gateway, payments-service]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Build ${{ matrix.service }}
         run: |
           cd services/${{ matrix.service }}
@@ -1871,7 +1871,7 @@ jobs:
     if: ${{ needs.detect-changes.outputs.frontend == 'true' }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-node@v4
         with:
           node-version: 18
@@ -1890,7 +1890,7 @@ jobs:
     needs: [build-services, build-frontend]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Run integration tests
         run: |
           docker-compose -f docker-compose.test.yml up --abort-on-container-exit
@@ -1959,7 +1959,7 @@ jobs:
       redis:
         image: redis:7
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-go@v4
         with:
           go-version: 1.21
@@ -1980,7 +1980,7 @@ jobs:
     outputs:
       image-tag: ${{ steps.image.outputs.tag }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - id: image
         run: |
@@ -2005,7 +2005,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - uses: azure/setup-kubectl@v3
         with:
@@ -2060,7 +2060,7 @@ jobs:
   build-docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Aggregate OpenAPI specs
         run: |
@@ -2137,7 +2137,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production-${{ matrix.region }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Deploy to ${{ matrix.region }}
         env:
@@ -2307,7 +2307,7 @@ jobs:
     runs-on: ubuntu-latest
     # Run immediately, fail fast
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-node@v4
         with:
           node-version: 18
@@ -2321,7 +2321,7 @@ jobs:
   security-scan-parallel:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: github/codeql-action/init@v3
       - uses: github/codeql-action/analyze@v3
       - uses: aquasecurity/trivy-action@master
@@ -2334,7 +2334,7 @@ jobs:
       matrix:
         node-version: [18.x, 20.x]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
@@ -2384,12 +2384,12 @@ jobs:
   enforce-standards:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       
       # Prevent merge without required reviewers
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@v8
         with:
           script: |
             const { owner, repo, number } = context.issue;
@@ -2461,7 +2461,7 @@ jobs:
     permissions:
       id-token: write  # For OIDC
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           ref: ${{ github.event.inputs.version }}
       
@@ -2523,10 +2523,10 @@ jobs:
   collect-metrics:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Collect workflow metrics
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         env:
           PROMETHEUS_PUSHGATEWAY: ${{ secrets.PROMETHEUS_PUSHGATEWAY }}
         with:
@@ -3172,7 +3172,7 @@ GitHub Enterprise Setup:
   - Enable audit log streaming
 
 SAML SSO Configuration:
-  - Integrate with corporate IdP (Okta/Azure AD)
+  - Integrate with corporate IdP (Okta/Entra ID)
   - Configure SCIM provisioning
   - Test SSO login
   - Enable MFA requirement
@@ -3415,7 +3415,7 @@ jobs:
       contents: read
       pull-requests: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       

@@ -27,6 +27,10 @@
     {
       "pattern": "^https://cacm\\.acm\\.org",
       "comment": "ACM Digital Library — blocks automated crawlers (403)"
+    },
+    {
+      "pattern": "^https://github\\.com/marketplace$",
+      "comment": "GitHub Marketplace landing page — returns 400 to non-browser requests but loads correctly in browsers"
     }
   ],
   "replacementPatterns": [],

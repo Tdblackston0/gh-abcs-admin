@@ -611,7 +611,7 @@ jobs:
   build-and-test:  # Check name: "CI / build-and-test"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - run: npm ci
       - run: npm test
       - run: npm run build
@@ -742,7 +742,7 @@ jobs:
   semgrep:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Run Semgrep
         run: |
           pip install semgrep
@@ -780,7 +780,7 @@ jobs:
   snyk:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Run Snyk
         uses: snyk/actions/node@master
         continue-on-error: true

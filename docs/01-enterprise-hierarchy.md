@@ -675,6 +675,30 @@ GitHub Codespaces provides cloud-based development environments that enterprise 
 
 > **Note:** Codespaces are not available with Enterprise Managed Users (EMU) enterprises. EMU users must use local development environments or GitHub.dev for lightweight editing.
 
+**Codespaces Secrets Governance:**
+- **Organization secrets** — org owners can create Codespaces secrets shared across all or selected repos. Navigate to **Org Settings → Codespaces → Secrets**.
+- **Repository secrets** — repo admins can create secrets scoped to Codespaces in that repo. Navigate to **Repo Settings → Codespaces → Secrets**.
+- **User secrets** — individual developers manage personal Codespaces secrets in **GitHub Settings → Codespaces → Secrets**. These are _not_ visible to org admins.
+- **Governance recommendation:** Use org-level secrets for shared credentials (database URLs, API keys). Restrict repo-level secrets to repo-specific values. Educate developers that user-level secrets bypass org governance.
+
+**Codespaces Audit Log Events:**
+- Key audit events: `codespaces.create`, `codespaces.delete`, `codespaces.export`, `codespaces.update_settings`
+- Monitor `codespaces.create` events to track usage patterns and identify unauthorized Codespace creation
+- Enterprise audit log aggregates Codespaces events across all orgs
+
+**Prebuild Configuration:**
+- Prebuilds create ready-to-use Codespace images with dependencies pre-installed, reducing startup time from minutes to seconds
+- Configure prebuilds per-repo via `.devcontainer/devcontainer.json` and the repo's Codespaces settings
+- Prebuilds trigger on push to specified branches; can be region-specific
+- **Cost consideration:** Prebuilds consume Actions minutes for builds and storage for cached images
+
+**Port Forwarding Policies:**
+- Org owners can restrict port visibility: private (default), org-visible, or public
+- Enterprise policy can enforce private-only port forwarding for security-sensitive environments
+- Developers can share running services with teammates via org-visible ports
+
+> **Reference:** [Managing Codespaces for your organization](https://docs.github.com/en/codespaces/managing-codespaces-for-your-organization)
+
 ## Migration and Onboarding Strategies
 
 ### Enterprise Onboarding Checklist
@@ -785,4 +809,4 @@ This document is based on official GitHub documentation and resources:
 
 ---
 
-*This document is maintained as part of the GitHub Enterprise Cloud Administration learning path. For questions or contributions, please refer to the repository guidelines.*
+_This document is maintained as part of the GitHub Enterprise Cloud Administration learning path. For questions or contributions, please refer to the repository guidelines._

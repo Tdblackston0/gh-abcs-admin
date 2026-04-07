@@ -828,7 +828,7 @@ curl -L -X POST \
   -d '{"ref": "main", "inputs": {"repo_name": "new-service", "visibility": "internal"}}'
 ```
 
-### Using `actions/github-script@v7`
+### Using `actions/github-script@v8`
 
 The `actions/github-script` action provides a pre-authenticated Octokit client directly in workflow steps:
 
@@ -843,7 +843,7 @@ jobs:
   triage:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@v8
         with:
           script: |
             await github.rest.issues.addLabels({
@@ -867,7 +867,7 @@ jobs:
   audit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@v8
         with:
           script: |
             const query = `query($owner:String!, $name:String!) {
@@ -893,7 +893,7 @@ jobs:
 
 ```yaml
 steps:
-  - uses: actions/github-script@v7
+  - uses: actions/github-script@v8
     id: get-repos
     with:
       result-encoding: string
@@ -913,7 +913,7 @@ Always pass user-controlled inputs via environment variables, not inline express
 
 ```yaml
 # ✅ Safe — input passed via environment variable
-- uses: actions/github-script@v7
+- uses: actions/github-script@v8
   env:
     TITLE: ${{ github.event.pull_request.title }}
   with:
@@ -924,7 +924,7 @@ Always pass user-controlled inputs via environment variables, not inline express
       }
 
 # ❌ Unsafe — user input interpolated directly into script
-# - uses: actions/github-script@v7
+# - uses: actions/github-script@v8
 #   with:
 #     script: |
 #       const title = '${{ github.event.pull_request.title }}';
@@ -1227,7 +1227,7 @@ jobs:
   evaluate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Install OPA
         run: |
@@ -1266,7 +1266,7 @@ jobs:
   enforce:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@v8
         with:
           github-token: ${{ secrets.ORG_ADMIN_TOKEN }}
           script: |

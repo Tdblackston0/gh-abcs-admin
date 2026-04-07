@@ -102,7 +102,7 @@
       "category": "content",
       "severity": "warning",
       "file": "labs/lab05.md",
-      "description": "Missing duration field; uses actions/github-script@v6 (needs v7+)",
+      "description": "Missing duration field; uses actions/github-script@v6 — updated to @v8",
       "fixPhase": "phase3",
       "status": "resolved",
       "resolvedDate": "2026-04-02"
@@ -165,7 +165,7 @@
       "category": "freshness",
       "severity": "warning",
       "file": "labs/lab05.md",
-      "description": "2 instances of actions/github-script@v6 (current is v7+)",
+      "description": "2 instances of actions/github-script@v6 — updated to @v8",
       "fixPhase": "phase3",
       "status": "resolved",
       "resolvedDate": "2026-04-02"

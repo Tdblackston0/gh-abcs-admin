@@ -535,14 +535,75 @@ GitHub Enterprise Cloud provides larger runner options beyond the standard 2-vCP
 | GPU (Linux) | 4 | 28 GB | 176 GB | Linux (T4 GPU) |
 | macOS M1 | 3 | 7 GB | 14 GB | macOS |
 
-**Azure Private Networking (VNET Injection):** GitHub-hosted runners can be deployed into your Azure VNET for secure access to internal resources without exposing services to the public internet. This is configured at the enterprise or organization level and requires an Azure subscription linked to your GitHub enterprise.
+**Creating Larger Runners:** Navigate to Enterprise or Organization Settings → Actions → Runners → New runner → select "GitHub-hosted," choose a size (2/4/8/16/32/64 vCPU), give it a name, and assign it to a runner group. The runner name becomes the label you reference in `runs-on`.
 
-**Runner Groups:** Organize runners into groups to control which repositories and workflows can use specific runner types. Use runner groups to enforce cost controls (e.g., restrict GPU runners to ML repositories only) and security boundaries.
+**Pricing:** Larger runners have per-minute cost multipliers over standard runners. A 4-core Linux runner costs approximately 2× the standard rate, 8-core is 4×, and GPU runners carry premium pricing. Larger runners are always billed—there are no included free minutes, even for public repositories. Review the [GitHub Actions billing documentation](https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-github-actions/about-billing-for-github-actions) for current rates.
+
+**ARM64 Runners:** ARM-based Linux runners are available for workloads that benefit from ARM-native builds, such as mobile apps, embedded systems, or ARM container images. Target them with `runs-on: ubuntu-24.04-arm` or the equivalent label configured on your larger runner.
+
+**Static IP Ranges:** Larger runners support static IP egress, which enables firewall allowlisting for external services that require known source IPs. Configure static IP networking in the runner's networking settings at the enterprise or organization level.
+
+**Auto-Scaling:** GitHub manages scaling automatically for hosted larger runners. The maximum concurrency is determined by your GitHub plan limits. No manual scaling or capacity configuration is required—runners spin up and down on demand.
+
+**Azure Private Networking (VNET Injection):** GitHub-hosted runners can be deployed into your Azure VNET, allowing them to access private Azure resources (databases, storage accounts, internal APIs) without exposing those services to the public internet. VNET injection is configured at the enterprise or organization level and requires an Azure subscription linked to your GitHub enterprise. This is the recommended pattern when jobs need both the managed infrastructure of GitHub-hosted runners and secure access to corporate network resources.
+
+**When to use larger runners:**
+- CI builds that exceed 10 minutes on standard 2-vCPU runners
+- Memory-intensive test suites or monorepo builds
+- Docker image builds that benefit from additional CPU and storage
+- GPU-accelerated ML/AI workloads (training, inference testing)
+- Workloads requiring static IP egress for firewall rules
 
 **When to use larger runners vs self-hosted:**
 - **Larger runners:** Zero maintenance, clean environment per job, best for most build workloads needing more resources
 - **Self-hosted with VNET:** When you need private network access AND custom software preinstalled
 - **GPU runners:** ML model training, GPU-accelerated testing
+
+> **Reference:** [About larger runners](https://docs.github.com/en/actions/using-github-hosted-runners/using-larger-runners)
+
+### Runner Group Hierarchy
+
+Runner groups control which repositories and workflows can execute on specific runners. Groups exist at two levels—enterprise and organization—and follow a hierarchical access model.
+
+**Enterprise Runner Groups:** Created at the enterprise level and shared across organizations. Enterprise owners define which organizations can access each group. Use enterprise groups when runners (or runner configurations) need to serve multiple organizations, such as a shared pool of high-capacity build runners.
+
+**Organization Runner Groups:** Created at the organization level and scoped to repositories within that organization. Organization owners control which repositories can access each group. Use organization groups for workload isolation within a single org—for example, separating CI runners from deployment runners.
+
+**Default Group:** Every organization has a built-in "Default" group. All self-hosted runners are placed in the Default group unless explicitly moved to another group. The Default group allows access from all repositories in the organization by default. For tighter controls, move runners out of Default and into purpose-specific groups.
+
+**Workflow Targeting:** Workflows target a runner group using the `group` key in `runs-on`. You can combine group targeting with labels to further narrow runner selection:
+
+```yaml
+jobs:
+  build:
+    runs-on:
+      group: production-runners
+      labels: [self-hosted, linux, x64]
+```
+
+This ensures the job runs only on runners that belong to the `production-runners` group **and** carry all the specified labels.
+
+**API Management:** Runner groups can be managed programmatically with the GitHub REST API or the `gh` CLI:
+
+```bash
+# List organization runner groups
+gh api /orgs/ORG/actions/runner-groups
+
+# List enterprise runner groups
+gh api /enterprises/ENT/actions/runner-groups
+
+# Create a new organization runner group
+gh api --method POST /orgs/ORG/actions/runner-groups \
+  -f name="deploy-runners" \
+  -f visibility="selected" \
+  -F selected_repository_ids[]="REPO_ID"
+```
+
+**Security Best Practices for Runner Groups:**
+- Restrict production/deployment runner groups to deployment repositories only—do not allow general CI workloads on runners with production credentials
+- Use separate groups for CI (build/test) vs CD (deploy) workloads to limit blast radius
+- Audit group membership regularly using the API; unexpected repository access is a common misconfiguration
+- Combine runner groups with environment protection rules for defense-in-depth on deployment pipelines
 
 ---
 

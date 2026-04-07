@@ -157,7 +157,7 @@ jobs:
             build-mode: none
     
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
@@ -909,6 +909,22 @@ Artifact attestations provide cryptographic proof of where and how a software ar
 - **Generate attestations:** Use `actions/attest-build-provenance@v2` in your GitHub Actions workflow to create a signed attestation for build outputs
 - **Verify attestations:** Use `gh attestation verify <artifact> --owner <org>` to verify that an artifact was built in a trusted workflow
 - **SLSA compliance:** Attestations conform to SLSA (Supply-chain Levels for Software Artifacts) Build Level 2, providing tamper-evident build provenance
+
+**Enterprise enforcement:** Enterprise owners can require attestation verification before deployment by configuring a deployment protection rule via a GitHub App. This rule gates environment deployments on a successful `gh attestation verify` check, ensuring that only artifacts with valid provenance reach production.
+
+**SLSA Build Level 2 vs Level 3:**
+- **Level 2** (what GitHub provides out of the box): The build service automatically generates signed provenance — no changes to your build scripts required beyond adding the attestation action.
+- **Level 3**: Requires a hardened, isolated build environment that produces non-falsifiable provenance. Achieving L3 requires additional tooling (e.g., SLSA builders for specific ecosystems) beyond what standard GitHub-hosted runners provide.
+
+**Verification flow:** Use the GitHub CLI to verify an artifact against the Sigstore transparency log:
+```bash
+gh attestation verify artifact.tar.gz --owner ORG
+```
+This checks that a valid attestation exists matching the artifact's SHA-256 digest, that it was signed by a trusted GitHub Actions workflow, and that the signature is recorded in Sigstore's public transparency log.
+
+**Sigstore keyless signing:** GitHub Actions uses OpenID Connect (OIDC) to obtain short-lived signing certificates from Sigstore's Fulcio certificate authority. The workflow identity (repo, workflow path, ref) is embedded in the certificate. No long-lived signing keys need to be generated, stored, or rotated — eliminating an entire class of key-management risk.
+
+> **Reference:** [Using artifact attestations to establish provenance for builds](https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations)
 
 **Enterprise policy:** Consider requiring attestations for all production deployments. Combine with deployment environment protection rules to enforce that only attested artifacts can be deployed.
 
