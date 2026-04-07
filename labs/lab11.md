@@ -13,8 +13,8 @@ References:
 - [About GitHub Apps](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/about-creating-github-apps)
 - [GitHub Marketplace](https://github.com/marketplace)
 - [Installing GitHub Apps](https://docs.github.com/en/apps/using-github-apps/installing-a-github-app-from-github-marketplace-for-your-organizations)
-- [Differences between GitHub Apps and OAuth Apps](https://docs.github.com/en/apps/creating-github-apps/about-creating-github-apps/differences-between-github-apps-and-oauth-apps)
-- [Reviewing and modifying installed GitHub Apps](https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/reviewing-and-modifying-installed-github-apps)
+- [Differences between GitHub Apps and OAuth Apps](https://docs.github.com/en/apps/oauth-apps/building-oauth-apps/differences-between-github-apps-and-oauth-apps)
+- [Reviewing and modifying installed GitHub Apps](https://docs.github.com/en/organizations/managing-programmatic-access-to-your-organization/reviewing-github-apps-installed-in-your-organization)
 - [Setting a GitHub Actions policy for your enterprise](https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/enforcing-policies-for-github-actions-in-your-enterprise)
 - [Registering a GitHub App](https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app)
 
@@ -118,7 +118,7 @@ References:
 7. After creation, you will be taken to the app's settings page. Click **Generate a private key** to download a `.pem` file. This private key is used to authenticate as the app and generate installation tokens.
 8. Note the **App ID** displayed on the settings page — you will need this along with the private key to authenticate.
 9. _(Optional)_ Discuss **app manifests** and the **manifest flow**:
-   - Instead of filling in the registration form manually, you can define your app's configuration in a JSON manifest and use the [App Manifest flow](https://docs.github.com/en/apps/creating-github-apps/registering-a-github-app/registering-a-github-app-from-a-manifest) to register it programmatically.
+   - Instead of filling in the registration form manually, you can define your app's configuration in a JSON manifest and use the [App Manifest flow](https://docs.github.com/en/apps/creating-github-apps/setting-up-a-github-app/creating-a-github-app-from-a-manifest) to register it programmatically.
    - This is useful for distributing app configurations across teams or automating app setup in CI/CD pipelines.
 10. Install the app on your test organization by navigating to the app's settings page and clicking **Install App** in the left sidebar.
 

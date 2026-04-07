@@ -7,17 +7,26 @@ In this lab you will configure and review GitHub Copilot policies, manage seat a
 > **Environment note:** This lab is written for **organization-level** access. All hands-on steps work with an org admin account — no enterprise account is needed. Enterprise-level policy views are included in collapsible sections for participants who have enterprise access.
 
 References:
-- [Managing Copilot policies for your organization](https://docs.github.com/en/enterprise-cloud@latest/copilot/managing-copilot/managing-copilot-for-your-organization/managing-policies-for-copilot-in-your-organization)
-- [Configuring content exclusions for GitHub Copilot](https://docs.github.com/en/enterprise-cloud@latest/copilot/managing-copilot/managing-copilot-for-your-organization/configuring-content-exclusions-for-github-copilot)
-- [Managing GitHub Copilot access in your organization](https://docs.github.com/en/enterprise-cloud@latest/copilot/managing-copilot/managing-copilot-for-your-organization/granting-access-to-copilot-for-members-of-your-organization)
+- [Managing Copilot policies for your organization](https://docs.github.com/en/enterprise-cloud@latest/copilot/managing-copilot/managing-github-copilot-in-your-organization/managing-policies-for-copilot-in-your-organization)
+- [Configuring content exclusions for GitHub Copilot](https://docs.github.com/en/enterprise-cloud@latest/copilot/managing-copilot/managing-github-copilot-in-your-organization/configuring-content-exclusions-for-github-copilot)
+- [Managing GitHub Copilot access in your organization](https://docs.github.com/en/enterprise-cloud@latest/copilot/managing-copilot/managing-github-copilot-in-your-organization/granting-access-to-copilot-for-members-of-your-organization)
 - [Reviewing audit logs for Copilot events](https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/audit-log-events-for-your-enterprise)
 - [Using the Copilot usage metrics API](https://docs.github.com/en/enterprise-cloud@latest/rest/copilot/copilot-metrics)
 - [About GitHub Copilot Enterprise](https://docs.github.com/en/enterprise-cloud@latest/copilot/about-github-copilot/subscription-plans-for-github-copilot)
+
+## What You'll Learn
+
+- Configure Copilot organization policies including public code matching and agent controls
+- Set up content exclusions to prevent Copilot from accessing sensitive files
+- Manage seat assignments and review Copilot audit events for governance
 
 ## 15.1 Review Copilot organization policies
 
 1. Navigate to your organization on GitHub.com and click **Settings** in the top navigation bar.
 2. In the left sidebar, under **Code, planning, and automation**, click **Copilot**. This opens the Copilot policy configuration page for your organization.
+
+> **Troubleshooting:** If the **Copilot** option doesn't appear in the left sidebar, verify your organization has a GitHub Copilot Business or Enterprise subscription assigned. Without an active license, the Copilot configuration page may not be visible. Contact your enterprise owner to verify license allocation. See the [Instructor Guide](../docs/INSTRUCTOR-GUIDE.md) for additional help.
+
 3. Review the **Access** policy at the top of the page. This controls whether Copilot is **Enabled** or **Disabled** for organization members. Note the current setting.
 4. Review the **Suggestions matching public code** policy. When set to **Blocked**, Copilot suppresses code suggestions that closely match publicly available code on GitHub. This is an important IP compliance control.
 5. Review the **Copilot cloud agent** policy (this is the cloud-based coding agent, formerly called "coding agent"). When enabled, members can use Copilot to work on issues and pull requests directly on GitHub.com.
@@ -37,13 +46,12 @@ References:
 
 > **Note:** If your workshop organization does not have a Copilot Business or Enterprise license, you can still navigate to the **Settings → Copilot** page to review the available policy options. The UI will display the configuration controls even without an active subscription, though changes will not take effect until a license is assigned.
 
-9. Discuss with your table: GitHub offers several Copilot plans — **Free**, **Student**, **Pro**, **Pro+**, **Business** ($19/user/mo), and **Enterprise** ($39/user/mo). Enterprise adds enterprise-wide policy controls, custom LLM API keys, and IP indemnification. Copilot is available only on GitHub.com — it is **not** available for GitHub Enterprise Server (GHES).
+9. Discuss with your table: GitHub offers several Copilot plans — **Free**, **Pro** ($10/user/mo), **Pro+** ($39/user/mo), **Business** ($19/user/mo), and **Enterprise** ($39/user/mo). Verified students and teachers receive free access to Pro-tier features through GitHub Education. Enterprise adds enterprise-wide policy controls, knowledge bases, and custom model support. Copilot IDE features (completions, chat, agent mode) work for GHES users licensed via github.com, but github.com-native features — cloud agent, pull request code review, and web-based Copilot chat — require GHEC.
 
 ## 15.2 Configure content exclusions
 
 1. Navigate to your organization **Settings** → **Copilot** → **Content exclusion** (this may appear as a tab or subsection on the Copilot settings page).
 
-> **Troubleshooting:** If the Copilot settings page doesn't appear in your org settings, verify the organization has a Copilot Business or Enterprise license assigned at the enterprise level. If you see Copilot settings but they're grayed out, the enterprise-level policy may be set to "Disabled" — contact your enterprise admin.
 2. Click **Add exclusion** (or **New rule**) to create a new content exclusion rule.
 3. In the **Repository** field, select a specific repository from your organization — or enter `*` to apply the rule to all repositories in the organization.
 4. In the **Paths** field, add the following glob patterns to exclude sensitive files from Copilot suggestions:
@@ -89,6 +97,8 @@ References:
      --paginate \
      --jq '.seats[] | [.assignee.login, .last_activity_at, .plan_type] | @tsv'
    ```
+
+> **Troubleshooting:** If the Copilot billing API returns a 404 error, verify your organization has an active Copilot Business or Enterprise subscription and your PAT includes the `manage_billing:copilot` or `read:org` scope. Run `gh auth refresh -s manage_billing:copilot` to add the required scope. See the [Instructor Guide](../docs/INSTRUCTOR-GUIDE.md) for additional help.
 
 7. Review the output — each line shows a member's login, their last Copilot activity timestamp, and their plan type. Look for users with no recent activity as candidates for seat reclamation.
 8. Mention the **Copilot usage metrics API** for deeper adoption tracking. This API (available on Business and Enterprise plans) provides data on completions generated, suggestions accepted, and active users over time:

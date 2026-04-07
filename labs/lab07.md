@@ -4,17 +4,25 @@ In this lab you will enable and configure GitHub's security products — Secret 
 
 > **Prerequisites:** This lab requires **GitHub Secret Protection** ($19/active committer/month) and **GitHub Code Security** ($30/active committer/month) to be enabled on your workshop organization. Verify with your instructor that these products are provisioned before starting. Dependabot alerts are included with all GHEC plans at no additional cost.
 
+> **Instructor Note:** For the 20-minute in-session time slot, focus on sections 7.1–7.4. Section 7.5 (auto-triage rules) is an optional extension if time permits.
+
 References:
 - [About secret scanning - GitHub Docs](https://docs.github.com/en/code-security/secret-scanning/introduction/about-secret-scanning)
 - [About push protection - GitHub Docs](https://docs.github.com/en/code-security/secret-scanning/introduction/about-push-protection)
 - [About code scanning with CodeQL - GitHub Docs](https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning-with-codeql)
 - [About Dependabot alerts - GitHub Docs](https://docs.github.com/en/code-security/dependabot/dependabot-alerts/about-dependabot-alerts)
-- [About security configurations - GitHub Docs](https://docs.github.com/en/code-security/securing-your-organization/introduction-to-securing-your-organization-at-scale/about-security-configurations)
+- [About security configurations - GitHub Docs](https://docs.github.com/en/code-security/concepts/security-at-scale/about-security-configurations)
 - [About delegated bypass for push protection - GitHub Docs](https://docs.github.com/en/code-security/secret-scanning/using-advanced-secret-scanning-and-push-protection-features/delegated-bypass-for-push-protection/about-delegated-bypass-for-push-protection)
 - [Configuring auto-triage rules for Dependabot - GitHub Docs](https://docs.github.com/en/code-security/dependabot/dependabot-auto-triage-rules/about-dependabot-auto-triage-rules)
-- [GitHub Secret Protection - GitHub](https://github.com/features/secret-protection)
-- [GitHub Code Security - GitHub](https://github.com/features/code-security)
+- [GitHub Secret Protection](https://github.com/security/advanced-security)
+- [GitHub Code Security](https://github.com/security/advanced-security/code-security)
 - [About the security overview - GitHub Docs](https://docs.github.com/en/code-security/security-overview/about-security-overview)
+
+## What You'll Learn
+
+- Enable and test secret scanning with push protection to block leaked credentials
+- Configure CodeQL code scanning for automated vulnerability detection
+- Review Dependabot alerts and configure auto-triage rules for dependency security
 
 ## 7.1 Enable secret scanning and push protection
 
@@ -130,9 +138,11 @@ Dependabot alerts notify you when your repository depends on a package with a kn
 
 > **Governance perspective:** For organizations with hundreds of repositories, use the **Security overview** dashboard (**Organization** → **Security** tab) to see aggregated Dependabot alert counts, mean time to remediate (MTTR), and trends across all repositories. This is essential for compliance reporting and executive visibility.
 
-## 7.5 Configure security auto-triage rules
+## 7.5 Configure security auto-triage rules _(if time permits)_
 
 Auto-triage rules let you automatically dismiss or act on Dependabot alerts based on criteria you define. Custom auto-triage rules require a **GitHub Code Security** license.
+
+> **⏱️ Timing note:** This section is optional during in-session delivery. If the workshop is running behind schedule, skip to section 7.6 (Verification) and complete this section as self-paced practice.
 
 1. Navigate to your repository **Settings** → **Security** → **Code security**
 2. Scroll to the **Dependabot** section and locate **Dependabot rules**
