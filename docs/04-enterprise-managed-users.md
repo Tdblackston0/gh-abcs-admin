@@ -263,26 +263,26 @@ graph LR
 
 | Feature Category | Personal Accounts | EMU Accounts | Best For |
 |------------------|-------------------|--------------|----------|
-| **Authentication & Identity** |
+| **Authentication & Identity** | | | |
 | Login Method | Username/password, SSO, or keys | Enterprise SSO only | EMU for security |
 | Password Management | User-managed | IdP-managed | EMU for centralization |
 | MFA Enforcement | User choice (unless org requires) | IdP policy enforced | EMU for compliance |
 | Account Recovery | Self-service or support | Enterprise IT only | EMU for control |
 | Username Format | Flexible | `username_shortcode` | Personal for flexibility |
 | Email Addresses | Any email domain | Enterprise domain | EMU for validation |
-| **Repository Access** |
+| **Repository Access** | | | |
 | Public Repos | Full read/write access | Read-only (no contributions) | Personal for OSS |
 | Private Personal Repos | Unlimited | Not available | Personal for personal work |
 | Enterprise Repos | Via invitation | Default access | EMU for enterprise |
 | Forking | To personal or org | Within enterprise only | Personal for flexibility |
 | External Contributions | Unrestricted | Blocked by default | Personal for OSS work |
-| **Collaboration** |
+| **Collaboration** | | | |
 | Outside Collaborators | Can invite freely | Enterprise policy controlled | EMU for governance |
 | External Teams | Can participate | Enterprise only | Personal for OSS |
 | Gists | Public/secret | Private to enterprise | Personal for sharing |
 | GitHub Pages | Public hosting | Enterprise-approved only | Personal for portfolio |
 | GitHub Marketplace | Full access | Restricted access | Personal for tools |
-| **Security & Compliance** |
+| **Security & Compliance** | | | |
 | Access Tokens | User-generated | Centrally managed | EMU for security |
 | SSH Keys | User-managed | Policy-controlled | EMU for control |
 | GPG Keys | User-managed | Policy-controlled | EMU for compliance |
@@ -290,13 +290,13 @@ graph LR
 | GitHub Apps | User-installed | Enterprise-controlled | EMU for security |
 | Audit Logging | Limited | Comprehensive enterprise logs | EMU for compliance |
 | IP Restrictions | Org-level only | Enterprise-enforced | EMU for security |
-| **Administration** |
+| **Administration** | | | |
 | Account Lifecycle | User-managed | Automated via IdP | EMU for efficiency |
 | Offboarding | Manual removal | Automatic suspension | EMU for security |
 | Profile Updates | User-controlled | IdP-synchronized | EMU for accuracy |
 | Team Membership | Manual management | IdP group sync | EMU for automation |
 | Access Reviews | Manual process | IdP-integrated | EMU for compliance |
-| **Use Case Fit** |
+| **Use Case Fit** | | | |
 | Open Source Development | ✅ Excellent | ❌ Not supported | Personal |
 | Enterprise Development | ⚠️ Manual management | ✅ Optimal | EMU |
 | Contractors/Vendors | ✅ Guest access works | ⚠️ Requires planning | Personal or hybrid |
@@ -549,7 +549,7 @@ SCIM Operations:
 6. Custom attribute support
 
 **Microsoft Entra ID Specific:**
-- Azure AD Premium P1/P2 or Microsoft 365 Business
+- Microsoft Entra ID P1/P2 or Microsoft 365 Business
 - Enterprise Application registration
 - App roles configuration
 - Group-based assignment
@@ -1617,7 +1617,7 @@ Target Metrics:
 - [Configuring OIDC for EMU](https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/configuring-authentication-for-enterprise-managed-users/configuring-oidc-for-enterprise-managed-users)
 
 ### Identity Provider Guides
-- [Configuring Azure AD for EMU](https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/provisioning-user-accounts-with-scim/configuring-scim-provisioning-for-users)
+- [Configuring Microsoft Entra ID for EMU](https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/provisioning-user-accounts-with-scim/configuring-scim-provisioning-for-users)
 - [Configuring Okta for EMU](https://docs.github.com/en/enterprise-cloud@latest/admin/identity-and-access-management/using-enterprise-managed-users-and-saml-for-iam/configuring-scim-provisioning-for-enterprise-managed-users-with-okta)
 - [Configuring PingFederate for EMU](https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/provisioning-user-accounts-with-scim/configuring-scim-provisioning-for-users)
 

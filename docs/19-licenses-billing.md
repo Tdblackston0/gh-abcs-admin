@@ -13,7 +13,7 @@ GitHub Enterprise Cloud (GHEC) billing has undergone a major transformation sinc
 
 Under the new model, enterprises pay monthly for the actual number of licenses consumed, plus metered charges for products like GitHub Actions, Packages, Codespaces, and Copilot premium requests. All metered products follow a fixed billing period from the 1st to the last day of each calendar month.
 
-The billing platform now supports **budgets and alerts**, **cost centers** for departmental chargeback, and deep integration with **Azure subscriptions** for unified cloud billing. GitHub Copilot has evolved into a multi-tier product line with six distinct plans, and Advanced Security has been split into two separately licensable SKUs: **Secret Protection** and **Code Security**.
+The billing platform now supports **budgets and alerts**, **cost centers** for departmental chargeback, and deep integration with **Azure subscriptions** for unified cloud billing. GitHub Copilot has evolved into a multi-tier product line with five distinct plans, and Advanced Security has been split into two separately licensable SKUs: **Secret Protection** and **Code Security**.
 
 This guide covers the licensing and billing landscape that enterprise administrators must understand to manage costs effectively across their GitHub estate.
 
@@ -211,18 +211,17 @@ Understanding billing cycles is important for financial planning:
 
 ### Copilot Plan Comparison
 
-GitHub Copilot offers six distinct plans across individual and organizational tiers:
+GitHub Copilot offers five distinct plans across individual and organizational tiers:
 
 | Plan | Target | Price | Premium Requests/Month | Key Features |
 |------|--------|-------|------------------------|--------------|
 | **Copilot Free** | Individual | $0 | 50 | Limited completions; no cloud agent |
-| **Copilot Student** | Verified students | $0 | 300 | Unlimited completions, cloud agent, premium models |
 | **Copilot Pro** | Individual | $10/month | 300 | Unlimited completions, cloud agent, premium models |
 | **Copilot Pro+** | Individual (power user) | $39/month | 1,500 | All models, higher request allowance |
 | **Copilot Business** | Org/Enterprise | $19/user/month | 300/user | Centralized management, policy control, cloud agent |
 | **Copilot Enterprise** | Enterprise (GHEC) | $39/user/month | 1,000/user | All Business features + enterprise-grade capabilities |
 
-> **Note:** Enterprise owners can assign Copilot Enterprise or Copilot Business to individual organizations, or mix both across the enterprise. Only the higher-tier seat is billed when a user has both.
+> **Note:** Verified students and teachers receive free access to Copilot Pro features (including 300 premium requests/month) through [GitHub Education](https://education.github.com/). Enterprise owners can assign Copilot Enterprise or Copilot Business to individual organizations, or mix both across the enterprise. Only the higher-tier seat is billed when a user has both.
 
 ### Premium Requests
 

@@ -58,7 +58,7 @@ GitHub offers multiple Copilot subscription plans tailored for different organiz
 | **IP Indemnification** | ✓ | ✓ |
 | **Data Privacy** | No code retention | No code retention |
 
-> **Note:** Copilot also offers Free, Pro, and Pro+ tiers for individual developers. Business and Enterprise are the managed, policy-governed tiers covered in this governance guide. Copilot is not currently available for GitHub Enterprise Server (GHES).
+> **Note:** Copilot also offers Free, Pro, and Pro+ tiers for individual developers. Business and Enterprise are the managed, policy-governed tiers covered in this governance guide. Copilot IDE features (code completions, chat, agent mode) are available for GHES users who are licensed through a github.com enterprise account. Cloud-native features such as Copilot code review, cloud agent, and web chat require GitHub Enterprise Cloud.
 
 ### Licensing Model
 

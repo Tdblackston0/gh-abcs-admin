@@ -364,7 +364,7 @@ action:workflows
 
 #### Additional Monitoring Options
 
-- **Audit Log Streaming**: Stream audit logs to external SIEM systems for long-term retention and analysis
+- **Audit Log Streaming**: Stream audit logs to external Security Information and Event Management (SIEM) systems for long-term retention and analysis
 - **Audit Log API**: Query audit logs programmatically using the REST or GraphQL API
 - **Webhooks**: Set up webhooks for real-time notifications of specific events
 

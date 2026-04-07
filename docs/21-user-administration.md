@@ -138,7 +138,7 @@ GitHub Enterprise Cloud defines a hierarchy of enterprise-level roles that contr
 | **Enterprise owner** | Complete control: manage admins, add/remove orgs, enforce policies, manage billing and security settings | **No** — must explicitly join an organization |
 | **Billing manager** | View and manage user licenses, usage-based billing, and billing settings only | No (except internal repos in orgs where they are a member) |
 | **App manager** | View, create, edit, and delete GitHub App registrations owned by the enterprise | No |
-| **Security manager** | View security results, manage security configurations, access alerts/dashboards across all repos (public preview) | Read access to code in all repos; write access to security alerts |
+| **Security manager** | View security results, manage security configurations, access alerts/dashboards across all repos (GA at org level; enterprise-level remains in preview) | Read access to code in all repos; write access to security alerts |
 | **User (member)** | No administrative access by default; includes org members and unaffiliated users | Only in orgs where they are a member |
 | **Guest collaborator** | EMU only — provisioned by IdP with limited access; cannot see internal repos except in assigned orgs | Limited to explicitly assigned orgs |
 

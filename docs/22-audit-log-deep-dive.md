@@ -1,7 +1,7 @@
 # Audit Log Deep Dive
 
 **Level:** L300 (Advanced)  
-**Objective:** Master GitHub Enterprise Cloud audit log querying, streaming, API access, and SIEM integration for security monitoring and compliance
+**Objective:** Master GitHub Enterprise Cloud audit log querying, streaming, API access, and Security Information and Event Management (SIEM) integration for security monitoring and compliance
 
 ## Overview
 

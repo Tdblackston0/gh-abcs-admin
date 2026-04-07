@@ -645,16 +645,16 @@ updates:
 
 | Task | Description | Status |
 |------|-------------|--------|
-| Apply repository template settings | ☐ |
-| Verify CODEOWNERS file | ☐ |
-| Enable branch protection ruleset | ☐ |
-| Assign team access permissions | ☐ |
-| Enable security features (Secret Protection & Code Security) | ☐ |
-| Configure Dependabot | ☐ |
-| Set up CI/CD workflows | ☐ |
-| Verify Copilot access | ☐ |
-| Update documentation with new URLs | ☐ |
-| Notify repository stakeholders | ☐ |
+| Apply repository template settings | Apply org-standard template to repo | ☐ |
+| Verify CODEOWNERS file | Ensure CODEOWNERS is present and correct | ☐ |
+| Enable branch protection ruleset | Apply org-level branch ruleset | ☐ |
+| Assign team access permissions | Grant team-based access per policy | ☐ |
+| Enable security features (Secret Protection & Code Security) | Enable scanning and alerts | ☐ |
+| Configure Dependabot | Enable dependency updates and alerts | ☐ |
+| Set up CI/CD workflows | Configure Actions workflows | ☐ |
+| Verify Copilot access | Confirm Copilot seat assignment | ☐ |
+| Update documentation with new URLs | Update all references to new repo location | ☐ |
+| Notify repository stakeholders | Communicate migration completion | ☐ |
 
 ---
 
