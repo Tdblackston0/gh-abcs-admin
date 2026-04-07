@@ -12,7 +12,13 @@ References:
 - [Migrating from REST to GraphQL - GitHub Docs](https://docs.github.com/en/graphql/guides/migrating-from-rest-to-graphql)
 - [actions/github-script](https://github.com/actions/github-script)
 - [octokit/graphql-action](https://github.com/octokit/graphql-action)
-- [See octokit/rest.js for the API client documentation](https://octokit.github.io/rest.js/v21)
+- [See octokit/rest.js for the API client documentation](https://octokit.github.io/rest.js/v22)
+
+## What You'll Learn
+
+- Build GitHub Actions workflows that call REST APIs using `actions/github-script`
+- Query repository data with GraphQL for efficient, nested API requests
+- Compare REST and GraphQL approaches for admin automation
 
 ## 5.1 Develop a GitHub Action workflow that calls REST APIs
 
@@ -22,7 +28,7 @@ References:
 > **Note:** The `actions/github-script` action provides the authenticated `github` client (Octokit) and `context` object automatically. You do not need to create a personal access token — the action uses the workflow's `GITHUB_TOKEN`.
 
 ```YAML
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@v8
         id: close-issue
         with:
           script: |
@@ -52,7 +58,7 @@ References:
   graphql-api-query-labels:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/github-script@v7
+      - uses: actions/github-script@v8
         id: labels-result
         with:
           script: |
@@ -85,7 +91,7 @@ References:
 3. Commit the changes into the `main` branch
 4. Go to `Actions` and see the details of your running workflow
 
-> **Note:** If the workflow fails with a permissions error, check that the `GITHUB_TOKEN` has write access to issues. If you set the default token to read-only in Lab 2, you may need to add `permissions: issues: write` to the workflow file.
+> **Note:** If the workflow fails with a permissions error, check that the `GITHUB_TOKEN` has write access to issues. This workflow explicitly declares `permissions: issues: write` to ensure the necessary access, regardless of your repository's default token settings.
 
 ## ✅ Verification Checklist
 

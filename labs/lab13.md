@@ -2,6 +2,8 @@
 In this lab you will use the GitHub CLI (`gh`) and the GitHub REST/GraphQL APIs to perform enterprise administration tasks, build automation scripts for common workflows, and learn when to use GraphQL versus REST for efficient admin operations.
 > Duration: 20-25 minutes
 
+> **Instructor Note:** For the 15-minute in-session time slot, focus on sections 13.1–13.3. Sections 13.4–13.6 are optional extensions if time permits.
+
 References:
 - [GitHub CLI manual](https://cli.github.com/manual/)
 - [Using the GitHub CLI in workflows](https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/using-github-cli-in-workflows)
@@ -10,6 +12,12 @@ References:
 - [Using the audit log API for your enterprise](https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/using-the-audit-log-api-for-your-enterprise)
 - [Rate limits for the REST API](https://docs.github.com/en/rest/using-the-rest-api/rate-limits-for-the-rest-api)
 - [Managing teams with the REST API](https://docs.github.com/en/rest/teams/teams)
+
+## What You'll Learn
+
+- Use `gh api` to query organization data, manage teams, and search audit logs
+- Write automation scripts for recurring admin tasks like access reporting
+- Compare REST and GraphQL APIs for enterprise administration efficiency
 
 ## 13.1 Explore gh CLI admin commands
 
@@ -21,6 +29,8 @@ References:
    ```
 
    You should see your active GitHub account, the protocol in use (HTTPS or SSH), and the token scopes. On GitHub-hosted runners, `gh` is preinstalled and automatically authenticated via the `GITHUB_TOKEN` environment variable.
+
+> **Troubleshooting:** If `gh api` returns a 403 Forbidden error, run `gh auth status` to verify your token scopes include `admin:org` and `repo`. You can refresh your token with `gh auth refresh -s admin:org,repo`. See the [Instructor Guide](../docs/INSTRUCTOR-GUIDE.md) for additional help.
 
 2. List repositories in your organization, formatted as tab-separated values:
 
@@ -51,8 +61,6 @@ References:
 
 5. Consider how `gh api` compares to plain `curl`. With `gh api` you do not need to manage authentication headers, construct full URLs, or handle link-based pagination — `gh` does all of this for you. Authenticated REST requests are rate-limited to **5,000 requests per hour**.
 
-> **Troubleshooting:** If `gh api` returns a 403 Forbidden error, run `gh auth status` to verify your authentication. Ensure your token has `admin:org` and `repo` scopes. If using a fine-grained PAT, verify it has organization permissions for the target org. You can refresh your token with `gh auth refresh -s admin:org,repo`.
-
 ## 13.2 Manage teams with gh CLI
 
 1. List the existing teams in your organization:
@@ -69,6 +77,8 @@ References:
      -f description="Created in Lab 13" \
      -f privacy="closed"
    ```
+
+> **Troubleshooting:** If team creation returns a 422 Unprocessable Entity error, the team name may already exist in the organization. Try a different name prefix, or check existing teams with `gh api /orgs/YOUR-ORG/teams --jq '.[].name'`. See the [Instructor Guide](../docs/INSTRUCTOR-GUIDE.md) for additional help.
 
    A **closed** team is visible to all organization members but its membership is managed by team maintainers. A **secret** team is only visible to its members and organization owners.
 

@@ -39,6 +39,8 @@ GitHub recommends keeping repositories under 1 GB and strongly recommends they s
 
    Review the output. Any file larger than 50 MiB should be flagged for investigation. Consider whether the file belongs in the repository or should be tracked with Git LFS.
 
+> **Troubleshooting:** If the large-file detection command returns no output, ensure you are inside the mirror clone directory (it ends in `.git`). If the repository has very few commits, there may genuinely be no large blobs to report. See the [Instructor Guide](../docs/INSTRUCTOR-GUIDE.md) for additional help.
+
 3. For a more comprehensive health check, use **git-sizer** ([github/git-sizer](https://github.com/github/git-sizer)). It diagnoses repository health across multiple dimensions and assigns severity ratings:
 
    ```bash

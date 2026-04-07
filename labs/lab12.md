@@ -84,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Deploy to staging
         run: |
           echo "Deploying to staging environment..."
@@ -97,7 +97,7 @@ jobs:
     needs: deploy-staging
     environment: production
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Deploy to production
         run: |
           echo "Deploying to production environment..."
@@ -114,7 +114,7 @@ jobs:
 6. Set the commit message to `Add deployment workflow` and commit directly to the `main` branch.
 7. Because the workflow triggers on `push` to `main`, committing this file will immediately start a workflow run.
 
-> **Troubleshooting:** If the workflow doesn't trigger after committing, verify: (1) the YAML file is in `.github/workflows/` on the default branch, (2) GitHub Actions is enabled for the repository (Settings → Actions → General), and (3) the file has valid YAML syntax (indentation matters). Check the Actions tab for any workflow parse errors.
+> **Troubleshooting:** If the deployment workflow doesn't trigger after committing, verify the workflow file is on the default branch (`main`) and the file path is exactly `.github/workflows/deploy.yml`. Also confirm the `environment` name in the YAML matches the environment name you created in section 12.1 — names are case-insensitive but must be spelled correctly. See the [Instructor Guide](../docs/INSTRUCTOR-GUIDE.md) for additional help.
 
 > **Advanced:** In real-world deployments, replace the `echo` commands with actual deployment steps — for example, authenticating to a cloud provider via OIDC federation and deploying infrastructure or application code. To use environment secrets and variables in a build or test job without creating a deployment record, consider using a separate job that reads the secrets from the environment and passes them as outputs, or reference the environment only in jobs that perform actual deployments.
 
@@ -127,6 +127,9 @@ Now that the workflow has been triggered, you will observe the deployment pipeli
 3. Observe the workflow visualization:
    - The **deploy-staging** job should be running or already completed (green checkmark). Since the `staging` environment has no protection rules, it deploys automatically.
    - The **deploy-production** job should display a **"Waiting for review"** status badge. This is the required reviewer gate in action.
+
+> **Troubleshooting:** If the **deploy-production** job runs immediately without waiting for review, verify the `production` environment has **Required reviewers** enabled in Settings → Environments → production. If the environment was auto-created by the workflow (rather than pre-configured in section 12.1), it will have no protection rules. See the [Instructor Guide](../docs/INSTRUCTOR-GUIDE.md) for additional help.
+
 4. Click the **Review deployments** button that appears next to the production job.
 5. In the review dialog:
    - Check the **production** environment checkbox.

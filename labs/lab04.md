@@ -11,6 +11,12 @@ References:
 - [Creating a template repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-template-repository)
 - [Creating a repository from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
 
+## What You'll Learn
+
+- Create issue and pull request templates to standardize contribution workflows
+- Configure a template repository for consistent project scaffolding
+- Verify templates auto-populate when contributors open issues and PRs
+
 ## 4.1 Create issue templates
 
 1. Navigate to the `Settings > General` page of your repository

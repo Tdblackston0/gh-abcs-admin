@@ -22,6 +22,9 @@ References:
 
 For full environment prerequisites and instructor setup, see the [Pre-Workshop Checklist](../docs/PRE-WORKSHOP-CHECKLIST.md).
 
+> **📝 Note your workshop organization name:** `___________________________`
+> You will use this as `YOUR-ORG` throughout the labs. Your instructor will share the org name during the welcome session.
+
 Minimum requirements:
 - GitHub.com account with access to the workshop organization
 - Modern web browser (Chrome, Firefox, or Edge)

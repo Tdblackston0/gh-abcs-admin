@@ -10,6 +10,12 @@ References:
 - [Synchronizing a team with an identity provider group](https://docs.github.com/en/organizations/organizing-members-into-teams/synchronizing-a-team-with-an-identity-provider-group)
 - [Setting base permissions for an organization](https://docs.github.com/en/organizations/managing-user-access-to-your-organizations-repositories/managing-repository-roles/setting-base-permissions-for-an-organization)
 
+## What You'll Learn
+
+- Create nested team hierarchies and assign repository permissions through teams
+- Define custom repository roles for fine-grained access control
+- Explore team synchronization with identity providers for automated membership management
+
 ## 9.1 Create nested teams
 
 GitHub supports nested teams, where child teams automatically inherit the access permissions of their parent team. This allows you to model your organization's group structure directly in GitHub.

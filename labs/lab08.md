@@ -12,6 +12,12 @@ References:
 - [Streaming the audit log for your enterprise](https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/streaming-the-audit-log-for-your-enterprise)
 - [Identifying audit log events performed by an access token](https://docs.github.com/en/enterprise-cloud@latest/admin/monitoring-activity-in-your-enterprise/reviewing-audit-logs-for-your-enterprise/identifying-audit-log-events-performed-by-an-access-token)
 
+## What You'll Learn
+
+- Navigate and filter the organization audit log to track administrative actions
+- Query the audit log REST API with the `gh` CLI for programmatic event retrieval
+- Explore audit log streaming options for long-term retention and SIEM integration
+
 ## 8.1 Navigate the audit log UI
 
 1. To view the **organization audit log**, navigate to your organization page, then go to **Settings** → in the left sidebar under **Archives**, click **Logs** → **Audit log**.
@@ -164,7 +170,7 @@ Replace `YOUR-ENTERPRISE` with the slug of your enterprise account. The enterpri
 
 ## 8.5 Discuss streaming configuration
 
-Audit log streaming is an **enterprise-level** feature that forwards events in real time to external SIEM and storage systems. Even without enterprise access, understanding streaming capabilities is essential for admins planning a production deployment.
+Audit log streaming is an **enterprise-level** feature that forwards events in real time to external Security Information and Event Management (SIEM) and storage systems. Even without enterprise access, understanding streaming capabilities is essential for admins planning a production deployment.
 
 1. Review the supported streaming targets. GitHub Enterprise Cloud can stream audit log events to:
    - **Splunk** — via HTTP Event Collector (HEC)

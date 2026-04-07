@@ -9,6 +9,12 @@ References:
 - [About code owners](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners)
 - [Ruleset recipes](https://github.com/github/ruleset-recipes)
 
+## What You'll Learn
+
+- Configure a branch ruleset to enforce pull request and status check requirements
+- Set up bypass actors and target branch patterns for flexible governance
+- Test and verify ruleset enforcement on your repository
+
 ## 3.1 Create a branch ruleset
 
 1. Navigate to your repository on GitHub.com
@@ -44,12 +50,32 @@ In the **"Branch protections"** section, enable the following rules:
     - ✅ Check **"Require review from Code Owners"**
     - ✅ Check **"Require conversation resolution before merging"**
 3. **Require status checks to pass before merging** — ✅ Check this box, then:
-    - In the search box, type `build` and select the status check from Lab 2
-    - _(If Lab 2 was not completed, create a simple workflow first)_
+    - In the search box, type `build` and select the status check. If no `build` check appears, you need to create a workflow first — follow the quick setup below, then return to this step.
     - ✅ Check **"Require branches to be up to date before merging"**
+
+> **Quick Workflow Setup** (only if you don't already have a `build` status check):
+>
+> 1. Navigate to your repository's **Code** tab
+> 2. Click **Add file** → **Create new file**
+> 3. Name the file `.github/workflows/ci.yml`
+> 4. Paste this content:
+>
+> ```yaml
+> name: CI
+> on: [push, pull_request]
+> jobs:
+>   build:
+>     runs-on: ubuntu-latest
+>     steps:
+>       - uses: actions/checkout@v6
+>       - run: echo "Build passed"
+> ```
+>
+> 5. Commit directly to `main` and wait for the workflow to complete (check the **Actions** tab)
+> 6. Return to the ruleset configuration and the `build` check will now appear in the search
 4. **Block force pushes** — ✅ Already enabled by default. Leave enabled.
 
-> **Tip:** If the `build` status check does not appear in the search results, verify that you completed Lab 2 and that the workflow ran at least once. Status checks only appear in the list after they have been reported at least once on the repository.
+> **Tip:** If the `build` status check does not appear in the search results, verify that you have a workflow with a job named `build` and that it has run at least once. Status checks only appear in the list after they have been reported at least once on the repository. See the Quick Workflow Setup in section 3.4 if needed.
 
 ## 3.5 Create and verify the ruleset
 

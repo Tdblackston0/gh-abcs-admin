@@ -2,6 +2,8 @@
 In this lab you will build on Lab 03 by creating organization-level rulesets, tag rulesets, and exploring advanced features like bypass permissions, ruleset import/export, and evaluate mode — all unique to GitHub Enterprise Cloud.
 > Duration: 20-25 minutes
 
+> **Instructor Note:** For the 15-minute in-session time slot, focus on sections 6.1–6.3. Sections 6.4 and 6.5 are optional extensions if time permits.
+
 References:
 - [Managing rulesets for an organization](https://docs.github.com/en/organizations/managing-organization-settings/managing-rulesets-for-repositories-in-your-organization)
 - [About rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets)
@@ -9,6 +11,12 @@ References:
 - [Ruleset recipes](https://github.com/github/ruleset-recipes)
 - [Managing rulesets for a repository](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/managing-rulesets-for-a-repository)
 - [About protected tags](https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/managing-repository-settings/configuring-tag-protection-rules)
+
+## What You'll Learn
+
+- Create organization-level rulesets to enforce policies across multiple repositories
+- Configure tag rulesets to protect release tags from unauthorized changes
+- Explore evaluate mode, bypass permissions, and ruleset import/export
 
 ## 6.1 Create an organization-level ruleset
 
@@ -76,7 +84,9 @@ Understanding bypass behavior is essential for designing rulesets that balance s
 
 > **Note: Bypass audit trail** — Every time a bypass actor overrides a ruleset, GitHub records the event in Rule Insights. This provides a clear audit trail for compliance reviews.
 
-## 6.4 Import and export rulesets
+## 6.4 Import and export rulesets _(if time permits)_
+
+> **⏱️ Timing note:** Sections 6.4 and 6.5 are optional during in-session delivery. If the workshop is running behind schedule, skip to section 6.6 (Verification) and complete these sections as self-paced practice.
 
 Rulesets can be exported as JSON and imported into other organizations or repositories, enabling you to standardize policies across your enterprise.
 
@@ -129,7 +139,7 @@ Rulesets can be exported as JSON and imported into other organizations or reposi
 8. _(Optional)_ Browse the [github/ruleset-recipes](https://github.com/github/ruleset-recipes) repository for pre-built ruleset JSON files covering common patterns (e.g., signed commits, status checks, code review). Download one and import it into your organization.
 9. Review the imported ruleset, adjust settings as needed, and change the enforcement status to **Active** or **Evaluate**
 
-## 6.5 Compare rulesets with branch protection
+## 6.5 Compare rulesets with branch protection _(if time permits)_
 
 In Lab 03 you learned that rulesets are the modern replacement for branch protection rules. This section provides a direct comparison to help you make migration decisions.
 
