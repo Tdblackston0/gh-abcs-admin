@@ -6,25 +6,25 @@ Use this assessment to measure learning outcomes, gather feedback, and create ac
 
 After completing this workshop, participants should be able to perform the following tasks. Rate your confidence for each (1 = Not confident, 5 = Very confident):
 
-### Day 1: Working on GitHub
+### Day 1: Enterprise, Organization & Governance
 
 | # | Outcome | Confidence (1-5) |
 |---|---------|-------------------|
-| 1 | Configure repository visibility and base permissions | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
-| 2 | Create and manage repository rulesets | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
-| 3 | Configure required status checks and CI integration | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
-| 4 | Enable and configure security scanning (secret, code, Dependabot) | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
-| 5 | Explain user privacy controls and data residency options | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
-| 6 | Manage GitHub licenses and billing | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
+| 1 | Configure SAML SSO and SCIM provisioning | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
+| 2 | Manage enterprise policies and settings inheritance | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
+| 3 | Administer users, teams, and organization structure | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
+| 4 | Query and analyze the audit log | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
+| 5 | Manage GitHub Copilot governance policies | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
+| 6 | Identify and manage dormant users for license optimization | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
 
-### Day 2: Integrations, Admin, API, Advanced
+### Day 2: Repository, Security, API & Advanced
 
 | # | Outcome | Confidence (1-5) |
 |---|---------|-------------------|
-| 7 | Configure SAML SSO and SCIM provisioning | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
-| 8 | Manage enterprise policies and settings inheritance | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
-| 9 | Administer users, teams, and organization structure | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
-| 10 | Query and analyze the audit log | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
+| 7 | Configure repository visibility and base permissions | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
+| 8 | Create and manage repository rulesets | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
+| 9 | Configure required status checks and CI integration | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
+| 10 | Enable and configure security scanning (secret, code, Dependabot) | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
 | 11 | Use the GitHub REST and GraphQL APIs | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
 | 12 | Configure webhooks and 3rd party integrations | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
 | 13 | Set up deployment environments and protection rules | ☐ 1 ☐ 2 ☐ 3 ☐ 4 ☐ 5 |
@@ -109,8 +109,8 @@ GitHub offers certifications that directly align with this workshop's content. U
 | Learning Path | Relevance |
 |---------------|-----------|
 | [GitHub Administration](https://learn.microsoft.com/en-us/collections/mom7u1gzjdxw03) | Directly complements this workshop |
-| [Manage source control with GitHub](https://learn.microsoft.com/en-us/training/paths/manage-source-control/) | Repository management foundations |
-| [Build with GitHub Actions](https://learn.microsoft.com/en-us/training/paths/build-applications-github-actions/) | CI/CD pipeline design and automation |
+| [Manage source control (AZ-400)](https://learn.microsoft.com/en-us/training/paths/az-400-manage-source-control/) | Repository management foundations |
+| [Implement CI with GitHub Actions (AZ-400)](https://learn.microsoft.com/en-us/training/paths/az-400-implement-ci-azure-pipelines-github-actions/) | CI/CD pipeline design and automation |
 | [GitHub Security (Secret Protection & Code Security)](https://learn.microsoft.com/en-us/collections/rqymc6yw8q5rey) | Security configuration and monitoring |
 
 ### Azure Certification Overlap

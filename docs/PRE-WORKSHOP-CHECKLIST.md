@@ -29,7 +29,7 @@ This checklist ensures all participants and instructors are prepared for the Git
 ### Pre-Reading (Optional but Recommended)
 
 - Review [Enterprise Hierarchy](01-enterprise-hierarchy.md) for GHEC structure overview
-- Review [Repository Governance](07-repository-governance.md) for Day 1 context
+- Review [Repository Governance](07-repository-governance.md) for Day 2 context
 - Complete the [Setup Guide](../labs/setup.md) if available
 
 ## Instructor Requirements

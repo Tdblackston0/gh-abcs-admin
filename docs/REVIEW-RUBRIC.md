@@ -524,8 +524,8 @@
 #### 3A.3 Progressive Complexity (Weight: 1.5/8)
 
 **What to check:**
-- Day 1 starts with more accessible topics (repos, rulesets)
-- Day 2 builds on Day 1 foundations (IAM, enterprise policies, automation)
+- Day 1 starts with enterprise governance and identity (IAM, enterprise policies, teams, audit)
+- Day 2 builds on Day 1 foundations with hands-on repo governance (rulesets, security, API, automation)
 - Labs increase in complexity (Lab 3 → Lab 6 → Lab 7 shows progression)
 - Self-paced extension labs are correctly positioned as more advanced
 - No lab assumes knowledge from a later section

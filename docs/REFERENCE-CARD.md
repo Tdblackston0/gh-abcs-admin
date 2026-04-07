@@ -172,6 +172,51 @@ Enterprise (enforced policies)
 
 Key principle: **Policies cascade downward. Lower levels can add restrictions but cannot remove restrictions set at higher levels.**
 
+## Copilot Governance
+
+### Policy Cascade
+
+```text
+Enterprise (Copilot policies)
+  └── Organization (inherits, can restrict further)
+        └── Individual (seat assignment)
+```
+
+### Key Policy Settings
+
+| Setting | Scope | Description |
+|---------|-------|-------------|
+| Enable/Disable Copilot | Enterprise / Org | Control whether Copilot is available |
+| Suggestion Matching | Enterprise / Org | Block suggestions matching public code |
+| Content Exclusions | Enterprise / Org | Exclude specific files/repos from Copilot context |
+| Editor Availability | Enterprise / Org | Control which editors can use Copilot |
+| Copilot Chat in GitHub.com | Enterprise / Org | Enable/disable Copilot Chat on the web |
+
+### Plan Comparison
+
+| Feature | Free | Pro | Business | Enterprise |
+|---------|------|-----|----------|------------|
+| Code completions | ✅ (limited) | ✅ | ✅ | ✅ |
+| Copilot Chat | ✅ (limited) | ✅ | ✅ | ✅ |
+| Organization policy controls | ❌ | ❌ | ✅ | ✅ |
+| Content exclusions | ❌ | ❌ | ✅ | ✅ |
+| Audit log integration | ❌ | ❌ | ✅ | ✅ |
+| Knowledge bases | ❌ | ❌ | ❌ | ✅ |
+| Fine-grained policy control | ❌ | ❌ | ❌ | ✅ |
+
+### Copilot Metrics API
+
+```bash
+# Get Copilot usage metrics for an organization
+gh api /orgs/ORG/copilot/metrics --paginate
+
+# Get Copilot usage metrics for an enterprise
+gh api /enterprises/ENTERPRISE/copilot/metrics --paginate
+
+# Get Copilot seat assignments
+gh api /orgs/ORG/copilot/billing/seats --paginate
+```
+
 ## Quick Decision Matrix
 
 | Need | Feature | Where to Configure |

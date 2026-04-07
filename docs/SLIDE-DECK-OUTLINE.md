@@ -8,8 +8,122 @@ This outline provides the structure for creating a slide deck for the GitHub Adm
 - "Key Visual" suggests a diagram or screenshot to include
 - "Speaker Notes" provides the essential points to cover
 - Reference the [Instructor Guide](INSTRUCTOR-GUIDE.md) for detailed talking points
+- For ready-to-present HTML slides covering topics not in the PowerPoint, see [Day 1 Supplement](slides-day1-supplement.html) and [Day 2 Supplement](slides-day2-supplement.html)
 
 ## Day 1
+
+### Module 2.1: Integrations and Authentication (15 min)
+
+**Slide 1: Module Title**
+- Title: "Integrations and Authentication"
+- Subtitle: "SAML, SCIM, OIDC, and Enterprise Managed Users"
+
+**Slide 2: Authentication Landscape**
+- Key Visual: Architecture diagram showing SAML SSO, SCIM provisioning, and OIDC flows
+- Speaker Notes: SAML for authentication, SCIM for provisioning, OIDC for token-based auth. All three work together for complete identity management.
+
+**Slide 3: EMU vs Non-EMU Comparison**
+- Key Visual: Side-by-side comparison table (EMU vs standard GHEC)
+- Speaker Notes: EMU = full identity control from IdP. Non-EMU = users link existing GitHub accounts. EMU is more restrictive but provides stronger governance.
+
+**Slide 4: IdP Configuration Flow**
+- Key Visual: Step-by-step flow diagram for IdP setup (Entra ID / Okta example)
+- Speaker Notes: Walk through the key configuration steps. Emphasize testing with a small group before org-wide rollout.
+
+**Slide 5: OAuth Apps vs GitHub Apps**
+- Key Visual: Comparison table (OAuth App vs GitHub App permissions, scope, installation)
+- Speaker Notes: GitHub Apps are the recommended path. Fine-grained permissions, installation-level access, webhook-driven architecture.
+
+**Slide 6: Self-Paced Lab Reference**
+- Note: No in-session lab — covered in self-paced Lab 11
+- Provide link and brief description
+
+---
+
+### Module 2.2: Enterprise Administration (10 min)
+
+**Slide 1: Module Title**
+- Title: "Enterprise Administration"
+- Subtitle: "Hierarchy, policies, and governance at scale"
+
+**Slide 2: Enterprise Hierarchy**
+- Key Visual: Enterprise hierarchy diagram (Enterprise → Organizations → Teams → Repositories)
+- Speaker Notes: Enterprise is the top-level container. Organizations group related repos and teams. Teams manage access within orgs.
+
+**Slide 3: Enterprise vs Org Policies**
+- Key Visual: Table showing which policies can be set at enterprise vs org level
+- Speaker Notes: Enterprise policies can be enforced (locked) or allowed (delegated). Enforced policies cannot be overridden at the org level.
+
+**Slide 4: Policy Enforcement Types**
+- Key Visual: Diagram showing Allow / Block / Enforce behavior
+- Speaker Notes: Allow = orgs choose. Enforce = all orgs must comply. Block = no org can enable. Choose based on governance needs.
+
+**Slide 5: Transition to Lab**
+- Title: "Hands-on: Lab 15 — Copilot Governance Configuration"
+- Duration: 15 minutes
+- Quick description of what they'll do
+
+---
+
+### Module 2.4-2.5-2.7: Orgs, Users, Teams (15 min)
+
+**Slide 1: Module Title**
+- Title: "Organizations, Users, and Teams"
+- Subtitle: "Structure, lifecycle, and access management"
+
+**Slide 2: Organization Structure Patterns**
+- Key Visual: Common org structures (single org, multi-org by BU, multi-org by environment)
+- Speaker Notes: Choose based on isolation needs, compliance requirements, and team boundaries. Most enterprises use 1-3 orgs.
+
+**Slide 3: User Lifecycle**
+- Key Visual: User journey diagram (invite → onboard → active → role change → offboard)
+- Speaker Notes: Automate with SCIM where possible. Monitor for dormant users. Offboarding should revoke access immediately.
+
+**Slide 4: Teams and Nested Teams**
+- Key Visual: Team hierarchy diagram with permission inheritance
+- Speaker Notes: Teams can be nested for org structure mapping. Child teams inherit parent permissions. Use for code review assignment and access control.
+
+**Slide 5: IdP Group Sync**
+- Key Visual: Flow diagram (IdP group → GitHub team → repository access)
+- Speaker Notes: Sync IdP groups to GitHub teams for automated access management. Changes in IdP propagate to GitHub automatically.
+
+**Slide 6: Transition to Lab**
+- Title: "Hands-on: Lab 9 — Teams"
+- Duration: 20 minutes
+- Quick description of what they'll do
+
+---
+
+### Module 2.3-2.6: Audit and Dormant Users (10 min)
+
+**Slide 1: Module Title**
+- Title: "Audit Logging and Dormant Users"
+- Subtitle: "Visibility, compliance, and license optimization"
+
+**Slide 2: Audit Log Overview**
+- Key Visual: Audit log dashboard screenshot concept
+- Speaker Notes: Audit log captures all administrative and security events. Available via UI, API, and streaming. Retained for 180 days (GHEC).
+
+**Slide 3: Key Events to Monitor**
+- Key Visual: Table of critical audit events with severity indicators
+- Speaker Notes: Focus on permission changes, member additions/removals, repo visibility changes, and security setting modifications.
+
+**Slide 4: Audit Log Streaming**
+- Key Visual: Architecture diagram (GitHub → streaming endpoint → SIEM)
+- Speaker Notes: Stream to S3, Azure Blob, Datadog, Splunk, or Azure Event Hubs. Enables long-term retention and correlation with other security data.
+
+**Slide 5: Identifying and Managing Dormant Users**
+- Key Visual: Dormant user identification workflow diagram
+- Speaker Notes: Use API to identify users with no activity. Reclaim licenses from dormant accounts. Consider automation for periodic reviews.
+
+**Slide 6: Transition to Lab**
+- Title: "Hands-on: Lab 8 — Audit Log"
+- Duration: 20 minutes
+- Quick description of what they'll do
+
+---
+
+## Day 2
 
 ### Module 1.1: Repository Permissions and Settings (15 min)
 
@@ -60,7 +174,7 @@ This outline provides the structure for creating a slide deck for the GitHub Adm
 
 **Slide 6: Transition to Lab**
 - Title: "Hands-on: Lab 3 — Branch Rulesets"
-- Duration: 10 minutes
+- Duration: 15 minutes
 - Quick description of what they'll do
 
 ---
@@ -85,7 +199,7 @@ This outline provides the structure for creating a slide deck for the GitHub Adm
 
 **Slide 5: Transition to Lab**
 - Title: "Hands-on: Lab 6 — Required Status Checks"
-- Duration: 10 minutes
+- Duration: 15 minutes
 - Quick description of what they'll do
 
 ---
@@ -114,7 +228,7 @@ This outline provides the structure for creating a slide deck for the GitHub Adm
 
 **Slide 6: Transition to Lab**
 - Title: "Hands-on: Lab 7 — Security"
-- Duration: 10 minutes
+- Duration: 20 minutes
 - Quick description of what they'll do
 
 ---
@@ -143,119 +257,6 @@ This outline provides the structure for creating a slide deck for the GitHub Adm
 
 ---
 
-## Day 2
-
-### Module 2.1: Integrations and Authentication (15 min)
-
-**Slide 1: Module Title**
-- Title: "Integrations and Authentication"
-- Subtitle: "SAML, SCIM, OIDC, and Enterprise Managed Users"
-
-**Slide 2: Authentication Landscape**
-- Key Visual: Architecture diagram showing SAML SSO, SCIM provisioning, and OIDC flows
-- Speaker Notes: SAML for authentication, SCIM for provisioning, OIDC for token-based auth. All three work together for complete identity management.
-
-**Slide 3: EMU vs Non-EMU Comparison**
-- Key Visual: Side-by-side comparison table (EMU vs standard GHEC)
-- Speaker Notes: EMU = full identity control from IdP. Non-EMU = users link existing GitHub accounts. EMU is more restrictive but provides stronger governance.
-
-**Slide 4: IdP Configuration Flow**
-- Key Visual: Step-by-step flow diagram for IdP setup (Azure AD / Okta example)
-- Speaker Notes: Walk through the key configuration steps. Emphasize testing with a small group before org-wide rollout.
-
-**Slide 5: OAuth Apps vs GitHub Apps**
-- Key Visual: Comparison table (OAuth App vs GitHub App permissions, scope, installation)
-- Speaker Notes: GitHub Apps are the recommended path. Fine-grained permissions, installation-level access, webhook-driven architecture.
-
-**Slide 6: Self-Paced Lab Reference**
-- Note: No in-session lab — covered in self-paced Lab 11
-- Provide link and brief description
-
----
-
-### Module 2.2: Enterprise Administration (10 min)
-
-**Slide 1: Module Title**
-- Title: "Enterprise Administration"
-- Subtitle: "Hierarchy, policies, and governance at scale"
-
-**Slide 2: Enterprise Hierarchy**
-- Key Visual: Enterprise hierarchy diagram (Enterprise → Organizations → Teams → Repositories)
-- Speaker Notes: Enterprise is the top-level container. Organizations group related repos and teams. Teams manage access within orgs.
-
-**Slide 3: Enterprise vs Org Policies**
-- Key Visual: Table showing which policies can be set at enterprise vs org level
-- Speaker Notes: Enterprise policies can be enforced (locked) or allowed (delegated). Enforced policies cannot be overridden at the org level.
-
-**Slide 4: Policy Enforcement Types**
-- Key Visual: Diagram showing Allow / Block / Enforce behavior
-- Speaker Notes: Allow = orgs choose. Enforce = all orgs must comply. Block = no org can enable. Choose based on governance needs.
-
-**Slide 5: Transition to Lab**
-- Title: "Hands-on: Lab 15 — Copilot Governance Configuration"
-- Duration: 10 minutes
-- Quick description of what they'll do
-
----
-
-### Module 2.4-2.5-2.7: Orgs, Users, Teams (15 min)
-
-**Slide 1: Module Title**
-- Title: "Organizations, Users, and Teams"
-- Subtitle: "Structure, lifecycle, and access management"
-
-**Slide 2: Organization Structure Patterns**
-- Key Visual: Common org structures (single org, multi-org by BU, multi-org by environment)
-- Speaker Notes: Choose based on isolation needs, compliance requirements, and team boundaries. Most enterprises use 1-3 orgs.
-
-**Slide 3: User Lifecycle**
-- Key Visual: User journey diagram (invite → onboard → active → role change → offboard)
-- Speaker Notes: Automate with SCIM where possible. Monitor for dormant users. Offboarding should revoke access immediately.
-
-**Slide 4: Teams and Nested Teams**
-- Key Visual: Team hierarchy diagram with permission inheritance
-- Speaker Notes: Teams can be nested for org structure mapping. Child teams inherit parent permissions. Use for code review assignment and access control.
-
-**Slide 5: IdP Group Sync**
-- Key Visual: Flow diagram (IdP group → GitHub team → repository access)
-- Speaker Notes: Sync IdP groups to GitHub teams for automated access management. Changes in IdP propagate to GitHub automatically.
-
-**Slide 6: Transition to Lab**
-- Title: "Hands-on: Lab 9 — Teams"
-- Duration: 10 minutes
-- Quick description of what they'll do
-
----
-
-### Module 2.3-2.6: Audit and Dormant Users (10 min)
-
-**Slide 1: Module Title**
-- Title: "Audit Logging and Dormant Users"
-- Subtitle: "Visibility, compliance, and license optimization"
-
-**Slide 2: Audit Log Overview**
-- Key Visual: Audit log dashboard screenshot concept
-- Speaker Notes: Audit log captures all administrative and security events. Available via UI, API, and streaming. Retained for 180 days (GHEC).
-
-**Slide 3: Key Events to Monitor**
-- Key Visual: Table of critical audit events with severity indicators
-- Speaker Notes: Focus on permission changes, member additions/removals, repo visibility changes, and security setting modifications.
-
-**Slide 4: Audit Log Streaming**
-- Key Visual: Architecture diagram (GitHub → streaming endpoint → SIEM)
-- Speaker Notes: Stream to S3, Azure Blob, Datadog, Splunk, or Azure Event Hubs. Enables long-term retention and correlation with other security data.
-
-**Slide 5: Identifying and Managing Dormant Users**
-- Key Visual: Dormant user identification workflow diagram
-- Speaker Notes: Use API to identify users with no activity. Reclaim licenses from dormant accounts. Consider automation for periodic reviews.
-
-**Slide 6: Transition to Lab**
-- Title: "Hands-on: Lab 8 — Audit Log"
-- Duration: 10 minutes
-- Quick description of what they'll do
-
----
-
 ### Module 2.8-2.11: API and Webhooks (10 min)
 
 **Slide 1: Module Title**
@@ -276,7 +277,7 @@ This outline provides the structure for creating a slide deck for the GitHub Adm
 
 **Slide 5: Transition to Lab**
 - Title: "Hands-on: Lab 5 — GitHub API"
-- Duration: 10 minutes
+- Duration: 15 minutes
 - Quick description of what they'll do
 
 ---
@@ -305,7 +306,7 @@ This outline provides the structure for creating a slide deck for the GitHub Adm
 
 **Slide 6: Transition to Lab**
 - Title: "Hands-on: Lab 13 — Automation"
-- Duration: 10 minutes
+- Duration: 15 minutes
 - Quick description of what they'll do
 
 ---

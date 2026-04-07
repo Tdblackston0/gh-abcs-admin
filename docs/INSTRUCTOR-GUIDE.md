@@ -63,6 +63,8 @@ Complete these environment tasks at least **3 business days** before the worksho
 - [ ] [KNOWLEDGE-CHECKS.md](KNOWLEDGE-CHECKS.md) ready for end-of-day review sessions
 - [ ] [POST-WORKSHOP-ASSESSMENT.md](POST-WORKSHOP-ASSESSMENT.md) ready to share on Day 2 wrap-up
 - [ ] [Setup Guide](../labs/setup.md) link ready to share during environment verification slot
+- [ ] [Day 1 Supplement Slides](slides-day1-supplement.html) ready — Copilot governance, audit log/dormant users (13 slides, open in browser)
+- [ ] [Day 2 Supplement Slides](slides-day2-supplement.html) ready — Rulesets, security scanning, automation/CLI (21 slides, open in browser)
 
 ### VBD Spec Requirements
 
@@ -75,261 +77,13 @@ The VBD specification defines the following **mandatory prerequisites** that the
 
 **Instructor action:** Before Day 1, confirm each of these items with the customer's technical contact. If any item is unresolved, escalate immediately — the workshop cannot proceed without admin access for all participants.
 
-## Day 2 Module Guide
-
-Day 2 focuses on **"Repository, Security, API & Advanced Topics"** — repository governance, rulesets, security scanning, API automation, and deployment. Total time: 180 minutes (3 hours).
-
-Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
-
-### Module 1.1: Repository Permissions and Settings
-
-**Duration:** 15 min presentation + 10 min lab | **Type:** 📖 + 🔬
-**Doc References:** [Repository Governance](07-repository-governance.md), [Teams and Permissions](05-teams-permissions.md)
-**Lab:** [Lab 4: GitHub Templates](../labs/lab04.md)
-
-**Learning Objectives:**
-
-- Explain repository visibility levels (public, internal, private)
-- Configure base permissions at the org level
-- Create and assign custom repository roles
-
-**Key Talking Points:**
-
-- **Repository visibility** — when to use public, internal, and private; the inner source pattern with internal visibility
-- **Base permissions** — the minimum permission for all org members; why "Read" is a common default for enterprise orgs
-- **Custom repository roles** — when built-in roles (Read, Triage, Write, Maintain, Admin) are not granular enough
-- **Team-based access** — why teams are preferred over direct user permissions at scale
-
-**Demo Script:**
-
-1. Navigate to **org settings → Member privileges → Base permissions** and explain each option
-2. Open a repository → **Settings → Manage access** → show how teams and individuals are granted access
-3. Navigate to **org settings → Roles → Repository roles** → walk through custom role creation
-4. Show how custom roles appear in the repository access UI
-
-**Discussion Prompts:**
-
-- "What base permission does your organization currently use? Why did you choose it?"
-- "When would you use internal visibility vs. private visibility?"
-- "Has anyone needed a permission level between Write and Admin? That's where custom roles help."
-
-**Common Questions:**
-
-- Q: "Can I restrict who creates repositories?" → A: Yes, go to **org settings → Member privileges → Repository creation** and limit to admins or specific roles.
-- Q: "Do custom roles override team permissions?" → A: Custom roles provide *additional* permissions on top of team-level access; they do not restrict.
-- Q: "How do I audit who has access to a repository?" → A: Use the repository **Settings → Manage access** page or the `repos/{owner}/{repo}/collaborators` API endpoint.
-
-**Timing Notes:**
-
-- If running short on time, skip the custom roles deep-dive and mention it as self-study
-- If running long, have participants explore Lab 4 independently after the session
-
----
-
-### Module 1.2–1.3: Branches, Pull Requests, and Rulesets
-
-**Duration:** 20 min presentation + 20 min lab | **Type:** 📖 + 🔬
-**Doc References:** [Repository Governance](07-repository-governance.md)
-**Lab:** [Lab 3: Repository Rulesets](../labs/lab03.md)
-
-**Learning Objectives:**
-
-- Configure branch protection rules and compare them with rulesets
-- Create and manage repository rulesets with bypass actors
-- Understand pull request review requirements and merge strategies
-
-**Key Talking Points:**
-
-- **Branch protection vs. rulesets** — rulesets are the modern replacement; they support org-level rules, bypass actors, and layered policies
-- **Ruleset targeting** — how to target branches by name pattern (e.g., `main`, `release/*`)
-- **Required reviews** — configuring minimum reviewers, dismiss stale reviews, require re-review on push
-- **Merge strategies** — merge commit, squash, rebase; when each is appropriate
-- **Bypass actors** — who can bypass rulesets and why this matters for CI/CD service accounts
-
-**Demo Script:**
-
-1. Navigate to a repository → **Settings → Rules → Rulesets**
-2. Create a new branch ruleset targeting `main`
-3. Add rules: require pull request, require approvals (1 reviewer minimum), require status checks
-4. Show bypass actors configuration — add a team or app
-5. Demonstrate what happens when pushing directly to a protected branch (show the error)
-
-**Discussion Prompts:**
-
-- "Do you currently use branch protection rules or rulesets? What's your migration plan?"
-- "How do you handle service accounts that need to bypass protection?"
-
-**Common Questions:**
-
-- Q: "Can I apply rulesets at the org level?" → A: Yes, org-level rulesets apply across all (or targeted) repositories — a major advantage over branch protection.
-- Q: "What happens if multiple rulesets conflict?" → A: Rulesets are additive — the most restrictive combination applies.
-- Q: "Can I import existing branch protection as rulesets?" → A: Not automatically, but the settings map closely. Plan a manual migration.
-
-**Timing Notes:**
-
-- This is a combined 1.2 + 1.3 slot — spend roughly 10 minutes on branches/PRs and 10 minutes on rulesets
-- Lab 3 is 20 minutes; if participants finish early, encourage them to experiment with additional ruleset rules
-
----
-
-### Module 1.4: Required Status Checks
-
-**Duration:** 15 min presentation + 20 min lab | **Type:** 📖 + 🔬
-**Doc References:** [Repository Governance](07-repository-governance.md)
-**Lab:** [Lab 6: Advanced Repository Rulesets](../labs/lab06.md)
-
-**Learning Objectives:**
-
-- Configure required status checks as part of a ruleset
-- Understand how status checks integrate with GitHub Actions workflows
-- Troubleshoot common status check failures
-
-**Key Talking Points:**
-
-- **What status checks are** — external CI/CD signals that report pass/fail to a pull request
-- **Requiring specific checks** — how to add named checks to a ruleset and why exact naming matters
-- **Strict status checks** — requiring branches to be up-to-date before merging
-- **Integration with Actions** — how workflow job names map to status check names
-- **Troubleshooting** — common issues when checks don't appear (naming mismatch, workflow not triggered)
-
-**Demo Script:**
-
-1. Open an existing ruleset (from Module 1.2–1.3) → **Add rule → Require status checks**
-2. Search for and add a status check by name
-3. Enable "Require branches to be up to date"
-4. Open a pull request and show the status checks section
-5. Show what happens when a required check is missing or failing
-
-**Discussion Prompts:**
-
-- "What CI checks do you currently require before merging?"
-- "Have you experienced issues with status checks not appearing? What was the root cause?"
-
-**Common Questions:**
-
-- Q: "Why doesn't my status check appear in the dropdown?" → A: The check must have run at least once in the repository. Trigger the workflow first.
-- Q: "Can I require checks from external CI systems?" → A: Yes, any system that reports status via the Commit Status API or Check Runs API works.
-- Q: "What's the difference between branch protection checks and ruleset checks?" → A: Functionally similar, but rulesets support org-level enforcement and bypass actors.
-
-**Timing Notes:**
-
-- Lab 6 builds on Lab 3 — ensure participants completed Lab 3 first
-- If participants struggle with Lab 6, pair them up or do a guided walkthrough
-
----
-
-### Module 1.5: Security in the Cloud
-
-**Duration:** 15 min presentation + 25 min lab | **Type:** 📖 + 🔬
-**Doc References:** [Security and Compliance](08-security-compliance.md), [Security by Default](11-security-by-default-policies.md)
-**Lab:** [Lab 7: Security Scanning and Push Protection](../labs/lab07.md)
-
-**Learning Objectives:**
-
-- Enable and configure Dependabot, code scanning, and secret scanning
-- Implement push protection for secret scanning
-- Understand security-by-default policies at the org and enterprise level
-
-**Key Talking Points:**
-
-- **Dependabot** — automated dependency updates and vulnerability alerts; configuring `.github/dependabot.yml`
-- **Code scanning** — CodeQL analysis setup, default vs. advanced configurations
-- **Secret scanning** — detecting secrets in commits; push protection to block secrets before they land
-- **Security-by-default policies** — org-level settings that auto-enable security features on new repositories
-- **Security overview dashboard** — the enterprise/org-level view of security alerts across all repos
-
-**Demo Script:**
-
-1. Navigate to **org settings → Code security and analysis** — show the enable-all toggles
-2. Open a repository → **Settings → Code security and analysis** — show repo-level overrides
-3. Navigate to **Security → Security overview** to show the dashboard
-4. Demonstrate push protection by attempting to push a test secret (use a revoked/test token)
-5. Show how to review and dismiss secret scanning alerts
-
-**Discussion Prompts:**
-
-- "Which security features are you currently using? Are they enabled org-wide or repo-by-repo?"
-- "How do you handle false positives in secret scanning?"
-- "What's your process when Dependabot opens a PR?"
-
-**Common Questions:**
-
-- Q: "Is CodeQL free for all repositories?" → A: CodeQL is free for public repositories and included with GHEC for private repositories.
-- Q: "Can I customize which secrets are detected?" → A: Yes, you can define custom patterns for secret scanning at the org level.
-- Q: "What happens when push protection blocks a push?" → A: The developer sees an error with the detected secret. They can bypass with a reason (if allowed) or remove the secret and push again.
-
-**Timing Notes:**
-
-- Lab 7 is the longest Day 1 lab (25 min) — ensure participants have time to complete it
-- If running behind, do a guided walkthrough of the first few steps and let participants finish the rest self-paced
-
----
-
-### Module 1.6–1.8: User Privacy, Licenses, and Marketplace
-
-**Duration:** 10 min presentation (combined) | **Type:** 📖 only
-**Doc References:** [User Privacy and Data Residency](26-user-privacy-data-residency.md), [Licenses and Billing](19-licenses-billing.md), [GitHub Marketplace](20-github-marketplace-apps.md)
-**Lab:** No in-session lab — [Lab 11: GitHub Apps and Marketplace](../labs/lab11.md) is a self-paced extension
-
-**Learning Objectives:**
-
-- Understand data residency options and user privacy controls in GHEC
-- Navigate license management and billing for enterprise accounts
-- Evaluate and install GitHub Marketplace apps safely
-
-**Key Talking Points:**
-
-- **User privacy** — profile visibility settings, contribution graph privacy, data residency with GitHub Enterprise Cloud with data residency (GHEC DR)
-- **Licenses and billing** — seat-based licensing, viewing consumption, managing unused licenses
-- **Marketplace overview** — GitHub Apps vs. OAuth Apps, evaluating third-party apps, app permissions model
-- **Enterprise policy** — how to restrict which Marketplace apps org members can install
-
-**Demo Script:**
-
-1. Navigate to **enterprise settings → Billing** — show license consumption
-2. Open **org settings → Third-party access** — show app installation policies
-3. Browse the GitHub Marketplace briefly and show how to evaluate an app's permissions
-
-**Discussion Prompts:**
-
-- "Does your organization have data residency requirements?"
-- "How do you currently manage license allocation?"
-
-**Common Questions:**
-
-- Q: "Can I prevent users from installing any Marketplace apps?" → A: Yes, org owners can restrict app installations to admin-only.
-- Q: "How do I reclaim unused licenses?" → A: Remove inactive members from the org or enterprise, or use dormant user reports.
-
-**Timing Notes:**
-
-- This is a quick combined overview (10 min total) — keep it high-level
-- Point participants to Lab 11 as self-paced follow-up for Marketplace hands-on practice
-
----
-
-### Day 2 Timing Summary
-
-| Slot | Duration | Content |
-|------|----------|---------|
-| Welcome | 5 min | Day 2 kickoff, recap Day 1 |
-| Module 1.1 | 25 min | Repository governance, templates + Lab 4 |
-| Module 1.2–1.3 | 30 min | Rulesets deep dive + Lab 3 |
-| Module 1.3–1.4 | 15 min | Advanced Rulesets: Lab 6 |
-| ☕ Break | 10 min | — |
-| Module 1.5 | 35 min | Security scanning, push protection + Lab 7 |
-| Module 2.8–2.11 | 25 min | API and webhooks + Lab 5 |
-| Module 2.9–2.14 | 25 min | Actions, automation, Marketplace + Lab 13 |
-| Module 1.6–1.8 | 5 min | Privacy, licenses, repo health overview |
-| Wrap-up | 5 min | Knowledge check, assessment, next steps |
-| **Total** | **180 min** | — |
-
 ## Day 1 Module Guide
 
 Day 1 focuses on **"Enterprise, Organization & Governance"** — enterprise hierarchy, policies, identity management, team structure, and audit logging. Total time: 180 minutes (3 hours).
 
 Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
 
-> **Note:** Modules 2.8–2.11 (API/Webhooks) and 2.9–2.14 (Integrations/Automation) appear at the end of this section for document organization by VBD module number, but they are delivered on **Day 2** per the [AGENDA.md](AGENDA.md). See the Day 2 Timing Summary above for their scheduled slots.
+> **Note:** Modules 2.8–2.11 (API/Webhooks) and 2.9–2.14 (Integrations/Automation) appear at the end of this section for document organization by VBD module number, but they are delivered on **Day 2** per the [AGENDA.md](AGENDA.md). See the Day 2 Timing Summary below for their scheduled slots.
 
 ### Module 2.1: Integrations and Authentication
 
@@ -604,6 +358,20 @@ Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
 
 ---
 
+### Day 1 Wrap-Up (10 min)
+
+**Talking Points:**
+- Summarize key Day 1 themes: enterprise hierarchy, org structure, identity/access, audit logging
+- Preview Day 2: repository governance, rulesets, security, API/automation
+- Encourage participants to review self-paced extension labs for topics covered today
+
+**Q&A Facilitation:**
+- Open the floor for questions — target 5 minutes
+- If no questions, ask: "What's one thing you learned today that you'll apply immediately?"
+- Remind participants of the Reference Card as a take-home resource
+
+---
+
 ### Day 1 Timing Summary
 
 | Slot | Duration | Content |
@@ -621,6 +389,267 @@ Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
 | Audit & dormant | 10 min | Audit log, dormant user management |
 | Lab 8 | 20 min | Audit Log Exploration |
 | Wrap-up | 10 min | Day 1 Q&A, preview Day 2 |
+| **Total** | **180 min** | — |
+
+## Day 2 Module Guide
+
+Day 2 focuses on **"Repository, Security, API & Advanced Topics"** — repository governance, rulesets, security scanning, API automation, and deployment. Total time: 180 minutes (3 hours).
+
+Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
+
+### Module 1.1: Repository Permissions and Settings
+
+**Duration:** 15 min presentation + 10 min lab | **Type:** 📖 + 🔬
+**Doc References:** [Repository Governance](07-repository-governance.md), [Teams and Permissions](05-teams-permissions.md)
+**Lab:** [Lab 4: GitHub Templates](../labs/lab04.md)
+
+**Learning Objectives:**
+
+- Explain repository visibility levels (public, internal, private)
+- Configure base permissions at the org level
+- Create and assign custom repository roles
+
+**Key Talking Points:**
+
+- **Repository visibility** — when to use public, internal, and private; the inner source pattern with internal visibility
+- **Base permissions** — the minimum permission for all org members; why "Read" is a common default for enterprise orgs
+- **Custom repository roles** — when built-in roles (Read, Triage, Write, Maintain, Admin) are not granular enough
+- **Team-based access** — why teams are preferred over direct user permissions at scale
+
+**Demo Script:**
+
+1. Navigate to **org settings → Member privileges → Base permissions** and explain each option
+2. Open a repository → **Settings → Manage access** → show how teams and individuals are granted access
+3. Navigate to **org settings → Roles → Repository roles** → walk through custom role creation
+4. Show how custom roles appear in the repository access UI
+
+**Discussion Prompts:**
+
+- "What base permission does your organization currently use? Why did you choose it?"
+- "When would you use internal visibility vs. private visibility?"
+- "Has anyone needed a permission level between Write and Admin? That's where custom roles help."
+
+**Common Questions:**
+
+- Q: "Can I restrict who creates repositories?" → A: Yes, go to **org settings → Member privileges → Repository creation** and limit to admins or specific roles.
+- Q: "Do custom roles override team permissions?" → A: Custom roles provide *additional* permissions on top of team-level access; they do not restrict.
+- Q: "How do I audit who has access to a repository?" → A: Use the repository **Settings → Manage access** page or the `repos/{owner}/{repo}/collaborators` API endpoint.
+
+**Timing Notes:**
+
+- If running short on time, skip the custom roles deep-dive and mention it as self-study
+- If running long, have participants explore Lab 4 independently after the session
+
+---
+
+### Module 1.2–1.3: Branches, Pull Requests, and Rulesets
+
+**Duration:** 20 min presentation + 20 min lab | **Type:** 📖 + 🔬
+**Doc References:** [Repository Governance](07-repository-governance.md)
+**Lab:** [Lab 3: Repository Rulesets](../labs/lab03.md)
+
+**Learning Objectives:**
+
+- Configure branch protection rules and compare them with rulesets
+- Create and manage repository rulesets with bypass actors
+- Understand pull request review requirements and merge strategies
+
+**Key Talking Points:**
+
+- **Branch protection vs. rulesets** — rulesets are the modern replacement; they support org-level rules, bypass actors, and layered policies
+- **Ruleset targeting** — how to target branches by name pattern (e.g., `main`, `release/*`)
+- **Required reviews** — configuring minimum reviewers, dismiss stale reviews, require re-review on push
+- **Merge strategies** — merge commit, squash, rebase; when each is appropriate
+- **Bypass actors** — who can bypass rulesets and why this matters for CI/CD service accounts
+
+**Demo Script:**
+
+1. Navigate to a repository → **Settings → Rules → Rulesets**
+2. Create a new branch ruleset targeting `main`
+3. Add rules: require pull request, require approvals (1 reviewer minimum), require status checks
+4. Show bypass actors configuration — add a team or app
+5. Demonstrate what happens when pushing directly to a protected branch (show the error)
+
+**Discussion Prompts:**
+
+- "Do you currently use branch protection rules or rulesets? What's your migration plan?"
+- "How do you handle service accounts that need to bypass protection?"
+
+**Common Questions:**
+
+- Q: "Can I apply rulesets at the org level?" → A: Yes, org-level rulesets apply across all (or targeted) repositories — a major advantage over branch protection.
+- Q: "What happens if multiple rulesets conflict?" → A: Rulesets are additive — the most restrictive combination applies.
+- Q: "Can I import existing branch protection as rulesets?" → A: Not automatically, but the settings map closely. Plan a manual migration.
+
+**Timing Notes:**
+
+- This is a combined 1.2 + 1.3 slot — spend roughly 10 minutes on branches/PRs and 10 minutes on rulesets
+- Lab 3 is 20 minutes; if participants finish early, encourage them to experiment with additional ruleset rules
+
+---
+
+### Module 1.4: Required Status Checks
+
+**Duration:** 15 min presentation + 15 min lab | **Type:** 📖 + 🔬
+**Doc References:** [Repository Governance](07-repository-governance.md)
+**Lab:** [Lab 6: Advanced Repository Rulesets](../labs/lab06.md)
+
+**Learning Objectives:**
+
+- Configure required status checks as part of a ruleset
+- Understand how status checks integrate with GitHub Actions workflows
+- Troubleshoot common status check failures
+
+**Key Talking Points:**
+
+- **What status checks are** — external CI/CD signals that report pass/fail to a pull request
+- **Requiring specific checks** — how to add named checks to a ruleset and why exact naming matters
+- **Strict status checks** — requiring branches to be up-to-date before merging
+- **Integration with Actions** — how workflow job names map to status check names
+- **Troubleshooting** — common issues when checks don't appear (naming mismatch, workflow not triggered)
+
+**Demo Script:**
+
+1. Open an existing ruleset (from Module 1.2–1.3) → **Add rule → Require status checks**
+2. Search for and add a status check by name
+3. Enable "Require branches to be up to date"
+4. Open a pull request and show the status checks section
+5. Show what happens when a required check is missing or failing
+
+**Discussion Prompts:**
+
+- "What CI checks do you currently require before merging?"
+- "Have you experienced issues with status checks not appearing? What was the root cause?"
+
+**Common Questions:**
+
+- Q: "Why doesn't my status check appear in the dropdown?" → A: The check must have run at least once in the repository. Trigger the workflow first.
+- Q: "Can I require checks from external CI systems?" → A: Yes, any system that reports status via the Commit Status API or Check Runs API works.
+- Q: "What's the difference between branch protection checks and ruleset checks?" → A: Functionally similar, but rulesets support org-level enforcement and bypass actors.
+
+**Timing Notes:**
+
+- Lab 6 builds on Lab 3 — ensure participants completed Lab 3 first
+- If participants struggle with Lab 6, pair them up or do a guided walkthrough
+
+---
+
+### Module 1.5: Security in the Cloud
+
+**Duration:** 15 min presentation + 20 min lab | **Type:** 📖 + 🔬
+**Doc References:** [Security and Compliance](08-security-compliance.md), [Security by Default](11-security-by-default-policies.md)
+**Lab:** [Lab 7: Security Scanning and Push Protection](../labs/lab07.md)
+
+**Learning Objectives:**
+
+- Enable and configure Dependabot, code scanning, and secret scanning
+- Implement push protection for secret scanning
+- Understand security-by-default policies at the org and enterprise level
+
+**Key Talking Points:**
+
+- **Dependabot** — automated dependency updates and vulnerability alerts; configuring `.github/dependabot.yml`
+- **Code scanning** — CodeQL analysis setup, default vs. advanced configurations
+- **Secret scanning** — detecting secrets in commits; push protection to block secrets before they land
+- **Security-by-default policies** — org-level settings that auto-enable security features on new repositories
+- **Security overview dashboard** — the enterprise/org-level view of security alerts across all repos
+
+**Demo Script:**
+
+1. Navigate to **org settings → Code security and analysis** — show the enable-all toggles
+2. Open a repository → **Settings → Code security and analysis** — show repo-level overrides
+3. Navigate to **Security → Security overview** to show the dashboard
+4. Demonstrate push protection by attempting to push a test secret (use a revoked/test token)
+5. Show how to review and dismiss secret scanning alerts
+
+**Discussion Prompts:**
+
+- "Which security features are you currently using? Are they enabled org-wide or repo-by-repo?"
+- "How do you handle false positives in secret scanning?"
+- "What's your process when Dependabot opens a PR?"
+
+**Common Questions:**
+
+- Q: "Is CodeQL free for all repositories?" → A: CodeQL is free for public repositories and included with GHEC for private repositories.
+- Q: "Can I customize which secrets are detected?" → A: Yes, you can define custom patterns for secret scanning at the org level.
+- Q: "What happens when push protection blocks a push?" → A: The developer sees an error with the detected secret. They can bypass with a reason (if allowed) or remove the secret and push again.
+
+**Timing Notes:**
+
+- Lab 7 is the longest Day 2 lab (20 min allocated) — ensure participants have time to complete it
+- If running behind, do a guided walkthrough of the first few steps and let participants finish the rest self-paced
+
+---
+
+### Module 1.6–1.8: User Privacy, Licenses, and Marketplace
+
+**Duration:** 5 min presentation (combined) | **Type:** 📖 only
+**Doc References:** [User Privacy and Data Residency](26-user-privacy-data-residency.md), [Licenses and Billing](19-licenses-billing.md), [GitHub Marketplace](20-github-marketplace-apps.md)
+**Lab:** No in-session lab — [Lab 11: GitHub Apps and Marketplace](../labs/lab11.md) is a self-paced extension
+
+**Learning Objectives:**
+
+- Understand data residency options and user privacy controls in GHEC
+- Navigate license management and billing for enterprise accounts
+- Evaluate and install GitHub Marketplace apps safely
+
+**Key Talking Points:**
+
+- **User privacy** — profile visibility settings, contribution graph privacy, data residency with GitHub Enterprise Cloud with data residency (GHEC DR)
+- **Licenses and billing** — seat-based licensing, viewing consumption, managing unused licenses
+- **Marketplace overview** — GitHub Apps vs. OAuth Apps, evaluating third-party apps, app permissions model
+- **Enterprise policy** — how to restrict which Marketplace apps org members can install
+
+**Demo Script:**
+
+1. Navigate to **enterprise settings → Billing** — show license consumption
+2. Open **org settings → Third-party access** — show app installation policies
+3. Browse the GitHub Marketplace briefly and show how to evaluate an app's permissions
+
+**Discussion Prompts:**
+
+- "Does your organization have data residency requirements?"
+- "How do you currently manage license allocation?"
+
+**Common Questions:**
+
+- Q: "Can I prevent users from installing any Marketplace apps?" → A: Yes, org owners can restrict app installations to admin-only.
+- Q: "How do I reclaim unused licenses?" → A: Remove inactive members from the org or enterprise, or use dormant user reports.
+
+**Timing Notes:**
+
+- This is a quick combined overview (5 min total) — keep it high-level
+- Point participants to Lab 11 as self-paced follow-up for Marketplace hands-on practice
+
+---
+
+### Day 2 Wrap-Up (5 min)
+
+**Talking Points:**
+- Highlight the "Top 5 Things to Implement This Week" from the slide deck
+- Direct participants to the Post-Workshop Assessment
+- Share the Reference Card link and self-paced extension lab list
+
+**Action Planning:**
+- Prompt: "Write down 3 things you will do in the next 30 days"
+- If time allows, ask 1-2 volunteers to share their top action item
+
+---
+
+### Day 2 Timing Summary
+
+| Slot | Duration | Content |
+|------|----------|---------|
+| Welcome | 5 min | Day 2 kickoff, recap Day 1 |
+| Module 1.1 | 25 min | Repository governance, templates + Lab 4 |
+| Module 1.2–1.3 | 30 min | Rulesets deep dive + Lab 3 |
+| Module 1.3–1.4 | 15 min | Advanced Rulesets: Lab 6 |
+| ☕ Break | 10 min | — |
+| Module 1.5 | 35 min | Security scanning, push protection + Lab 7 |
+| Module 2.8–2.11 | 25 min | API and webhooks + Lab 5 |
+| Module 2.9–2.14 | 25 min | Actions, automation, Marketplace + Lab 13 |
+| Module 1.6–1.8 | 5 min | Privacy, licenses, repo health overview |
+| Wrap-up | 5 min | Knowledge check, assessment, next steps |
 | **Total** | **180 min** | — |
 
 ## Troubleshooting
@@ -656,7 +685,7 @@ Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
 - **If behind schedule:** combine remaining presentation topics into quick overviews, skip optional discussion prompts, and have participants complete labs self-paced after the session
 - **If ahead of schedule:** extend discussion prompts, add self-paced extension labs as bonus activities, or dive deeper into topics the audience is interested in
 - **Break is flexible:** can be 5–15 minutes based on pacing and participant needs
-- **Day 1 buffer:** the 1.6–1.8 combined slot (10 min) is lightweight — use it as buffer time if earlier modules ran long
+- **Day 2 buffer:** the 1.6–1.7 combined slot (5 min) is lightweight — use it as buffer time if earlier modules ran long
 - **Day 2 buffer:** the wrap-up slot can flex between 5–15 minutes depending on how much time the knowledge check and Q&A need
 
 ### Audience Adaptation
@@ -679,7 +708,7 @@ Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
 
 **For a shortened 1-day delivery (3 hours):**
 
-- **Core modules:** 1.1 (Enterprise Hierarchy), 1.2 (Rulesets), 1.5 (Security), 2.1 (IAM), 2.3 (Audit), 2.6 (Copilot)
+- **Core modules:** 2.2 (Enterprise Hierarchy & Copilot), 1.2 (Rulesets), 1.5 (Security), 2.1 (IAM), 2.3 (Audit), 1.1 (Repository Permissions)
 - **Core labs:** Lab 03, Lab 06, Lab 07, Lab 08, Lab 15
 - **Skip:** Templates, webhooks, marketplace, dormant users, deployment environments
 - **Assign as self-paced:** All skipped labs + extension labs
@@ -706,7 +735,7 @@ Refer to the [AGENDA.md](AGENDA.md) for the complete schedule with start times.
 
 This section maps each slide in the official "Offering - GitHub Administration Training" deck to the corresponding workshop module, documentation, and lab.
 
-The PPT deck follows a **top-down flow**: Enterprise → Organization → Repository → API & Authentication → Actions & Marketplace. The workshop [AGENDA](AGENDA.md) may order sessions differently for pedagogical reasons (e.g., starting with repository governance on Day 1 so participants get hands-on experience early). Use this table to quickly locate the supporting documentation and lab for any slide you are presenting.
+The PPT deck follows a **top-down flow**: Enterprise → Organization → Repository → API & Authentication → Actions & Marketplace. The workshop [AGENDA](AGENDA.md) orders sessions differently for pedagogical reasons (enterprise governance on Day 1, repository governance on Day 2). Use this table to quickly locate the supporting documentation and lab for any slide you are presenting.
 
 | Slide # | Slide Title / Topic | Module / Topic | Repo Doc(s) | Lab(s) |
 |---------|---------------------|----------------|-------------|--------|
@@ -716,8 +745,8 @@ The PPT deck follows a **top-down flow**: Enterprise → Organization → Reposi
 | 5–9 | GitHub Enterprise Overview (Platforms, GHEC, GHES, Billing) | VBD: Enterprise Overview | [01-enterprise-hierarchy](01-enterprise-hierarchy.md), [19-licenses-billing](19-licenses-billing.md) | — |
 | 10–15 | Permission Flow (hierarchy, visibility, base permissions, roles) | VBD 1.1 | [05-teams-permissions](05-teams-permissions.md), [07-repository-governance](07-repository-governance.md) | Lab 4 (Templates) |
 | 16–17 | Enterprise Administration (demo) | VBD 2.2 | [01-enterprise-hierarchy](01-enterprise-hierarchy.md), [06-policy-inheritance](06-policy-inheritance.md) | Lab 15 (Copilot Governance) |
-| 18–31 | Organization Overview (namespaces, users, SSO, teams) | VBD 2.1, 2.4, 2.5, 2.7 | [02-org-strategies](02-org-strategies.md), [03-iam](03-iam.md), [04-emu](04-emu.md), [05-teams-permissions](05-teams-permissions.md) | Lab 9 (Teams) |
-| 32–45 | Organization Administration (settings, nested teams, team sync, insights, security) | VBD 2.3, 2.5, 2.6 | [21-user-admin](21-user-admin.md), [08-security-compliance](08-security-compliance.md), [22-audit-log-deep-dive](22-audit-log-deep-dive.md) | Lab 8 (Audit), Lab 9 (Teams) |
+| 18–31 | Organization Overview (namespaces, users, SSO, teams) | VBD 2.1, 2.4, 2.5, 2.7 | [02-organization-strategies](02-organization-strategies.md), [03-identity-access-management](03-identity-access-management.md), [04-enterprise-managed-users](04-enterprise-managed-users.md), [05-teams-permissions](05-teams-permissions.md) | Lab 9 (Teams) |
+| 32–45 | Organization Administration (settings, nested teams, team sync, insights, security) | VBD 2.3, 2.5, 2.6 | [21-user-administration](21-user-administration.md), [08-security-compliance](08-security-compliance.md), [22-audit-log-deep-dive](22-audit-log-deep-dive.md) | Lab 8 (Audit), Lab 9 (Teams) |
 | 46–49 | Repository (overview, settings, rulesets, CODEOWNERS) | VBD 1.1–1.4 | [07-repository-governance](07-repository-governance.md) | Lab 3 (Rulesets), Lab 6 (Advanced Rulesets) |
 | 50–61 | API & Authentication Methods (REST, GraphQL, GitHub Apps, OAuth, PATs) | VBD 2.8, 2.11 | [24-scripts-automation](24-scripts-automation.md), [27-integrations-status-api](27-integrations-status-api.md) | Lab 5 (API) |
 | 62–67 | Actions Overview (policies, sharing, best practices) | VBD 2.4, 2.12 | [24-scripts-automation](24-scripts-automation.md) | Lab 2 (Actions Settings), Lab 13 (Automation) |

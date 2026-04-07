@@ -23,8 +23,8 @@ Master the administration and governance of GitHub Enterprise Cloud at scale. Th
 
 | Day | Theme | Topics |
 |-----|-------|--------|
-| **Day 1** | Working on GitHub | Repository governance, rulesets, security scanning, push protection, templates, privacy, licenses |
-| **Day 2** | Integrations, Admin, API, Advanced | IAM (SAML/SCIM/OIDC), enterprise administration, Copilot governance, API & automation, audit logs, deployments |
+| **Day 1** | Enterprise, Organization & Governance | Enterprise hierarchy, IAM (SAML/SCIM/OIDC), Copilot governance, teams, audit logs, dormant users |
+| **Day 2** | Repository, Security, API & Advanced | Repository governance, rulesets, security scanning, push protection, templates, API & automation, privacy, licenses |
 
 ### Learning Objectives
 
@@ -102,7 +102,7 @@ Complete these after the workshop to deepen your skills.
 | # | Title | Topics |
 |---|-------|--------|
 | [07](docs/07-repository-governance.md) | Repository Governance | Rulesets, branch protection, templates |
-| [08](docs/08-security-compliance.md) | Security and Compliance | GHAS, code scanning, audit logs |
+| [08](docs/08-security-compliance.md) | Security and Compliance | Secret Protection, Code Security, audit logs |
 | [11](docs/11-security-by-default-policies.md) | Security-by-Default Policies | Comprehensive security settings and recommendations |
 
 ### Best Practices & Architecture
@@ -134,7 +134,7 @@ Complete these after the workshop to deepen your skills.
 | [17](docs/17-github-actions-security-echo-command-injection.md) | Actions Security: Echo Command Injection | Preventing command injection in workflows |
 | [18](docs/18-github-rename-org-impact.md) | Impact of Renaming a GitHub Organization | Copilot and user impact analysis |
 
-### Day 2 VBD Topics
+### Operations, API & Advanced Topics
 
 | # | Title | Topics |
 |---|-------|--------|
@@ -171,6 +171,8 @@ Complete these after the workshop to deepen your skills.
 | [FAQ](docs/FAQ-workshop.md) | Common workshop questions |
 | [Reference Card](docs/REFERENCE-CARD.md) | Quick-reference guide for admins |
 | [Slide Deck Outline](docs/SLIDE-DECK-OUTLINE.md) | Structure for creating presentation slides |
+| [Day 1 Supplement Slides](docs/slides-day1-supplement.html) | Copilot governance, audit log, dormant users (13 slides) |
+| [Day 2 Supplement Slides](docs/slides-day2-supplement.html) | Rulesets, security scanning, automation, CLI (21 slides) |
 
 ---
 
