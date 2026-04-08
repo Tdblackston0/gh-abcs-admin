@@ -18,9 +18,7 @@ This document explores the technical architecture, configuration patterns, and o
 
 ### Architecture and Components
 
-GitHub Advanced Security (now GitHub Secret Protection + GitHub Code Security) represents an integrated security platform built directly into the GitHub development workflow. Unlike bolt-on security tools that operate externally, GHAS features are embedded in the code review process, pull request workflows, and repository security tabs, creating a frictionless security experience that encourages adoption and remediation.
-
-As of 2025, GHAS comprises two standalone products — each available separately on GitHub Team and Enterprise plans:
+GitHub Advanced Security (now GitHub Secret Protection + GitHub Code Security) is an integrated security platform built into the GitHub development workflow. GHAS features are embedded in code review, pull request workflows, and repository security tabs. As of 2025, GHAS comprises two standalone products — each available separately on GitHub Team and Enterprise plans:
 
 #### GitHub Secret Protection ($19/active committer/month)
 
@@ -103,129 +101,17 @@ Implementing Secret Protection and Code Security across enterprise organizations
 
 ### Overview and Enablement
 
-Code scanning uses static analysis engines to identify security vulnerabilities, code quality issues, and compliance violations in source code. GitHub's primary engine, CodeQL, performs deep semantic analysis by converting source code into a queryable database, enabling detection of complex vulnerability patterns that would be impossible with simple regex-based scanning.
-
-CodeQL analysis operates through multiple phases:
-
-1. **Database Generation**: Source code is compiled or interpreted, and an abstract syntax tree (AST) is generated and stored as a relational database
-2. **Query Execution**: Security queries written in CodeQL Query Language execute against this database, identifying vulnerability patterns
-3. **Result Aggregation**: Findings are deduplicated, ranked by severity, and presented in the GitHub UI with remediation guidance
+CodeQL performs deep semantic analysis of source code to identify security vulnerabilities, code quality issues, and compliance violations. Enterprise administrators enable it via Security Configurations at the org level. For technical details on CodeQL, see [GitHub's CodeQL documentation](https://codeql.github.com/docs/).
 
 ### Default Setup vs Advanced Configuration
 
-**Default Setup** provides pre-configured CodeQL scanning with GitHub-maintained queries covering OWASP Top 10, CWE Top 25, and common security anti-patterns. Default setup automatically:
+**Default Setup** is recommended for most repositories. It provides pre-configured CodeQL scanning with GitHub-maintained queries covering OWASP Top 10, CWE Top 25, and common security anti-patterns. Default Setup auto-detects languages and runs on pull requests and on a weekly schedule.
 
-- Detects the repository's primary language(s)
-- Downloads pre-built CodeQL databases for compiled languages
-- Executes GitHub-maintained query suites
-- Reports findings as code scanning alerts in the Security tab
-- Runs on pull requests and on a weekly schedule
-
-Default setup is ideal for:
-- Standard applications with single or dual primary languages
-- Teams new to code scanning adoption
-- Projects with straightforward build configurations
-- Rapid enablement across many repositories
-
-**Advanced Configuration** through workflow files (`codeql-analysis.yml` or similar) provides full control over the scanning process:
-
-```yaml
-name: CodeQL Advanced Analysis
-
-on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
-  schedule:
-    - cron: '0 2 * * 0'
-
-jobs:
-  analyze:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      security-events: write
-    
-    strategy:
-      matrix:
-        language: [java, python, javascript]
-        include:
-          - language: java
-            build-mode: manual
-          - language: javascript
-            build-mode: none
-    
-    steps:
-      - uses: actions/checkout@v6
-      
-      - name: Initialize CodeQL
-        uses: github/codeql-action/init@v3
-        with:
-          languages: ${{ matrix.language }}
-          build-mode: ${{ matrix.build-mode }}
-          queries: security-and-quality
-          config-file: .github/codeql-config.yml
-      
-      - name: Build
-        if: matrix.build-mode == 'manual'
-        run: |
-          ./build-scripts/compile.sh
-      
-      - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
-        with:
-          category: "/${{ matrix.language }}-analysis"
-```
-
-Advanced configuration enables:
-- Multi-language scanning with language-specific build processes
-- Custom CodeQL query suites combining GitHub, community, and proprietary queries
-- Granular build mode control (autobuild, manual, none)
-- Integration with build caching and artifact management
-- Fine-grained control over query execution and result filtering
+**Advanced Setup** (custom workflow YAML) is available for teams with specific analysis needs, such as multi-language scanning, custom query suites, or granular build mode control. See [Configuring code scanning](https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/configuring-advanced-setup-for-code-scanning) for workflow configuration details.
 
 ### CodeQL Query Language
 
-CodeQL Query Language is a declarative language designed for code analysis. Queries treat code as data, enabling complex vulnerability pattern detection:
-
-```codeql
-// Example: Detect potential SQL injection vulnerabilities
-import java
-
-class SqlInjectionVulnerability extends DataFlow::Configuration {
-  SqlInjectionVulnerability() { this = "sql-injection" }
-  
-  override predicate isSource(DataFlow::Node source) {
-    source.asExpr() instanceof ParameterExpr or
-    source.asExpr() instanceof FieldAccess
-  }
-  
-  override predicate isSink(DataFlow::Node sink) {
-    exists(MethodCall m |
-      m.getMethod().hasName("executeQuery") or
-      m.getMethod().hasName("execute") |
-      sink.asExpr() = m.getArgument(0)
-    )
-  }
-}
-
-from SqlInjectionVulnerability config, DataFlow::PathNode source, DataFlow::PathNode sink
-where config.hasFlowPath(source, sink)
-select source.getNode(), source, sink, "Potential SQL injection from user input"
-```
-
-Key concepts:
-- **Data Flow Analysis**: Tracks how data flows through programs, identifying when untrusted input reaches sensitive operations
-- **Taint Analysis**: Marks user-controlled data as tainted, following it through transformations to detect vulnerabilities
-- **Predicates**: Reusable logical definitions (sources, sinks, sanitizers) that define vulnerability patterns
-- **Path Finding**: Explains the exact code path from vulnerability source to sink
-
-Organizations can create custom queries for:
-- Industry-specific compliance violations (GDPR data handling, HIPAA encryption)
-- Internal coding standards enforcement
-- Architecture anti-pattern detection
-- Framework-specific vulnerabilities
+CodeQL uses a purpose-built query language for security analysis. GitHub maintains query suites covering OWASP Top 10 and CWE Top 25. Organizations can also run custom queries for internal security standards. For query authoring, see [CodeQL documentation](https://codeql.github.com/docs/writing-codeql-queries/).
 
 ### Severity Levels and Alert Management
 
@@ -247,29 +133,7 @@ Each security level has an associated Cost of Remediation Index (CRI):
 
 ### Build Mode and Multi-Language Analysis
 
-CodeQL analysis requires understanding the source code structure, which varies by language:
-
-**Interpreted Languages** (Python, JavaScript, TypeScript, Ruby):
-- Source code directly analyzed without compilation
-- Build mode: `none` or `autobuild`
-- Faster analysis, no build artifacts required
-
-**Compiled Languages** (Java, C/C++, Go, C#):
-- Source code must be compiled to generate AST
-- Build mode: `autobuild` (GitHub attempts to detect build process) or `manual` (explicit build commands)
-- Requires compilation success for accurate analysis
-
-**Database Caching** improves analysis performance:
-
-```yaml
-- name: CodeQL Analysis with Caching
-  uses: github/codeql-action/analyze@v3
-  with:
-    upload: always
-    category: "/${{ matrix.language }}"
-    ram: 4096
-    threads: 4
-```
+CodeQL supports multiple languages including JavaScript, Python, Java, C/C++, C#, Go, Ruby, Swift, and Kotlin. Default Setup auto-detects languages and configures analysis automatically.
 
 ## Secret Scanning
 
@@ -284,30 +148,7 @@ Secret scanning continuously monitors repositories for accidentally committed cr
 
 ### Supported Patterns
 
-GitHub secret scanning detects patterns for major cloud providers and services:
-
-**Cloud Infrastructure**:
-- AWS Access Keys, AWS Secret Keys, AWS Session Tokens
-- Azure Connection Strings, Azure Storage Account Keys
-- Google API Keys, Google Cloud Service Account Keys
-- GitHub Personal Access Tokens, GitHub OAuth Tokens, GitHub Refresh Tokens
-
-**SaaS Platforms**:
-- Slack API Tokens, Slack Bot Tokens, Slack Webhook URLs
-- Twilio API Keys, SendGrid API Keys
-- Stripe API Keys, PayPal Credentials
-- Datadog API Keys, New Relic License Keys
-
-**Version Control and CI/CD**:
-- SSH Private Keys (OpenSSH, PuTTY, SecureShell formats)
-- CI/CD Tokens (CircleCI, Travis CI, Jenkins)
-- Container Registry Credentials (Docker Hub, Quay.io)
-- NPM and Maven Repository Tokens
-
-**Enterprise Services**:
-- Splunk Tokens, Kubernetes Tokens
-- JFrog Artifactory Credentials
-- Database Connection Strings
+Secret scanning supports 200+ token patterns from major cloud providers (AWS, Azure, GCP), SaaS platforms, and common credential formats. For the complete list, see [Supported secret scanning patterns](https://docs.github.com/en/code-security/secret-scanning/introduction/supported-secret-scanning-patterns).
 
 Each detected pattern triggers an alert with:
 - Location of the secret in repository history
@@ -368,36 +209,7 @@ When a secret is detected during push:
 
 ### Custom Patterns and Enterprise Integration
 
-Organizations can define custom secret patterns for internal credential formats:
-
-```json
-{
-  "name": "Internal API Token Format",
-  "pattern": "api_token_[a-zA-Z0-9]{32}",
-  "secret_group": 0,
-  "test_values": [
-    "api_token_abcdefghijklmnopqrstuvwxyz123456",
-    "api_token_0123456789abcdefghijklmnopqrstuv"
-  ],
-  "false_positive_patterns": [
-    "api_token_example_[a-z]+",
-    "api_token_demo_[0-9]+"
-  ]
-}
-```
-
-Custom patterns can detect:
-- Internal JWT claim formats
-- Proprietary API credential structures
-- Database connection string formats
-- Microservice authentication tokens
-- Legacy system credentials
-
-Integration with enterprise identity systems:
-- Automatically revoke detected secrets from identity provider
-- Alert identity team for user authentication review
-- Trigger temporary account suspension for high-risk patterns
-- Feed detection data to SIEM for correlation with access events
+Organizations can define custom secret patterns for proprietary token formats using regex patterns. Enterprise admins can push custom patterns to all orgs via enterprise-level configuration. See [Defining custom patterns](https://docs.github.com/en/code-security/secret-scanning/using-advanced-secret-scanning-and-push-protection-features/custom-patterns-for-secret-scanning).
 
 ## Dependency Management
 
@@ -417,57 +229,7 @@ Dependabot operates at three levels:
 
 **Digest Updates**: For Docker images and other digested dependencies, updates to latest digest even when version remains the same.
 
-Configuration through `dependabot.yml`:
-
-```yaml
-version: 2
-updates:
-  # Java/Maven dependencies
-  - package-ecosystem: "maven"
-    directory: "/"
-    schedule:
-      interval: "daily"
-      time: "03:00"
-    security-updates-only: false
-    commit-message:
-      prefix: "deps:"
-    pull-request-branch-name:
-      separator: "/"
-    reviewers:
-      - "platform-team"
-    assignees:
-      - "tech-lead"
-    labels:
-      - "dependencies"
-      - "java"
-
-  # Python dependencies
-  - package-ecosystem: "pip"
-    directory: "/app"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-    allow:
-      - dependency-type: "production"
-      - dependency-type: "indirect"
-    ignore:
-      - dependency-name: "numpy"
-        versions: [">1.20"]
-
-  # Docker image updates
-  - package-ecosystem: "docker"
-    directory: "/docker"
-    schedule:
-      interval: "daily"
-    registries:
-      - docker-hub
-    
-  # GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "monthly"
-```
+Dependabot is configured via a `dependabot.yml` file in each repository's `.github/` directory. Enterprise admins can enforce Dependabot enablement through Security Configurations at the org level. For configuration options, see [Configuring Dependabot](https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuring-dependabot-version-updates).
 
 ### Dependency Review and Governance
 
@@ -499,31 +261,7 @@ GitHub's Dependency Review API enables custom governance policies:
 
 ### Dependency Graph Architecture
 
-The dependency graph builds a complete map of an organization's dependencies:
-
-```
-Repository Dependencies
-├── Direct Dependencies (explicitly declared)
-│   ├── Production Dependencies
-│   │   └── Version constraints, vulnerability status
-│   └── Development Dependencies
-│       └── Test frameworks, build tools
-└── Transitive Dependencies (pulled in by direct deps)
-    ├── Resolved from manifest/lockfile
-    └── Nested vulnerability propagation
-```
-
-Dependency graph capabilities:
-- **Manifest Scanning**: Analyzes package manifests (package.json, pom.xml, requirements.txt, etc.)
-- **Lockfile Resolution**: Parses lockfiles for exact versions (package-lock.json, yarn.lock, Pipfile.lock)
-- **Cross-Repository Dependencies**: Tracks dependencies across multiple repositories within the organization
-- **Vulnerability Correlation**: Links dependencies to known vulnerabilities in NVD, GitHub Security Advisories, and ecosystem-specific databases
-
-The dependency graph powers:
-- Automated Dependabot PR creation
-- Dependency export APIs for third-party tools
-- Organization-level dependency insights
-- Supply chain risk scoring
+The dependency graph automatically maps all project dependencies from manifest files and lockfiles. It powers Dependabot alerts and dependency review. Enterprise admins can enable or disable the dependency graph at the org level.
 
 ## Security Policies and Vulnerability Reporting
 
@@ -882,14 +620,7 @@ GitHub Cloud for Government meets FedRAMP Moderate baseline requirements:
 
 ### Security Campaigns
 
-Security campaigns allow you to coordinate large-scale remediation of security alerts across your organization:
-
-- **Create a campaign:** Select alerts from the Security Overview dashboard. Group by vulnerability type or severity. Create campaign with a title, description, and due date
-- **Assign to teams:** Campaign alerts can be assigned to specific teams or individual developers
-- **Track progress:** Monitor remediation rates, pending alerts, and overdue items from the campaign dashboard
-- **Automate with Copilot Autofix:** For CodeQL alerts, enable Copilot Autofix to generate suggested fixes that developers can review and merge
-
-Campaigns are most effective for addressing systematic issues (e.g., "remediate all SQL injection findings across the org by Q2") rather than individual alerts.
+Security campaigns enable coordinated remediation across hundreds of repositories. Enterprise security teams create campaigns from the Security Overview dashboard to prioritize and track vulnerability remediation at scale.
 
 ### Software Bill of Materials (SBOM)
 
@@ -998,7 +729,6 @@ Effective enterprise security requires alignment across teams:
 **Development Teams**:
 - Responsibility: Fix code scanning findings, resolve secret alerts, keep dependencies current
 - Support: 5-day SLA for critical vulnerabilities, 30-day for medium
-- Tools: IDE plugins, local CodeQL validation, pre-commit hooks
 
 **Platform/DevOps Teams**:
 - Responsibility: Deploy and maintain scanning infrastructure, configure audit log streaming, manage deployment security gates
@@ -1056,30 +786,7 @@ graph TD
     style R fill:#cccccc
 ```
 
-**Detection Phase**:
-1. Scanning detects vulnerability (code scanning, secret scanning, or dependency analysis)
-2. Alert is automatically categorized by type and severity
-3. Affected team is automatically assigned based on CODEOWNERS or repository configuration
-4. Alert is surfaced in Security tab with remediation guidance
-
-**Triage Phase**:
-1. Security team or repository maintainer reviews the alert
-2. Assesses false positive likelihood
-3. Determines business impact and risk tolerance
-4. Creates response plan
-
-**Remediation Phase**:
-1. For secrets: Immediate revocation and credential rotation
-2. For dependencies: Automatic Dependabot PR or manual update
-3. For code issues: Developer creates fix PR with security team review
-4. Fix PR undergoes standard code review process
-5. Security gates verify remediation effectiveness
-
-**Closure Phase**:
-1. Merged fix is deployed through normal deployment pipeline
-2. Verification scanning confirms vulnerability is resolved
-3. Alert is automatically closed with remediation evidence link
-4. Metrics captured for SLA tracking
+The vulnerability response workflow follows a structured admin process: **Detect** (scanning identifies vulnerability) → **Triage** (security team assesses severity and business impact) → **Assign** (affected team assigned via CODEOWNERS) → **Track** (remediation monitored against SLA) → **Verify** (scanning confirms resolution, alert closed with evidence).
 
 ### Incident Response Integration
 

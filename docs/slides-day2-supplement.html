@@ -330,45 +330,39 @@ td:first-child { color: #8b949e; white-space: nowrap; }
 </div>
 
 <!-- Slide 12 -->
-<div class="slide" data-notes="CodeQL treats code as a queryable database — it's semantic analysis, not regex. Default setup is zero-config (detects language, runs GitHub query suites, reports in Security tab). Advanced setup uses a custom YAML workflow for multi-language, custom queries, etc. Copilot Autofix generates fix PRs for detected vulnerabilities.">
-  <h2>Code Scanning with CodeQL</h2>
+<div class="slide" data-notes="Enable via Security Configurations. Default Setup is zero-config — recommended for most repos. CodeQL details are covered in the GHAS-specific workshop.">
+  <h2>Code Scanning — Admin Enablement</h2>
   <div class="cols">
     <div>
-      <h3>How it works</h3>
+      <h3>What it does</h3>
+      <p>CodeQL analyzes source code to find security vulnerabilities before they reach production.</p>
+      <h3 style="margin-top:1rem;">How to enable</h3>
       <ul>
-        <li>Source code → <strong>queryable database</strong></li>
-        <li>Semantic analysis — tracks data flow, taint propagation</li>
-        <li>OWASP Top 10, CWE Top 25 coverage</li>
-        <li>Severity levels: Critical → High → Medium → Low</li>
+        <li><strong>Security Configurations</strong> — apply at org level, repos inherit</li>
+        <li><strong>Default Setup</strong> — zero-config; admin enables it, GitHub handles the rest</li>
       </ul>
     </div>
     <div>
-      <h3>Setup options</h3>
-      <table>
-        <tr><th></th><th>Default</th><th>Advanced</th></tr>
-        <tr><td>Config</td><td>Zero — auto-detect</td><td>Custom YAML workflow</td></tr>
-        <tr><td>Queries</td><td>GitHub-maintained</td><td>Custom + community</td></tr>
-        <tr><td>Languages</td><td>Auto-detected</td><td>Explicit matrix</td></tr>
-        <tr><td>Schedule</td><td>PRs + weekly</td><td>Fully configurable</td></tr>
-      </table>
+      <h3>Cost</h3>
+      <p>Part of <strong>GitHub Code Security</strong> — $30/active committer/month. Only committers to enabled repos count.</p>
+      <h3 style="margin-top:1rem;">Monitoring</h3>
+      <p>Track rollout and alert trends in the <strong>Security Overview</strong> dashboard (Coverage + Risk tabs).</p>
     </div>
   </div>
-  <p style="margin-top:1rem;"><span class="badge badge-green">Copilot Autofix</span> &nbsp;AI generates fix suggestions for detected vulnerabilities — dramatically reduces mean time to remediation</p>
+  <p style="margin-top:1rem;"><span class="badge badge-green">Copilot Autofix</span> &nbsp;AI generates fix suggestions — reduces mean time to remediation and developer friction</p>
 </div>
 
 <!-- Slide 13 -->
-<div class="slide" data-notes="Dependabot has three layers. Alerts notify about vulnerable deps. Security updates auto-PR for CVEs. Version updates keep deps fresh proactively. Auto-triage rules let you dismiss low-risk alerts automatically.">
+<div class="slide" data-notes="Dependabot is free — no active committer cost. This is a cost-effective baseline security layer. Detailed Dependabot configuration is covered in the GHAS workshop.">
   <h2>Dependabot</h2>
-  <table>
-    <tr><th>Feature</th><th>What it does</th><th>Trigger</th></tr>
-    <tr><td><strong>Alerts</strong></td><td>Flags vulnerable dependencies (CVE match)</td><td>Continuous — new advisory published</td></tr>
-    <tr><td><strong>Security updates</strong></td><td>Auto-PR to patch vulnerable versions</td><td>Alert created → PR opened</td></tr>
-    <tr><td><strong>Version updates</strong></td><td>Proactive PRs for newer versions</td><td>Scheduled (daily / weekly / monthly)</td></tr>
-    <tr><td><strong>Auto-triage rules</strong></td><td>Dismiss low-risk alerts automatically</td><td>Rule match → auto-dismiss</td></tr>
-  </table>
-  <h3 style="margin-top:1.25rem;">Ecosystem support</h3>
-  <p>npm · pip · Maven · NuGet · Bundler · Cargo · Docker · Go modules · GitHub Actions · and more</p>
-  <p style="margin-top:.75rem;"><strong>Dependency review action</strong> — block PR merge if it introduces high/critical vulnerabilities or disallowed licenses</p>
+  <p>Automated vulnerability alerts and dependency updates — <strong>free on all repos</strong>, no additional cost.</p>
+  <h3 style="margin-top:1.25rem;">Three tiers</h3>
+  <ul>
+    <li><strong>Alerts</strong> — passive notification when a dependency has a known CVE</li>
+    <li><strong>Security updates</strong> — auto-opens PRs to patch vulnerable versions</li>
+    <li><strong>Version updates</strong> — proactive PRs to keep dependencies fresh</li>
+  </ul>
+  <p style="margin-top:1rem;">Enable via <strong>Security Configurations</strong> at the org level. Dependabot is a cost-effective baseline — layer it with Code Security for deeper analysis.</p>
 </div>
 
 <!-- Slide 14 -->
@@ -419,13 +413,13 @@ td:first-child { color: #8b949e; white-space: nowrap; }
         <li><strong>Campaigns</strong> — coordinated remediation progress</li>
       </ul>
       <h3 style="margin-top:1rem;">Campaigns</h3>
-      <p>Group alerts → assign teams → track remediation → leverage Copilot Autofix</p>
+      <p>Coordinated remediation at scale — manage directly from the Security Overview dashboard.</p>
     </div>
   </div>
 </div>
 
 <!-- Slide 16 — Lab transition -->
-<div class="slide lab" data-notes="Lab 7 has students enable secret scanning, push protection, and CodeQL on a test repo. They'll commit a test secret and see push protection in action, then review CodeQL results in the Security tab.">
+<div class="slide lab" data-notes="Lab 7 focuses on admin enablement — students enable security features at the org level and verify they're working. The focus is on the admin workflow (enable, configure, monitor), not security investigation.">
   <h2>🔬 Hands-on: Lab 7</h2>
   <h3 style="margin-top:1rem;">Security Scanning &amp; Push Protection</h3>
   <ul>
