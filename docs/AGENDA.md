@@ -39,7 +39,7 @@ By the end of this workshop, participants will be able to:
 |---|-------|----------|------|------------|---------|-----------|
 | 1 | 0:00 | 10 min | Welcome | — | Introduction, objectives, logistics | — |
 | 2 | 0:10 | 5 min | Setup | — | Environment verification | [Setup Guide](../labs/setup.md) |
-| 3 | 0:15 | 20 min | 📖 Presentation | 2.2 | Enterprise overview: GHEC vs GHES, billing, plans | [Enterprise Hierarchy](01-enterprise-hierarchy.md), [Licenses](19-licenses-billing.md) |
+| 3 | 0:15 | 20 min | 📖 Presentation | 2.2 | Enterprise overview: GHEC vs GHES, billing, plans, cost centers | [Enterprise Hierarchy](01-enterprise-hierarchy.md), [Licenses](19-licenses-billing.md), [Cost Centers](19-licenses-billing.md#cost-centers) |
 | 4 | 0:35 | 15 min | 📖 Presentation | 1.1 | Permission flow: hierarchy, visibility, base permissions, roles | [Repository Governance](07-repository-governance.md), [Teams and Permissions](05-teams-permissions.md) |
 | 5 | 0:50 | 15 min | 📖 Presentation | 2.2 | Enterprise administration: policies, settings, Copilot governance | [Enterprise Hierarchy](01-enterprise-hierarchy.md), [Policy Inheritance](06-policy-inheritance.md), [Copilot Governance](12-github-copilot-governance.md) |
 | 6 | 1:05 | 15 min | 🔬 Lab | 2.2 | Lab 15: Copilot Governance Configuration | [Lab 15](../labs/lab15.md) |
@@ -75,7 +75,7 @@ By the end of this workshop, participants will be able to:
 | 5 | 0:45 | 15 min | 🔬 Lab | 1.2, 1.3 | Lab 3: Repository Rulesets | [Lab 03](../labs/lab03.md) |
 | 6 | 1:00 | 15 min | 🔬 Lab | 1.3, 1.4 | Lab 6: Advanced Repository Rulesets | [Lab 06](../labs/lab06.md) |
 | 7 | 1:15 | 10 min | ☕ Break | — | — | — |
-| 8 | 1:25 | 15 min | 📖 Presentation | 1.5 | Security in the cloud: scanning, push protection | [Security and Compliance](08-security-compliance.md), [Security by Default](11-security-by-default-policies.md) |
+| 8 | 1:25 | 15 min | 📖 Presentation | 1.5 | Security in the cloud: scanning, push protection, GHAS cost optimization | [Security and Compliance](08-security-compliance.md), [Security by Default](11-security-by-default-policies.md), [GHAS Cost Optimization](08-security-compliance.md#ghas-implementation-best-practices-and-cost-mitigation) |
 | 9 | 1:40 | 20 min | 🔬 Lab | 1.5 | Lab 7: Security Scanning and Push Protection | [Lab 07](../labs/lab07.md) |
 | 10 | 2:00 | 10 min | 📖 Presentation | 2.8, 2.11 | API and authentication: REST, GraphQL, webhooks | [Scripts](24-scripts-automation.md), [Integrations](27-integrations-status-api.md) |
 | 11 | 2:10 | 15 min | 🔬 Lab | 2.8 | Lab 5: GitHub API | [Lab 05](../labs/lab05.md) |

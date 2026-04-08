@@ -157,12 +157,13 @@
       "Compliance Certifications",
       "Enterprise-Scale Security Implementation",
       "Security Operations Workflows",
+      "GHAS Implementation Best Practices and Cost Mitigation",
       "References"
     ],
-    "minLines": 1015,
-    "minMermaidDiagrams": 5,
+    "minLines": 1340,
+    "minMermaidDiagrams": 6,
     "hasFrontMatter": true,
-    "headingCount": 50
+    "headingCount": 77
   },
   "09-best-practices-waf": {
     "expectedH1": "GitHub Well-Architected Framework: Best Practices and Principles",
@@ -455,10 +456,10 @@
       "License Compliance",
       "References"
     ],
-    "minLines": 400,
-    "minMermaidDiagrams": 1,
+    "minLines": 1050,
+    "minMermaidDiagrams": 3,
     "hasFrontMatter": true,
-    "headingCount": 35
+    "headingCount": 115
   },
   "20-github-marketplace-apps": {
     "expectedH1": "GitHub Marketplace and Apps",

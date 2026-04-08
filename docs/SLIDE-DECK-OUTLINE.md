@@ -123,6 +123,44 @@ This outline provides the structure for creating a slide deck for the GitHub Adm
 
 ---
 
+### Module: Cost Centers Deep Dive (15 min)
+
+> Supplement slides: [Day 1 Supplement — Section 3](slides-day1-supplement.html) | Reference: [Licenses and Billing — Cost Centers](19-licenses-billing.md#cost-centers)
+
+**Slide 1: Module Title**
+- Title: "Cost Centers Deep Dive"
+- Subtitle: "Departmental chargeback and cost allocation at scale"
+
+**Slide 2: Cost Center Fundamentals**
+- Key Visual: Diagram showing enterprise → cost centers → organizations/repositories mapping
+- Speaker Notes: Cost centers group resources for billing allocation. Up to 100 cost centers per enterprise. Resources can be organizations or repositories. Unassigned resources go to the enterprise "default" bucket.
+
+**Slide 3: Allocation Rules and Hierarchy**
+- Key Visual: Multi-tier cost center hierarchy example (Enterprise → BU → Department)
+- Speaker Notes: Each cost center can contain multiple orgs. Design hierarchy to mirror your organizational chargeback model. Consider centralized vs. decentralized allocation strategies.
+
+**Slide 4: Budgets and Alerts**
+- Key Visual: Budget configuration flow (scope → type → threshold → notification)
+- Speaker Notes: Budgets can be scoped to enterprise or cost center. Types include alert-only and spending-limit. Set multiple thresholds (50%, 75%, 90%) for progressive notification. Budgets cover Actions, Packages, Copilot, and GHAS.
+
+**Slide 5: Tracking Copilot Costs via Cost Centers**
+- Key Visual: Copilot premium request usage breakdown by cost center
+- Speaker Notes: Copilot premium requests allocate to the cost center of the user's organization. Set Copilot-specific budgets per department. Monitor ROI with per-cost-center usage reports.
+
+**Slide 6: Tracking GHAS Costs via Cost Centers**
+- Key Visual: GHAS active committer allocation by cost center
+- Speaker Notes: GHAS costs allocate based on where security features are enabled. Active committers are counted per organization. Use cost centers to identify which business units drive GHAS spending.
+
+**Slide 7: Real-World Chargeback Scenarios**
+- Key Visual: Three-scenario comparison table (fully decentralized, hybrid, regulated vs. non-regulated)
+- Speaker Notes: Walk through common chargeback patterns. Emphasize that the right model depends on organizational culture and existing IT cost allocation practices.
+
+**Slide 8: Cost Center Best Practices**
+- Key Visual: Best practices checklist (naming conventions, assignment strategy, budget thresholds, review cadence)
+- Speaker Notes: Use consistent naming conventions (e.g., `dept-engineering`). Assign all orgs to cost centers — don't leave resources in the default bucket. Review cost center reports monthly. Automate chargeback reporting with the Billing API.
+
+---
+
 ## Day 2
 
 ### Module 1.1: Repository Permissions and Settings (15 min)
@@ -230,6 +268,40 @@ This outline provides the structure for creating a slide deck for the GitHub Adm
 - Title: "Hands-on: Lab 7 — Security"
 - Duration: 20 minutes
 - Quick description of what they'll do
+
+---
+
+### Module: GHAS Best Practices & Cost Optimization (10 min)
+
+> Supplement slides: [Day 2 Supplement — Section 2b](slides-day2-supplement.html) | Reference: [Security and Compliance — GHAS Cost Mitigation](08-security-compliance.md#ghas-implementation-best-practices-and-cost-mitigation)
+
+**Slide 1: Module Title**
+- Title: "GHAS Best Practices & Cost Optimization"
+- Subtitle: "Maximizing security ROI while managing active committer costs"
+
+**Slide 2: Understanding the GHAS Cost Model**
+- Key Visual: Cost breakdown diagram (Secret Protection $19/committer + Code Security $30/committer, per active committer billing)
+- Speaker Notes: GHAS is billed per active committer across a 90-day trailing window. A committer active in multiple repos is counted once per org. Costs scale with the number of unique contributors, not repos.
+
+**Slide 3: Active Committer Optimization**
+- Key Visual: 90-day trailing window diagram showing how committer counts change over time
+- Speaker Notes: Enable features only on repos that need them. Manage the 90-day window — removing a committer doesn't reduce cost until 90 days pass. Use security configurations for targeted enablement.
+
+**Slide 4: Tiered Deployment Model**
+- Key Visual: Three-tier pyramid (Tier 1: critical repos with full GHAS, Tier 2: important repos with secret scanning, Tier 3: low-risk repos with free features)
+- Speaker Notes: Not every repo needs full GHAS. Start with high-risk, high-value repos. Use free secret scanning and Dependabot alerts broadly. Reserve Code Security for repos with compliance requirements.
+
+**Slide 5: Free Tier Leverage and Azure Integration**
+- Key Visual: Table of free vs. paid security features
+- Speaker Notes: Secret scanning alerts and Dependabot alerts are free on public repos. Push protection is free for all public repos. Leverage Azure MACC (Microsoft Azure Consumption Commitment) for GHAS spending. Link Azure subscriptions for unified billing.
+
+**Slide 6: Cost Governance Framework**
+- Key Visual: Monthly review cadence flowchart (audit committers → check budgets → review ROI → adjust)
+- Speaker Notes: Establish a monthly review cadence. Audit active committers quarterly. Set budget alerts at cost-center level. Measure ROI with vulnerability detection and remediation metrics.
+
+**Slide 7: Cost Optimization Checklist**
+- Key Visual: Actionable checklist with quick wins and strategic initiatives
+- Speaker Notes: Quick wins: audit unused GHAS seats, leverage free tiers, set budget alerts. Strategic: implement tiered deployment, automate committer reviews, integrate with Azure billing. Reference the full checklist in the documentation.
 
 ---
 
