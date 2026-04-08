@@ -487,6 +487,216 @@ aside.notes { display: none; }
   <aside class="notes">Transition to Lab 8. Students will practice searching the audit log using the qualifier syntax, build complex queries combining multiple filters, export results, and review the dormant users report. Remind them about the 180-day web event / 7-day Git event retention limits.</aside>
 </section>
 
+<!-- ════════════════════════════════════════════════════════════════════
+     SECTION 3: Cost Centers Deep Dive
+     ════════════════════════════════════════════════════════════════════ -->
+
+<!-- Slide 14: Section Title -->
+<section class="slide title-slide">
+  <div class="section-label">Section 3 · ~15 min</div>
+  <h1>Cost Centers Deep Dive</h1>
+  <p class="subtitle">Departmental chargeback, tracking, and budget governance</p>
+  <aside class="notes">This section covers the billing feature most requested by finance teams — cost centers. Cost centers let enterprises allocate GitHub spending across business units, projects, or departments for internal chargeback and budget accountability. We'll cover design patterns, allocation rules, budget alerts, Azure integration, and automation.</aside>
+</section>
+
+<!-- Slide 15: What Are Cost Centers? -->
+<section class="slide">
+  <h2>What Are Cost Centers?</h2>
+  <p class="subtitle">Logical groupings for billing allocation and chargeback</p>
+  <ul>
+    <li><strong>Purpose</strong> — allocate GitHub costs to departments, teams, or projects for internal chargeback</li>
+    <li><strong>Grouping</strong> — assign organizations, repositories, and users to cost centers</li>
+    <li><strong>Visibility</strong> — enterprise owners see per-cost-center spending breakdowns</li>
+    <li><strong>Default bucket</strong> — unassigned resources accumulate in the enterprise default cost center</li>
+  </ul>
+  <div class="callout info">
+    <strong>Key limits:</strong> Up to <strong>250 cost centers</strong> per enterprise, each supporting up to <strong>25,000 resources</strong>.
+  </div>
+  <aside class="notes">Cost centers solve a fundamental enterprise problem: who pays for what? Without them, all GitHub spending lands on a single invoice with no departmental attribution. Finance teams need this for internal chargeback, budget accountability, and spend forecasting. The 250/25K limits are generous — most enterprises use 10–50 cost centers. Any resource not explicitly assigned goes to the default cost center, so always assign resources proactively.</aside>
+</section>
+
+<!-- Slide 16: Cost Center Design Patterns -->
+<section class="slide">
+  <h2>Cost Center Design Patterns</h2>
+  <p class="subtitle">Choose the model that fits your organization</p>
+  <div class="diagram">  Pattern 1: By Business Unit        Pattern 2: By Project
+  ┌──────────────┐                   ┌──────────────┐
+  │  Engineering  │ ← orgs + users   │  Project-X   │ ← repos + users
+  │  Marketing    │                   │  Project-Y   │
+  │  Data Science │                   │  Platform    │
+  └──────────────┘                   └──────────────┘
+
+  Pattern 3: Hybrid
+  ┌─────────────────────────────────────────┐
+  │  BU cost centers  → license costs       │
+  │  Project cost centers → usage costs     │
+  │  (Actions, Packages, Codespaces)        │
+  └─────────────────────────────────────────┘</div>
+  <ul>
+    <li><strong>By BU</strong> — simplest; one cost center per department, maps to org chart</li>
+    <li><strong>By Project</strong> — aligns spend with initiatives; useful for project-based funding</li>
+    <li><strong>Hybrid</strong> — BU for seats/licenses, project for consumption; most flexible</li>
+  </ul>
+  <aside class="notes">Pattern 1 (By BU) works best when departments own their own orgs and the org chart is stable. Pattern 2 (By Project) is ideal for companies that fund by initiative and need to track ROI per project. Pattern 3 (Hybrid) is the most common at large enterprises — license costs follow people (BU), while usage costs follow work (project). The hybrid approach requires more setup but gives the most accurate chargeback. Ask the customer: "How does your finance team allocate IT costs today?" — mirror that model.</aside>
+</section>
+
+<!-- Slide 17: Allocation Rules — What Goes Where -->
+<section class="slide">
+  <h2>Allocation Rules — What Goes Where</h2>
+  <p class="subtitle">How each product's costs are attributed to cost centers</p>
+  <table>
+    <tr><th>Product</th><th>Allocation Model</th><th>Attributed By</th></tr>
+    <tr><td>GHEC Seats</td><td>License-based</td><td>User's assigned cost center</td></tr>
+    <tr><td>Copilot Seats</td><td>License-based</td><td>User's assigned cost center</td></tr>
+    <tr><td>Actions</td><td>Usage-based</td><td>Repo/org where workflow runs</td></tr>
+    <tr><td>Packages</td><td>Usage-based</td><td>Repo/org that owns the package</td></tr>
+    <tr><td>Codespaces</td><td>Usage-based</td><td>Repo/org where codespace is created</td></tr>
+    <tr><td>Secret Protection (GHAS)</td><td>License-based</td><td>User's assigned cost center</td></tr>
+    <tr><td>Code Security (GHAS)</td><td>License-based</td><td>User's assigned cost center</td></tr>
+    <tr><td>Copilot Premium Requests</td><td>Usage-based</td><td>User's assigned cost center*</td></tr>
+  </table>
+  <p style="font-size:0.85rem; color:#8b949e; margin-top:0.5rem;">* Copilot Premium Requests are user-level consumption (premium models, agent mode) billed to the user's cost center, unlike other usage-based products which are attributed to the repo/org where the work runs.</p>
+  <div class="callout warning">⚠️ Understanding allocation rules is critical — misattribution is the #1 source of chargeback disputes.</div>
+  <aside class="notes">This is the key slide. License-based costs follow the user — whoever the seat is assigned to, their cost center gets charged. This includes GHAS (Secret Protection and Code Security), which are license-based products allocated per user, the same way Copilot and GHEC seats work — each active committer is billed to one cost center based on their user assignment. Usage-based costs follow the resource — the org or repo where the compute happens determines the cost center. The exception is Copilot Premium Requests, which are usage-based but tied to the individual user's cost center since they represent per-user consumption. Walk through a concrete example: "Dev in Engineering cost center runs Actions in a Marketing repo — Actions cost goes to Marketing, Copilot seat and GHAS license costs stay with Engineering."</aside>
+</section>
+
+<!-- Slide 18: Tracking Copilot & GHAS Costs -->
+<section class="slide">
+  <h2>Tracking Copilot &amp; GHAS Costs</h2>
+  <p class="subtitle">Per-cost-center visibility for the biggest variable spend items</p>
+  <div class="cols">
+    <div>
+      <h3>Copilot Tracking</h3>
+      <ul>
+        <li>Seat count per cost center in billing dashboard</li>
+        <li>Premium request consumption per cost center</li>
+        <li>Usage metrics: completions, chat, agent mode</li>
+        <li>Set <strong>budget alerts</strong> on premium request spend</li>
+      </ul>
+      <h3>GHAS Tracking</h3>
+      <ul>
+        <li>Active committers per cost center</li>
+        <li>Secret Protection &amp; Code Security billed separately</li>
+        <li>Cross-repo committers may span multiple cost centers</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Budget Alerts</h3>
+      <table>
+        <tr><th>Type</th><th>Behavior</th></tr>
+        <tr><td>Alert-only</td><td>Notify at threshold; usage continues</td></tr>
+        <tr><td>Stop-usage</td><td>Block further usage at threshold <em>(metered products only — not GHAS)</em></td></tr>
+      </table>
+      <div class="callout warning">⚠️ Set budgets <strong>before</strong> rollout — retroactive budget enforcement does not refund overages.</div>
+      <h3>Setup Order</h3>
+      <ul>
+        <li>1. Create cost centers</li>
+        <li>2. Set budgets per cost center</li>
+        <li>3. Assign resources</li>
+        <li>4. <em>Then</em> enable features</li>
+      </ul>
+    </div>
+  </div>
+  <aside class="notes">Emphasize the setup order — budgets should be configured BEFORE enabling Copilot or GHAS, not after. Alert-only budgets are good for visibility. Stop-usage budgets enforce hard caps but ONLY for metered products (Actions, Packages, Codespaces). GHAS and Copilot seat licenses are alert-only — stop-usage does not apply to license-based products. Start with alert-only at 80% of expected spend. Budget alerts apply at enterprise or cost center scope.</aside>
+</section>
+
+<!-- Slide 19: Azure Billing Integration -->
+<section class="slide">
+  <h2>Azure Billing Integration</h2>
+  <p class="subtitle">Unified billing through Azure Cost Management</p>
+  <div class="cols">
+    <div>
+      <h3>How It Works</h3>
+      <ul>
+        <li>Link GitHub Enterprise to an Azure subscription</li>
+        <li>GitHub costs appear in <strong>Azure Cost Management</strong></li>
+        <li>Cost centers map to Azure billing dimensions</li>
+        <li>Single invoice for GitHub + Azure resources</li>
+      </ul>
+      <h3>Per-Cost-Center Routing</h3>
+      <ul>
+        <li>Each cost center can route to a different Azure subscription or resource group</li>
+        <li>Enables departmental Azure billing alignment</li>
+        <li>Supports existing Azure cost allocation tags</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Benefits</h3>
+      <ul>
+        <li><strong>Single pane of glass</strong> — all cloud costs in one view</li>
+        <li><strong>Existing workflows</strong> — leverage Azure cost alerts and budgets</li>
+        <li><strong>Compliance</strong> — unified audit trail for procurement</li>
+        <li><strong>Forecasting</strong> — Azure Cost Management projections include GitHub spend</li>
+      </ul>
+      <div class="callout info">Requires an Azure subscription with Owner or Contributor role to link.</div>
+    </div>
+  </div>
+  <aside class="notes">This is critical for enterprises already on Azure — they get a single invoice and unified reporting across all cloud spend. The linkage happens at Enterprise Settings → Billing → Payment information. Once linked, GitHub metered usage (Actions, Packages, Codespaces, Copilot premium) flows through the Azure subscription. License costs (GHEC seats, Copilot seats) also appear in Azure Cost Management. Per-cost-center routing lets departments manage their own Azure subscriptions while the enterprise maintains centralized governance.</aside>
+</section>
+
+<!-- Slide 20: API & Automation -->
+<section class="slide">
+  <h2>API &amp; Automation</h2>
+  <p class="subtitle">Automate cost center management at scale</p>
+  <div class="cols">
+    <div>
+      <h3>Key API Endpoints</h3>
+      <table>
+        <tr><th>Operation</th><th>Endpoint</th></tr>
+        <tr><td>List cost centers</td><td><code>GET /enterprises/{ent}/settings/billing/cost-centers</code></td></tr>
+        <tr><td>Create cost center</td><td><code>POST /enterprises/{ent}/settings/billing/cost-centers</code></td></tr>
+        <tr><td>Add resources</td><td><code>POST .../{cost_center_id}/resources</code></td></tr>
+        <tr><td>Get usage report</td><td><code>GET /enterprises/{ent}/settings/billing/usage</code></td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>Automation Examples</h3>
+      <ul>
+        <li>Sync cost centers from HR/finance system</li>
+        <li>Auto-assign new orgs/repos on creation</li>
+        <li>Monthly chargeback CSV reports via scheduled Actions</li>
+        <li>Budget threshold alerts to Slack/Teams</li>
+      </ul>
+      <div class="callout info">Use <code>gh api</code> for quick ad-hoc queries:<br><code>gh api /enterprises/{ent}/settings/billing/cost-centers</code></div>
+    </div>
+  </div>
+  <aside class="notes">Cost center management can be fully automated. Common pattern: a scheduled GitHub Actions workflow runs monthly, pulls usage data per cost center via the API, generates a chargeback CSV, and emails it to department leads. For new resource assignment, use a webhook listener on `repository.created` and `organization.created` events to auto-assign to the correct cost center based on naming conventions. The `gh api` CLI command is the fastest way to explore these endpoints interactively.</aside>
+</section>
+
+<!-- Slide 21: Cost Centers Best Practices -->
+<section class="slide">
+  <h2>Cost Centers Best Practices</h2>
+  <div class="cols">
+    <div>
+      <h3>Naming Conventions</h3>
+      <ul>
+        <li><code>dept-environment</code> — e.g., <code>engineering-prod</code></li>
+        <li><code>bu-team</code> — e.g., <code>platform-sre</code></li>
+        <li>Match your organization's GL codes where possible</li>
+      </ul>
+      <h3>Setup Checklist</h3>
+      <ul>
+        <li>✅ Assign <strong>ALL</strong> resources — unassigned goes to default</li>
+        <li>✅ Set budgets immediately after creation</li>
+        <li>✅ Review quarterly and adjust with org changes</li>
+        <li>✅ Document ownership: who approves spend per cost center?</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Common Mistakes</h3>
+      <ul>
+        <li>❌ Creating cost centers after features are enabled (retroactive = messy)</li>
+        <li>❌ Leaving resources unassigned (inflates default cost center)</li>
+        <li>❌ Too many cost centers (administrative overhead exceeds value)</li>
+        <li>❌ No budget alerts (surprise invoices at month end)</li>
+        <li>❌ Not reviewing when teams reorg (stale attribution)</li>
+      </ul>
+      <div class="callout warning">⚠️ Start with fewer cost centers and split later — merging cost centers is harder than splitting.</div>
+    </div>
+  </div>
+  <aside class="notes">Wrap up with actionable takeaways. The #1 mistake is creating cost centers after features are already in use — historical usage won't retroactively reassign. Start simple: one cost center per major department, budget alerts at 80%, and quarterly reviews. Naming should match whatever your finance team already uses for internal cost tracking. Document an owner for each cost center who can approve spend and adjust budgets. Start with fewer cost centers — you can always add more, but consolidating existing ones requires moving all resources manually. Transition to Day 1 wrap-up discussion and Q&amp;A. Encourage participants to explore cost center settings in their own enterprise environments.</aside>
+</section>
+
 </div><!-- /deck -->
 
 <!-- ─── Progress bar & slide number ─── -->

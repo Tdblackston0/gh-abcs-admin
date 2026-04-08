@@ -437,18 +437,175 @@ td:first-child { color: #8b949e; white-space: nowrap; }
   </ul>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════
+     SECTION 2b — GHAS: Best Practices & Cost Optimization
+     ═══════════════════════════════════════════════════════ -->
+
+<!-- Slide 17 -->
+<div class="slide section-title" data-notes="This mini-section bridges the security features we just covered with practical cost governance. Executives always ask 'what will this cost?' — these slides give admins the data and strategies to answer confidently.">
+  <div class="section-label">Section 2b · ~10 min</div>
+  <h1>GHAS: Best Practices &amp; Cost Optimization</h1>
+  <p class="subtitle">Implementation strategy, cost modeling, and savings techniques</p>
+</div>
+
+<!-- Slide 18 -->
+<div class="slide" data-notes="These numbers usually get executives' attention — show real annual spend. Secret Protection alone is often the quick win since it's cheaper and catches the highest-risk issues (leaked credentials). Combined cost adds up fast at scale.">
+  <h2>The GHAS Cost Model</h2>
+  <div class="cols">
+    <div>
+      <h3>Two Products, Independent Pricing</h3>
+      <ul>
+        <li><strong>Secret Protection</strong> <span class="badge badge-yellow">$19/committer/mo</span></li>
+        <li><strong>Code Security</strong> <span class="badge badge-yellow">$30/committer/mo</span></li>
+        <li><strong>Combined:</strong> $49/committer/mo = <strong>$588/year</strong></li>
+      </ul>
+      <h3 style="margin-top:1rem;">Active Committer</h3>
+      <p>≥1 commit in the last <strong>90 days</strong> to any repo with the feature enabled. Counted <em>per unique user</em>, not per repo.</p>
+    </div>
+    <div>
+      <h3>Annual Cost at Scale</h3>
+      <table>
+        <tr><th>Committers</th><th>Secret Prot.</th><th>Both</th></tr>
+        <tr><td>100</td><td>$22,800</td><td>$58,800</td></tr>
+        <tr><td>500</td><td>$114,000</td><td>$294,000</td></tr>
+        <tr><td>1,000</td><td>$228,000</td><td>$588,000</td></tr>
+        <tr><td>5,000</td><td>$1,140,000</td><td>$2,940,000</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 19 -->
+<div class="slide" data-notes="Never go org-wide on day 1 — costs will spike and you won't have remediation capacity. Each phase builds institutional muscle for triaging and fixing findings before expanding scope. Pilot should take 2-4 weeks, not months.">
+  <h2>Phased Rollout Strategy</h2>
+  <div class="flow">
+    <span class="step"><strong>Phase 1</strong><br>Pilot<br><em>5–10 repos</em></span>
+    <span class="arrow">→</span>
+    <span class="step"><strong>Phase 2</strong><br>Critical &amp; Regulated<br><em>compliance repos</em></span>
+    <span class="arrow">→</span>
+    <span class="step"><strong>Phase 3</strong><br>High-Value<br><em>customer-facing</em></span>
+    <span class="arrow">→</span>
+    <span class="step"><strong>Phase 4</strong><br>Org-Wide<br><em>full coverage</em></span>
+  </div>
+  <h3 style="margin-top:1.5rem;">Timeline Recommendations</h3>
+  <ul>
+    <li><strong>Phase 1:</strong> 2–4 weeks — validate workflows, tune alert noise</li>
+    <li><strong>Phase 2:</strong> 1–2 months — build remediation playbooks</li>
+    <li><strong>Phase 3:</strong> 1–2 months — expand with confidence</li>
+    <li><strong>Phase 4:</strong> Ongoing — roll out remaining repos incrementally</li>
+  </ul>
+  <p style="margin-top:1rem;"><span class="badge badge-green">Tip</span> &nbsp;Use <strong>Security Configurations</strong> to apply settings consistently at each phase</p>
+</div>
+
+<!-- Slide 20 -->
+<div class="slide" data-notes="The 90-day window means committers don't drop off immediately — plan for this. A developer who pushed one commit 89 days ago still counts. GitHub App bots (Dependabot, Renovate) are excluded from billing, but user-type accounts used for automation do count.">
+  <h2>Active Committer Optimization</h2>
+  <div class="cols">
+    <div>
+      <h3>Key Optimization Techniques</h3>
+      <ul>
+        <li><strong>Enable only on repos with active development</strong> — skip archived, read-only, and dormant repos</li>
+        <li><strong>Unique user counting</strong> — one dev committing to 10 enabled repos = 1 committer</li>
+        <li><strong>Bot accounts</strong> — GitHub App bots (Dependabot, Renovate) are <em>excluded</em> from billing; user-type automation accounts <em>do</em> count</li>
+      </ul>
+    </div>
+    <div>
+      <h3>The 90-Day Trailing Window</h3>
+      <ul>
+        <li>Committer stays active for <strong>90 days</strong> after their last commit</li>
+        <li>Disabling a feature doesn't immediately reduce count</li>
+        <li>Plan for a <strong>lag period</strong> when projecting cost savings</li>
+        <li>Use the billing API to track active committer trends</li>
+      </ul>
+      <p style="margin-top:.75rem;"><span class="badge badge-yellow">Watch out</span> &nbsp;Archive dormant repos <em>before</em> enabling GHAS to avoid paying for inactive committers</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 21 -->
+<div class="slide" data-notes="Tiered deployment is the recommended approach — most cost-effective while covering the highest risks. Not every repo needs the full $49/committer stack. Free Dependabot alerts alone cover a lot of ground for low-risk repos.">
+  <h2>Tiered Deployment Strategy</h2>
+  <table>
+    <tr><th>Tier</th><th>Repos</th><th>Features Enabled</th><th>Cost per Committer</th></tr>
+    <tr><td><span class="badge badge-red">Tier 1 — Critical</span></td><td>Production, regulated, PII-handling</td><td>Secret Protection + Code Security</td><td><span class="badge badge-yellow">$49/mo</span></td></tr>
+    <tr><td><span class="badge badge-yellow">Tier 2 — Standard</span></td><td>Internal tools, shared libraries</td><td>Secret Protection only</td><td><span class="badge badge-yellow">$19/mo</span></td></tr>
+    <tr><td><span class="badge badge-green">Tier 3 — Low Risk</span></td><td>Docs, experiments, archived</td><td>Free: Dependabot alerts, basic scanning</td><td>$0</td></tr>
+  </table>
+  <h3 style="margin-top:1.5rem;">Cost Comparison — 1,000-Committer Org</h3>
+  <div class="cols">
+    <div>
+      <p><strong>Full enablement (all repos):</strong><br><span class="badge badge-yellow">$588,000/year</span></p>
+    </div>
+    <div>
+      <p><strong>Tiered (300 T1 / 400 T2 / 300 T3):</strong><br><span class="badge badge-green">$267,600/year</span> — <strong>~54% savings</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 22 -->
+<div class="slide" data-notes="Connect back to Day 1 cost centers content — GHAS is the #1 item enterprises want to track separately. Setting budgets before rollout prevents surprise bills. Alert-only budgets are great for monitoring without disrupting developers.">
+  <h2>Budget Controls &amp; Cost Centers</h2>
+  <div class="cols">
+    <div>
+      <h3>GHAS-Specific Budgets</h3>
+      <ul>
+        <li>Set <strong>spending limits</strong> for Secret Protection &amp; Code Security independently</li>
+        <li><strong>Alert-only budget</strong> — notifies admins at threshold, no disruption</li>
+        <li><strong>⚠️ Alert-only for GHAS</strong> — stop-usage budgets do <em>not</em> apply to license-based products; cost control requires manual governance</li>
+        <li>Configure at enterprise or org level</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Monthly Monitoring Workflow</h3>
+      <ul>
+        <li>Review active committer count in <strong>Billing → Usage</strong></li>
+        <li>Allocate GHAS spend to <strong>cost centers</strong> by team or business unit</li>
+        <li>Track month-over-month growth trends</li>
+        <li>Investigate spikes — new repo enabled? Contractor onboarding?</li>
+      </ul>
+      <p style="margin-top:.75rem;"><span class="badge badge-blue">Day 1 link</span> &nbsp;Uses the same cost center framework covered in Day 1 billing</p>
+    </div>
+  </div>
+</div>
+
+<!-- Slide 23 -->
+<div class="slide" data-notes="This is the slide to screenshot and share with your finance team. It's the actionable summary of everything in this section. Each item maps to a specific cost-saving lever covered in previous slides. Transition: now that we've covered cost governance, let's look at the automation tools that can help implement these practices.">
+  <h2>Cost Optimization Checklist</h2>
+  <div class="cols">
+    <div>
+      <h3>Before Rollout</h3>
+      <ul>
+        <li>✅ Audit repo list — identify active vs dormant repos</li>
+        <li>✅ Set budgets before enabling any paid features</li>
+        <li>✅ Use Security Configurations for targeted enablement</li>
+        <li>✅ Classify repos into tiers (Critical / Standard / Low-risk)</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Ongoing</h3>
+      <ul>
+        <li>✅ Monitor active committer growth weekly during rollout</li>
+        <li>✅ Quarterly committer audit — disable on inactive repos</li>
+        <li>✅ Leverage free public repo coverage</li>
+        <li>✅ Track ROI: vulnerabilities found vs cost</li>
+      </ul>
+    </div>
+  </div>
+  <p style="margin-top:1.5rem;"><span class="badge badge-green">Pro tip</span> &nbsp;Automate repo audits with <code>gh api</code> — list repos with GHAS enabled, cross-reference with last-commit date, flag candidates for disablement</p>
+</div>
+
 <!-- ═══════════════════════════════════════════════
      SECTION 3 — Actions, Automation & Marketplace
      ═══════════════════════════════════════════════ -->
 
-<!-- Slide 17 -->
+<!-- Slide 24 -->
 <div class="slide section-title" data-notes="Shift to automation. This section covers the gh CLI for admin tasks, common automation patterns, and how external CI integrates with GitHub. Leads into Lab 13.">
   <div class="section-label">Section 3 · ~10 min</div>
   <h1>Automation, gh CLI &amp; Marketplace</h1>
   <p class="subtitle">Scripting admin at scale</p>
 </div>
 
-<!-- Slide 18 -->
+<!-- Slide 25 -->
 <div class="slide" data-notes="gh api is the Swiss-army knife — it handles auth automatically, supports --paginate for all results, and --jq for filtering. Pre-authenticated on Actions runners via GITHUB_TOKEN. Useful env vars: GH_TOKEN, GH_ENTERPRISE_TOKEN, GH_HOST.">
   <h2><code>gh</code> CLI for Admin</h2>
   <div class="cols">
@@ -472,7 +629,7 @@ td:first-child { color: #8b949e; white-space: nowrap; }
   </div>
 </div>
 
-<!-- Slide 19 -->
+<!-- Slide 26 -->
 <div class="slide" data-notes="Walk through real-world automation examples. Bulk archive stale repos, export audit logs for SIEM, find dormant users, audit repo access. Show that these are 5-10 line bash scripts, not complex apps.">
   <h2>Admin Automation Patterns</h2>
   <div class="cols">
@@ -492,7 +649,7 @@ td:first-child { color: #8b949e; white-space: nowrap; }
   <p style="margin-top:1rem;"><em>Pattern: </em><code>gh repo list</code> → loop → <code>gh api</code> per repo → aggregate results</p>
 </div>
 
-<!-- Slide 20 -->
+<!-- Slide 27 -->
 <div class="slide" data-notes="External CI tools report to GitHub via the Commit Status API (older) or the Check Runs API (modern, richer). Required status checks in rulesets reference these by context name. Lock to integration_id to prevent spoofing.">
   <h2>Commit Statuses &amp; Check Runs</h2>
   <div class="cols">
@@ -517,7 +674,7 @@ td:first-child { color: #8b949e; white-space: nowrap; }
   <p><strong>Required status checks</strong> reference these by <code>context</code> name. Best practice: lock to <code>integration_id</code> to prevent impersonation from similarly named checks.</p>
 </div>
 
-<!-- Slide 21 — Lab transition -->
+<!-- Slide 28 — Lab transition -->
 <div class="slide lab" data-notes="Lab 13 has students write gh CLI scripts for admin automation. They'll use gh api with --paginate and --jq, write a bulk operation script, and explore audit log queries.">
   <h2>🔬 Hands-on: Lab 13</h2>
   <h3 style="margin-top:1rem;">Scripts &amp; <code>gh</code> CLI Automation</h3>
