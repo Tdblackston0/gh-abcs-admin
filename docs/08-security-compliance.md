@@ -46,7 +46,7 @@ These two products work together to provide comprehensive security coverage acro
 
 ### Licensing and Enablement
 
-GitHub Advanced Security is licensed per active committer. GitHub Secret Protection costs $19/active committer/month and GitHub Code Security costs $30/active committer/month. Both products are now available on GitHub Team and Enterprise plans (not just Enterprise Cloud). An active committer is defined as any user who has made at least one commit to a repository with Secret Protection and/or Code Security enabled in the previous 90 days. This consumption-based licensing model ensures organizations only pay for security coverage on actively developed codebases.
+GitHub Advanced Security is licensed per active committer. GitHub Secret Protection costs $19/active committer/month and GitHub Code Security costs $30/active committer/month. Both products are now available on GitHub Team and Enterprise plans (not just Enterprise Cloud). An active committer is defined as any user who has pushed at least one commit to a repository with Secret Protection and/or Code Security enabled in the previous 90 days. This consumption-based licensing model ensures organizations only pay for security coverage on actively developed codebases.
 
 Enablement follows the enterprise policy hierarchy:
 
@@ -1162,6 +1162,293 @@ Continuous monitoring ensures security posture remains compliant:
 - Compliance control mapping verification
 - Generate executive security dashboard
 - Security team all-hands review of security metrics
+
+## GHAS Implementation Best Practices and Cost Mitigation
+
+GitHub Advanced Security (Secret Protection and Code Security) delivers significant security value, but its per-committer licensing model requires deliberate financial planning at enterprise scale. Building on the tiered repository classification and security configuration patterns described in [Cross-Repository Security Governance](#cross-repository-security-governance), this section focuses on the financial planning, cost modeling, and optimization strategies that enterprise administrators need to deploy GHAS cost-effectively.
+
+### Understanding the Cost Model
+
+GHAS is licensed per **active committer** across two independently purchasable products:
+
+| Product | Cost | What You Get |
+|---------|------|--------------|
+| **Secret Protection** | $19/active committer/month | Secret scanning, push protection, custom patterns, AI generic detection |
+| **Code Security** | $30/active committer/month | CodeQL code scanning, Copilot Autofix, dependency review, security campaigns |
+| **Both products** | $49/active committer/month | Combined cost — no bundle discount; products are purchased separately |
+
+> **Important**: GitHub does not offer a discounted bundle SKU. The $49 figure is the combined cost of purchasing both products independently. The unbundling is intentional — enterprises can select one or both products per their risk profile.
+
+#### Active Committer Definition
+
+An **active committer** is any user who has pushed at least one commit in the previous 90 days to a repository where Secret Protection and/or Code Security is enabled. Key details:
+
+- **Unique user deduplication**: A user who commits to 20 GHAS-enabled repositories counts as **one** active committer, not 20. Billing is per-user across the enterprise, not per-repo.
+- **90-day trailing window**: The window is rolling. A committer who stops committing will continue to count for up to 90 days after their last commit to an enabled repo.
+- **GitHub App bots are excluded**: Commits made by GitHub App bot identities are automatically excluded from billing. However, commits made via personal access tokens (PATs) tied to user accounts — even for automation purposes — **do count** as active committers. Ensure automation uses GitHub App installations rather than user-account PATs.
+- **Fork committers**: Fork committers count toward the upstream repository's active committer total only when their commits are merged into it via pull request. Commits that remain in the fork are not counted for the upstream repo.
+- **Cost center allocation**: GHAS is a license-based product — each active committer's cost is allocated to **one** cost center following the precedence order: direct user assignment → oldest organization membership → enterprise fallback. See [Licenses and Billing — Cost Centers](./19-licenses-billing.md#cost-centers) for details on configuring cost center allocation.
+
+```mermaid
+graph LR
+    subgraph "Enterprise: 5 GHAS-Enabled Repos"
+        R1[Repo A]
+        R2[Repo B]
+        R3[Repo C]
+        R4[Repo D]
+        R5[Repo E]
+    end
+
+    U1[Alice] -->|commits to| R1
+    U1 -->|commits to| R2
+    U1 -->|commits to| R3
+    U2[Bob] -->|commits to| R1
+    U2 -->|commits to| R4
+    U3[Carol] -->|commits to| R5
+    U4[deploy-bot<br/>GitHub App] -->|commits to| R1
+    U4 -->|commits to| R2
+    U4 -->|commits to| R3
+    U4 -->|commits to| R4
+    U4 -->|commits to| R5
+
+    subgraph "Billing: 3 Active Committers"
+        B1[Alice = 1 committer]
+        B2[Bob = 1 committer]
+        B3[Carol = 1 committer]
+        B4[deploy-bot = excluded]
+    end
+
+    style U4 fill:#d4edda,stroke:#28a745
+    style B4 fill:#d4edda,stroke:#28a745
+    style B1 fill:#fff3cd
+    style B2 fill:#fff3cd
+    style B3 fill:#fff3cd
+```
+
+#### Enhanced Billing Platform Prerequisite
+
+Cost centers, budget alerts, and the Usage Summary API described in this section require the **enhanced billing platform** (metered billing). This model became mandatory for new enterprises in late 2024 and has been rolled out to existing enterprises. Verify your enterprise's billing model:
+
+```bash
+# Attempt to access the cost centers API as a proxy check for enhanced billing.
+# A successful response indicates enhanced billing is active;
+# a 404 indicates the enterprise has not migrated yet.
+gh api /enterprises/YOUR-ENTERPRISE/settings/billing/cost-centers --jq '.cost_centers'
+```
+
+> **Note**: There is no single API field that directly reports whether enhanced billing is active. The most reliable method is to check **Enterprise Settings → Billing** in the UI and look for the "Budgets" and "Cost centers" options. The REST call above serves as a programmatic proxy — if it returns data, enhanced billing is enabled.
+
+If your enterprise has not migrated to enhanced billing, contact GitHub Sales or your account representative to enable cost center and budget features.
+
+#### Cost Modeling by Organization Size
+
+The following table projects annual costs under three common enablement strategies:
+
+| Org Size (Active Committers) | Secret Protection Only | Code Security Only | Both Products | Tiered Strategy* |
+|------------------------------|----------------------|-------------------|--------------|-----------------|
+| **100 developers** | $22,800/yr | $36,000/yr | $58,800/yr | $33,600/yr |
+| **500 developers** | $114,000/yr | $180,000/yr | $294,000/yr | $168,000/yr |
+| **1,000 developers** | $228,000/yr | $360,000/yr | $588,000/yr | $336,000/yr |
+| **5,000 developers** | $1,140,000/yr | $1,800,000/yr | $2,940,000/yr | $1,680,000/yr |
+
+\* **Tiered Strategy**: Secret Protection on all committers ($19 × N) + Code Security on ~30% of committers who work on critical/high-risk repos ($30 × 0.3N). Actual percentages vary by enterprise.
+
+> **Key insight**: At 5,000 developers, the difference between blanket enablement of both products ($2.94M/yr) and a tiered strategy ($1.68M/yr) is **$1.26M annually**. Cost modeling before rollout is essential.
+
+### Active Committer Optimization
+
+Controlling the active committer count is the primary lever for managing GHAS costs. Every optimization in this section reduces the number of unique users counted against billing.
+
+#### Enable Features Only on Repos That Need Them
+
+Avoid blanket enablement of GHAS across all repositories. Instead, use the tiered classification from your repository governance framework to selectively enable products:
+
+```bash
+# List repos with GHAS features enabled in an organization
+gh api --paginate "/orgs/YOUR-ORG/repos" \
+  --jq '.[] | select(.security_and_analysis.advanced_security.status == "enabled") | .full_name'
+
+# Check active committer count for billing
+gh api "/enterprises/YOUR-ENTERPRISE/settings/billing/advanced-security" \
+  --jq '{total_committers: .total_advanced_security_committers, repos: [.repositories[] | {name: .name, committers: .advanced_security_committers}]}'
+```
+
+#### Manage the 90-Day Trailing Window
+
+When you disable GHAS on a repository, its committers continue to count toward billing for up to 90 days after their last commit. Plan accordingly:
+
+- **Before disabling**: Check which committers are unique to that repo (not committing to other enabled repos). Only those committers will eventually drop off billing.
+- **Timing**: Disable features on repos transitioning to maintenance mode as soon as active development stops — the 90-day clock starts on the last commit, not the disable date.
+- **Archival**: Archive inactive repositories to signal they are no longer actively developed. Archived repos do not accept new commits, so committers naturally age out.
+
+#### Use Security Configurations for Targeted Enablement
+
+Security Configurations allow you to define reusable security profiles and apply them to groups of repositories matching specific criteria:
+
+```bash
+# List security configurations in an organization
+gh api "/orgs/YOUR-ORG/code-security/configurations" \
+  --jq '.[] | {name: .name, secret_scanning: .secret_scanning, code_scanning_default_setup: .code_scanning_default_setup}'
+```
+
+Create separate configurations for each tier: a "Critical" configuration enabling all features, a "Standard" configuration enabling Secret Protection only, and a "Minimal" configuration for low-risk repos with no paid features.
+
+### Cost Mitigation Strategies
+
+#### Tiered Deployment Model
+
+The highest-impact cost optimization is deploying products selectively:
+
+- **Secret Protection everywhere**: At $19/committer/month, Secret Protection provides universal value — leaked secrets affect any repo regardless of risk tier. Push protection alone justifies the cost across all active repos.
+- **Code Security on high-risk repos only**: At $30/committer/month, Code Security (CodeQL + Copilot Autofix) delivers the most value on repos that contain production application code, handle sensitive data, or are subject to compliance requirements. Static marketing sites, documentation repos, and internal tooling may not justify the additional cost.
+
+#### Free Tier Leverage
+
+All GHAS features are **free on public repositories**. For enterprises contributing to open source:
+
+- Do not count public repo committers toward GHAS licensing costs
+- Enable full Secret Protection and Code Security on all public repos at no additional cost
+- Open-source program offices should audit that all public repos have GHAS enabled
+
+#### Free Secret Risk Assessment
+
+Before purchasing Secret Protection, use GitHub's **free, periodic (available every 90 days) secret risk assessment** — a point-in-time scan of all repositories in an organization that identifies leaked secrets without requiring paid licenses. This assessment helps quantify exposure and prioritize which organizations or repos to enable first, turning a cost decision into a data-driven one.
+
+#### Azure Billing Integration and MACC
+
+Enterprises routing GitHub billing through an Azure subscription can apply GHAS costs toward their **Microsoft Azure Consumption Commitment (MACC)**. This means pre-committed Azure spend can effectively cover GHAS licensing, reducing incremental budget impact. Work with your Microsoft account team to confirm MACC applicability for your GitHub Enterprise agreement.
+
+#### Regular Committer Audits
+
+Schedule monthly audits of active committer counts to detect unexpected growth:
+
+```bash
+# Get detailed committer breakdown per repository
+gh api "/enterprises/YOUR-ENTERPRISE/settings/billing/advanced-security" \
+  --jq '.repositories[] | select(.advanced_security_committers > 0) | {repo: .name, committers: .advanced_security_committers, purchased: .advanced_security_committers_breakdown.user}'
+
+# Export committer list for review
+gh api "/enterprises/YOUR-ENTERPRISE/settings/billing/advanced-security" \
+  --jq '[.repositories[] | {repo: .name, committers: .advanced_security_committers}] | sort_by(-.committers)'
+```
+
+Review the output for:
+- Repos with high committer counts but low development activity (candidates for disabling)
+- Repos enabled accidentally during onboarding
+- New repos auto-enrolled through default security configurations
+
+#### Budget Alerts and Spending Governance
+
+> **Critical distinction**: GHAS budget alerts are **notification-only** — they send email alerts at default thresholds of 75%, 90%, and 100% of the configured budget but **do not block usage**. These thresholds can be customized when creating budgets via the API. Unlike metered products (Actions, Codespaces, Packages), GHAS licensing cannot be capped by a platform-enforced spending limit. Actual cost control requires procedural governance (approval workflows, periodic audits, and enablement policies).
+
+Set budget alerts to provide early warning:
+
+1. Navigate to **Enterprise Settings → Billing → Budgets**
+2. Create a budget scoped to GitHub Advanced Security
+3. Set the monthly threshold to your planned spend
+4. Configure notification recipients (billing admins, security leads, finance contacts)
+5. Establish escalation procedures for when alerts fire
+
+#### Cost Center Tracking
+
+Allocate GHAS costs to business units using cost centers on the enhanced billing platform:
+
+1. Create cost centers per business unit or department in **Enterprise Settings → Billing → Cost Centers**
+2. Assign organizations to cost centers
+3. Use the Usage Summary API to generate per-unit cost reports:
+
+```bash
+# Get usage summary for a cost center (enhanced billing platform)
+gh api "/enterprises/YOUR-ENTERPRISE/settings/billing/usage" \
+  --jq '.usageItems[] | select(.product == "advanced_security") | {org: .organizationName, cost: .grossAmount, quantity: .quantity}'
+```
+
+### Cost Governance Framework
+
+Effective GHAS cost management requires ongoing governance — not just initial optimization. Establish the following process:
+
+```mermaid
+graph TD
+    A[Monthly Cost Review] -->|Pull usage data| B[Usage Summary API]
+    B --> C{Cost within budget?}
+    C -->|Yes| D[Generate Executive Report]
+    C -->|No - Over budget| E[Identify Cost Drivers]
+    E --> F[Audit Enabled Repos]
+    F --> G{Repos justified?}
+    G -->|No| H[Disable on<br/>Low-Value Repos]
+    G -->|Yes| I[Request Budget<br/>Increase]
+    H --> D
+    I --> D
+    D --> J[Distribute to<br/>Cost Center Owners]
+    J --> K[Business Unit Review]
+
+    L[New Repo GHAS Request] --> M{Approval Workflow}
+    M -->|Approved| N[Enable via<br/>Security Config]
+    M -->|Denied| O[Document Rationale]
+
+    style A fill:#e1f5ff
+    style C fill:#fff3cd
+    style D fill:#d4edda
+    style H fill:#f8d7da
+    style M fill:#fff3cd
+```
+
+#### Monthly Review Cadence
+
+| Week | Activity | Owner | Output |
+|------|----------|-------|--------|
+| Week 1 | Pull committer counts and cost data from Usage API | Platform Engineering | Raw usage report |
+| Week 2 | Analyze trends, flag anomalies, audit new enablements | Security Engineering | Annotated cost analysis |
+| Week 3 | Review with cost center owners, address overages | Finance + Engineering Leads | Action items |
+| Week 4 | Executive summary, update forecasts, adjust budgets | CISO / VP Engineering | Executive dashboard |
+
+#### ROI Measurement
+
+Track these metrics to demonstrate GHAS value against cost:
+
+- **Secrets detected and remediated**: Total secrets caught by push protection (prevented) and scanning (detected post-commit)
+- **Vulnerabilities found by CodeQL**: Critical/high severity findings per month, mean time to remediation
+- **Copilot Autofix adoption**: Percentage of autofix suggestions accepted, developer hours saved
+- **Dependency vulnerabilities patched**: Dependabot PRs merged, average patch latency
+- **Cost per vulnerability prevented**: Total GHAS spend ÷ total vulnerabilities caught (target: demonstrate decreasing cost per finding as maturity increases)
+
+### Common Cost Pitfalls
+
+Enterprises frequently encounter these avoidable cost mistakes during GHAS rollout:
+
+1. **Blanket Code Security enablement**: Enabling Code Security on all repositories — including documentation, archived projects, and low-risk internal tools — inflates active committer counts without proportional security value. Use tiered deployment.
+
+2. **Unmonitored committer growth**: During phased rollouts, new repos are enabled incrementally. Without monthly audits, the committer count grows silently, and the first indication is an unexpectedly large invoice.
+
+3. **Ignoring the 90-day trailing window**: Disabling GHAS on a repo does not immediately reduce costs. Committers remain billable for up to 90 days. Plan disablement timing around billing cycles.
+
+4. **Missing free public repo coverage**: All GHAS features are free on public repositories. Enterprises with open-source programs should enable full coverage on public repos without concern for cost impact.
+
+5. **No budget alerts configured**: Without alerts, cost overruns are discovered only at invoice time. Always configure budget alerts at 75% and 90% thresholds — even though they are notification-only.
+
+6. **Automation via user accounts**: CI/CD pipelines and automation that commit using personal access tokens (PATs) tied to user accounts count those users as active committers. Migrate automation to GitHub App identities, which are excluded from billing.
+
+7. **Not leveraging the free secret risk assessment**: Purchasing Secret Protection for the entire enterprise without first running the free assessment to identify which repos actually have secret exposure. Assessment data should inform enablement scope.
+
+### Cost Optimization Checklist
+
+Use this checklist during initial rollout and quarterly reviews:
+
+- [ ] Run the free secret risk assessment before purchasing Secret Protection
+- [ ] Classify repositories into tiers (critical, important, standard) per the governance framework
+- [ ] Enable Secret Protection on all tiers — universal value at lower cost
+- [ ] Enable Code Security only on critical and important tier repos
+- [ ] Verify all automation uses GitHub App identities, not user-account PATs
+- [ ] Archive inactive repositories to age out committers from the 90-day window
+- [ ] Enable all GHAS features on public repositories (free)
+- [ ] Configure budget alerts at 75%, 90%, and 100% thresholds
+- [ ] Set up cost centers and allocate organizations to business units
+- [ ] Schedule monthly committer audits using the billing API
+- [ ] Establish an approval workflow for enabling GHAS on new repositories
+- [ ] Track ROI metrics (vulnerabilities found, secrets prevented, autofix adoption)
+- [ ] Confirm Azure MACC applicability if billing through Azure subscription
+- [ ] Review and update cost projections quarterly as committer counts change
+- [ ] Generate monthly executive reports with cost-per-finding metrics
 
 ## References
 

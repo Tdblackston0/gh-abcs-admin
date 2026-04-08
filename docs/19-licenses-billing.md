@@ -330,7 +330,7 @@ Active committers are counted uniquely across the enterprise:
 
 - A developer who commits to 5 repos with GHAS enabled counts as **1 committer**
 - Only commits within the 90-day rolling window are considered
-- Bot accounts and service accounts that commit also count
+- GitHub App bot accounts are **excluded** from active committer counts; however, user-type accounts used for automation **do** count
 
 ### GHAS Availability by Plan
 
@@ -525,6 +525,388 @@ gh api \
   -f resource_type='organization' \
   -f resource_id='{org_id}'
 ```
+
+### Design Patterns for Cost Center Hierarchies
+
+Choosing the right cost center structure is foundational. An ill-fitting hierarchy creates ongoing friction with finance teams and makes chargeback reports unreliable. The table below summarizes the three most common patterns:
+
+| Pattern | Structure | Best For | Trade-offs |
+|---------|-----------|----------|------------|
+| **Single-department** | One cost center per business unit (BU) | Enterprises with clear BU ownership of repos and teams | Simple to manage; limited granularity within a BU |
+| **Matrix** | Cost centers by project AND department | Enterprises where cross-functional teams share repos | Accurate project-level costing; more complex resource assignment |
+| **Multi-tier** | Enterprise → Division → Department → Team | Large enterprises (5,000+ developers) with deep org charts | Full chargeback precision; requires disciplined onboarding processes |
+
+#### Multi-Tier Hierarchy Example
+
+```mermaid
+graph TD
+    E[Enterprise: Contoso Corp] --> D1[Division: Cloud Platform]
+    E --> D2[Division: Consumer Apps]
+    E --> D3[Division: Internal Tools]
+
+    D1 --> CC1[Cost Center: Platform – Infrastructure]
+    D1 --> CC2[Cost Center: Platform – Data]
+    D2 --> CC3[Cost Center: Consumer – Mobile]
+    D2 --> CC4[Cost Center: Consumer – Web]
+    D3 --> CC5[Cost Center: Internal – DevOps]
+    D3 --> CC6[Cost Center: Internal – Security]
+
+    CC1 --> R1[org: contoso-infra]
+    CC2 --> R2[org: contoso-data]
+    CC3 --> R3[org: contoso-mobile]
+    CC4 --> R4[org: contoso-web]
+    CC5 --> R5[org: contoso-devops]
+    CC6 --> R6[org: contoso-security]
+```
+
+> **Tip:** GitHub cost centers are a flat list (no parent-child relationships in the API). To model a hierarchy, use a naming convention that encodes the tier — e.g., `platform-infra`, `platform-data`, `consumer-mobile`. This allows you to group by prefix when generating reports.
+
+#### Organizations vs. Cost Centers for Cost Tracking
+
+Enterprises often ask whether they should create separate organizations or use cost centers for cost isolation. The answer depends on the separation you need:
+
+| Dimension | Organization-Based Tracking | Cost Center-Based Tracking |
+|-----------|----------------------------|---------------------------|
+| **Access boundaries** | Full access isolation between orgs | No access boundaries — cost centers are billing-only |
+| **Policy isolation** | Separate security policies, rulesets, Copilot settings | Shared policies; cost allocation only |
+| **Billing granularity** | Usage-based products auto-allocate by repo's org | Can group repos and users from multiple orgs |
+| **Overhead** | Higher — each org needs owners, settings, team structure | Lower — cost centers are metadata on existing resources |
+| **Recommended when** | Regulatory, compliance, or vendor isolation required | Chargeback reporting across shared infrastructure |
+
+In practice, most enterprises use a **hybrid approach**: organizations for access and policy boundaries, cost centers layered on top for financial reporting.
+
+### Tracking GitHub Copilot via Cost Centers
+
+Copilot is typically the fastest-growing line item in an enterprise GitHub bill. Cost centers provide the mechanism to ensure each department pays for the Copilot seats it actually uses.
+
+#### How Copilot Costs Allocate to Cost Centers
+
+Copilot is a **license-based product**, so costs are allocated based on the **assigned user**, not the repository:
+
+- Each Copilot seat is charged to the cost center of the user who holds the assignment
+- If a user is not assigned to any cost center, their Copilot seat falls into the **Unassigned** bucket
+- Premium request overages follow the same user-based allocation
+- When a user changes cost centers mid-month, charges are allocated based on the active assignment at the time of billing
+
+#### Monitoring Copilot Premium Requests per Cost Center
+
+Premium requests (Claude, GPT-4o, and other premium models used by Copilot Chat, Copilot agent mode, and GitHub Spark) can generate significant variable costs. Filter usage data by cost center to identify which departments drive premium request consumption:
+
+```bash
+# Get Copilot premium request usage for a specific cost center
+# (Uses the usage reporting endpoint — see Billing API and Reporting for full parameter reference)
+gh api \
+  -H "Accept: application/vnd.github+json" \
+  -H "X-GitHub-Api-Version: 2026-03-10" \
+  "/enterprises/{enterprise}/settings/billing/usage?product=copilot&sku=copilot_premium_request&cost_center_id={cost_center_id}&year=2026&month=4"
+```
+
+#### Setting Copilot-Specific Budgets per Department
+
+Create per-cost-center budgets scoped to Copilot to prevent any single department from generating uncapped premium request charges:
+
+```bash
+# Create an alert-only budget for Copilot premium requests on a cost center
+gh api \
+  --method POST \
+  -H "Accept: application/vnd.github+json" \
+  -H "X-GitHub-Api-Version: 2026-03-10" \
+  /enterprises/{enterprise}/settings/billing/budgets \
+  -f target_type='cost_center' \
+  -f target_id='{cost_center_id}' \
+  -f product='copilot' \
+  -f sku='copilot_premium_request' \
+  -F limit_in_dollars=2000 \
+  -f budget_type='alert_only'
+```
+
+> **Warning:** Think carefully before using `stop-usage` budgets for Copilot. Halting Copilot mid-sprint disrupts developer productivity. For most enterprises, `alert-only` budgets combined with monthly review cycles are the safer choice.
+
+#### Copilot ROI Reporting per Cost Center
+
+Finance teams frequently ask: *"Is Copilot worth it for Department X?"* Combine cost center billing data with Copilot activity metrics to build ROI reports:
+
+| Metric | Source | Purpose |
+|--------|--------|---------|
+| Copilot seat cost per cost center | Billing usage API (filtered by `cost_center_id`) | Total investment per department |
+| Premium request spend per cost center | Billing usage API (sku: `copilot_premium_request`) | Variable cost per department |
+| Active users per cost center | Copilot seat API + cost center membership | Utilization rate |
+| Suggestions accepted / lines of code | Copilot metrics API | Productivity signal |
+| PR cycle time delta | Repository metrics (before/after Copilot rollout) | Velocity impact |
+
+The ROI calculation becomes: `(Productivity gains × developer hourly cost) / (Seat cost + Premium request cost)` per cost center.
+
+### Tracking GitHub Advanced Security via Cost Centers
+
+GHAS — now split into **Secret Protection** and **Code Security** — charges based on **active unique committers** to repositories where the feature is enabled. Like Copilot, GHAS is a license-based product, so cost center allocation is based on the **user** (active committer), not the repository.
+
+#### How GHAS Costs Allocate to Cost Centers
+
+Like Copilot, GHAS is a **license-based product** allocated by **user**:
+
+- Each active committer license is charged to exactly **one** cost center, regardless of how many GHAS-enabled repos they contribute to
+- An active committer is anyone who has pushed at least one commit to a GHAS-enabled repo in the last 90 days
+- Allocation follows a precedence order: **direct user assignment → oldest organization membership → enterprise fallback**
+
+> **Important:** Because GHAS license costs follow the user's cost center assignment (not the repository), a committer's GHAS charge may land in a cost center that the developer's manager doesn't expect. Review allocation precedence rules with your finance team before enabling GHAS broadly.
+
+#### Active Committer Tracking per Cost Center
+
+```bash
+# Get GHAS active committer counts filtered by cost center
+# (Uses the usage reporting endpoint — see Billing API and Reporting for full parameter reference)
+gh api \
+  -H "Accept: application/vnd.github+json" \
+  -H "X-GitHub-Api-Version: 2026-03-10" \
+  "/enterprises/{enterprise}/settings/billing/usage?product=ghas&cost_center_id={cost_center_id}&year=2026&month=4"
+```
+
+#### Budget Considerations for GHAS
+
+GHAS is a license-based product, so **only alert-only budgets apply** — `stop-usage` budgets do not work for license-based products like GHAS:
+
+| Budget Type | Effect on GHAS | Recommendation |
+|-------------|---------------|----------------|
+| **Alert-only** | Notifications sent; scanning continues | ✅ The only budget type available for GHAS |
+| **Stop-usage** | **Not applicable** — does not apply to license-based products | ❌ Cannot be used for GHAS |
+
+Because budgets cannot automatically cap GHAS spend, cost control requires **manual governance**: monitor budget alerts, review active committer counts, and selectively disable GHAS on repos if costs exceed targets.
+
+#### Avoiding Cost Surprises with GHAS Rollouts
+
+GHAS costs can spike unexpectedly when teams enable the feature on repositories with many contributors. Follow this phased approach:
+
+1. **Inventory first** — before enabling GHAS on a repo, query the committer count for the last 90 days
+2. **Pilot phase** — enable on 2-3 representative repos per cost center; measure actual committer-based costs
+3. **Forecast** — extrapolate pilot costs to the full repo portfolio for each cost center
+4. **Budget** — create alert-only budgets based on forecasted costs plus a 20% buffer
+5. **Roll out** — enable GHAS progressively, monitoring cost center spend weekly during the first month
+
+```bash
+# Estimate active committers for a repo before enabling GHAS
+# NOTE: This is an approximation based on contributor stats. For exact active
+# committer counts on GHAS-enabled repos, use the Enhanced Billing Platform's
+# usage report API (see "Billing API and Reporting" below).
+gh api \
+  -H "Accept: application/vnd.github+json" \
+  -H "X-GitHub-Api-Version: 2026-03-10" \
+  "/repos/{owner}/{repo}/stats/contributors" \
+  --jq '[.[] | select(
+    (.weeks | last | .w) > (now - 90*86400 | floor)
+  )] | length'
+```
+
+### Cost Center to Azure Billing Mapping
+
+> For initial setup of Azure subscription billing, see **Azure Subscription Integration** in the *Billing Management and Cost Optimization* section above.
+
+Once an Azure subscription is linked to your enterprise, cost centers enable fine-grained billing routing through Azure Cost Management.
+
+#### Linking Cost Centers to Azure Billing
+
+Each cost center can be associated with a different Azure subscription or resource group, enabling separate invoicing:
+
+| Configuration | How It Works |
+|--------------|-------------|
+| **Single Azure subscription** | All cost centers bill to one subscription; use Azure cost tags to differentiate |
+| **Multiple Azure subscriptions** | Each cost center routes charges to a dedicated Azure subscription |
+| **Azure resource groups** | Map cost centers to Azure resource groups for consolidated cloud billing |
+
+#### Azure Billing Tags and Cost Center Correlation
+
+GitHub cost center names and IDs appear in Azure Cost Management as billing metadata. To correlate:
+
+1. Use consistent naming between GitHub cost centers and Azure cost tags (e.g., `platform-infra` in both systems)
+2. Export Azure Cost Management data filtered by the GitHub billing publisher
+3. Join on cost center name to produce unified cloud spend reports
+
+#### Consolidated Cloud Billing Workflow
+
+For enterprises managing both Azure and GitHub spend, the consolidated billing flow is:
+
+1. GitHub usage accrues against cost centers throughout the billing period
+2. At month-end, charges are routed through the linked Azure subscription(s)
+3. Azure Cost Management aggregates GitHub charges with other Azure services
+4. Finance teams pull unified reports from Azure Cost Management, filtered by cost tags that match GitHub cost center names
+
+### Real-World Chargeback Scenarios
+
+The following scenarios illustrate common cost center configurations in enterprise environments.
+
+#### Scenario 1: Fully Decentralized — Each BU Pays Its Own Way
+
+A financial services company with 5 business units, each with its own P&L, requires full cost transparency:
+
+| Cost Center | Orgs Assigned | Products Charged | Monthly Budget |
+|-------------|--------------|-----------------|----------------|
+| `wealth-mgmt` | wealth-mgmt-eng | GHEC licenses, Copilot, Actions, GHAS | $45,000 |
+| `retail-banking` | retail-eng, retail-qa | GHEC licenses, Copilot, Actions, GHAS | $62,000 |
+| `capital-markets` | capmarkets-core | GHEC licenses, Copilot, Actions | $38,000 |
+| `insurance` | insurance-platform | GHEC licenses, Copilot, GHAS | $28,000 |
+| `corporate-tech` | corp-infra, corp-security | GHEC licenses, Actions, GHAS | $15,000 |
+
+**Key decisions:**
+- Each BU controls its own Copilot seat assignments
+- GHAS is mandatory for `wealth-mgmt` and `retail-banking` (regulated); optional for others
+- Alert-only budgets with CFO notification at 90% threshold
+
+#### Scenario 2: Central IT Funds Copilot, BUs Fund Actions
+
+A technology company treats Copilot as a strategic productivity investment funded centrally, while BUs pay for their own CI/CD consumption:
+
+| Cost Center | Scope | Products Charged | Funded By |
+|-------------|-------|-----------------|-----------|
+| `central-copilot` | All Copilot users (enterprise-wide) | Copilot Enterprise seats, premium requests | Central IT budget |
+| `platform-eng` | platform-eng org repos | Actions, Packages, Codespaces | Platform BU |
+| `product-eng` | product-eng org repos | Actions, Packages | Product BU |
+| `data-eng` | data-eng org repos | Actions, Packages, Codespaces | Data BU |
+
+**Key decisions:**
+- Users are assigned to `central-copilot` for Copilot billing, but their repos are assigned to BU cost centers for Actions
+- A single user may generate charges in two cost centers: Copilot (user-based) in `central-copilot` and Actions (repo-based) in their BU's cost center
+- Central IT sets a global Copilot budget; BUs set their own Actions budgets
+
+#### Scenario 3: GHAS Cost Allocation for Regulated vs. Non-Regulated Repositories
+
+A healthcare company must enable GHAS on all repos handling PHI data but wants to make it opt-in for internal tooling:
+
+| Cost Center | Repos | GHAS Policy | Budget Type |
+|-------------|-------|-------------|-------------|
+| `phi-applications` | patient-portal, claims-api, ehr-sync | GHAS mandatory (Secret Protection + Code Security) | Alert-only (security cannot be halted) |
+| `internal-tools` | dev-portal, build-scripts, docs | GHAS optional (teams opt in) | Alert-only with lower threshold |
+| `open-source` | community projects, SDKs | Secret Protection only (public repos get code scanning free) | Alert-only |
+
+**Key decisions:**
+- `phi-applications` has a higher budget ceiling because compliance requires continuous scanning
+- Each active committer's GHAS license is charged to exactly **one** cost center based on their user assignment, regardless of which repos they contribute to
+- Committers not directly assigned to a cost center fall back to their oldest org membership, then the enterprise default
+
+### Cost Center Reporting and Governance
+
+#### Generating Cost Center Reports via API
+
+Use the billing usage endpoint with the `cost_center_id` filter to produce per-department reports. This uses the same endpoint documented in *Billing API and Reporting* below, filtered to a specific cost center:
+
+```bash
+# Generate a cost center usage report for the current month
+gh api \
+  -H "Accept: application/vnd.github+json" \
+  -H "X-GitHub-Api-Version: 2026-03-10" \
+  "/enterprises/{enterprise}/settings/billing/usage/summary?cost_center_id={cost_center_id}&year=2026&month=4" \
+  --jq '.usageItems[] | {product, sku, quantity, grossAmount, netAmount}'
+```
+
+#### Monthly Chargeback Report Automation
+
+Extend the automated billing workflow (see *Automating Usage Reports* in the Billing API section below) by iterating over all cost centers to produce a per-department CSV:
+
+```bash
+# Fetch all cost centers, then generate a per-cost-center chargeback report
+COST_CENTERS=$(gh api \
+  --paginate \
+  -H "Accept: application/vnd.github+json" \
+  -H "X-GitHub-Api-Version: 2026-03-10" \
+  /enterprises/{enterprise}/settings/billing/cost-centers \
+  --jq '.[].id')
+
+YEAR=$(date -d "last month" +%Y)
+MONTH=$(date -d "last month" +%-m)
+
+echo "cost_center,product,sku,quantity,net_amount" > chargeback-report.csv
+
+for CC_ID in $COST_CENTERS; do
+  CC_NAME=$(gh api \
+    -H "Accept: application/vnd.github+json" \
+    -H "X-GitHub-Api-Version: 2026-03-10" \
+    "/enterprises/{enterprise}/settings/billing/cost-centers/${CC_ID}" \
+    --jq '.name')
+
+  gh api \
+    -H "Accept: application/vnd.github+json" \
+    -H "X-GitHub-Api-Version: 2026-03-10" \
+    "/enterprises/{enterprise}/settings/billing/usage/summary?cost_center_id=${CC_ID}&year=${YEAR}&month=${MONTH}" \
+    --jq ".usageItems[] | [\"${CC_NAME}\", .product, .sku, .quantity, .netAmount] | @csv" \
+    >> chargeback-report.csv
+done
+```
+
+#### Budget Monitoring Workflow
+
+```mermaid
+flowchart TD
+    A[Monthly billing cycle starts] --> B[Usage accrues per cost center]
+    B --> C{Budget threshold reached?}
+    C -->|75%| D[Notification to cost center owner]
+    C -->|90%| E[Escalation to department head + finance]
+    C -->|100% alert-only| F[Alert sent; usage continues]
+    C -->|100% stop-usage| G[Metered product usage halted]
+    D --> B
+    E --> H{Approve overage?}
+    H -->|Yes| I[Increase budget via API]
+    H -->|No| J[Cost center owner reduces usage]
+    I --> B
+    J --> B
+    F --> K[Monthly reconciliation]
+    G --> K
+    K --> L[Chargeback report generated]
+    L --> M[Finance reviews and invoices BUs]
+```
+
+#### Common Mistakes and Gotchas
+
+| Mistake | Impact | Prevention |
+|---------|--------|-----------|
+| Not assigning all resources to cost centers | Costs land in **Unassigned** bucket; invisible to chargeback reports | Run a monthly audit of unassigned resources |
+| Assuming budget alerts will cap GHAS spend | They won't — GHAS budgets are alert-only. Cost control requires manual governance | Implement manual review processes triggered by budget alert notifications |
+| Unexpected GHAS cost center allocation | GHAS license cost may be allocated to a cost center that the developer's manager doesn't expect due to the allocation precedence rules (user assignment → oldest org → enterprise fallback) | Review and explicitly assign users to cost centers before enabling GHAS |
+| Creating cost centers after enabling products | Historical costs cannot be retroactively re-allocated | Create cost centers and assign resources before enabling paid features |
+| Exceeding the 250 cost center limit | Cannot model fine-grained hierarchy | Use naming conventions to encode hierarchy; keep cost centers at department level |
+| Not linking Azure subscriptions | Billing goes to default payment method; no Azure Cost Management visibility | Link Azure subscriptions as part of enterprise onboarding |
+
+### Cost Center Best Practices
+
+#### Naming Conventions
+
+Use a consistent, hierarchical naming scheme that encodes organizational structure:
+
+| Pattern | Example | When to Use |
+|---------|---------|-------------|
+| `{division}-{department}` | `platform-infra`, `consumer-mobile` | Most enterprises (2-level hierarchy) |
+| `{division}-{department}-{team}` | `platform-infra-sre`, `consumer-mobile-ios` | Large enterprises needing team-level chargeback |
+| `{project}-{env}` | `atlas-prod`, `atlas-staging` | Project-based organizations |
+| `{region}-{department}` | `us-engineering`, `eu-engineering` | Geographically distributed enterprises |
+
+> **Tip:** Avoid spaces and special characters in cost center names. Use lowercase with hyphens for consistency with GitHub naming conventions.
+
+#### Resource Assignment Strategy
+
+| Resource Type | Assignment Guidance |
+|--------------|-------------------|
+| **Organizations** | Assign to cost center based on primary owning department |
+| **Repositories** | Assign cross-team repos to the cost center of the primary maintainer |
+| **Users** | Assign based on reporting structure (HR department code) |
+| **Unassigned resources** | Audit monthly; default to a `shared-services` cost center |
+
+#### Budget Threshold Recommendations
+
+| Threshold | Action | Audience |
+|-----------|--------|----------|
+| **50%** | Manual governance checkpoint (not a platform alert — configure this as a calendar-based review) | Cost center owner |
+| **75%** | Platform alert fires by default; review and forecast remaining month spend | Cost center owner + engineering lead |
+| **90%** | Platform alert fires by default; escalation; evaluate whether budget increase or usage reduction is needed | Department head + finance |
+| **100%** | Platform alert fires by default. Alert-only: continue with overage tracking. Stop-usage (metered products only): halt non-critical metered products | Finance + enterprise admin |
+
+#### Review Cadence
+
+| Activity | Frequency | Owner |
+|----------|-----------|-------|
+| Review cost center assignment completeness | Monthly | Enterprise admin |
+| Review budget utilization across cost centers | Monthly | Finance + enterprise admin |
+| Audit for unassigned resources | Monthly | Enterprise admin |
+| Reconcile chargeback reports with finance | Monthly | Finance team |
+| Review cost center hierarchy and naming | Quarterly | Enterprise admin + department heads |
+| Evaluate Copilot ROI per cost center | Quarterly | Engineering leadership |
+| Full cost center structure review | Annually | CTO/CIO + finance leadership |
 
 ## Billing API and Reporting
 
