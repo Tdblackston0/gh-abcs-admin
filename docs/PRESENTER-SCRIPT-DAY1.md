@@ -135,7 +135,7 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 "User accounts on github.com belong to the individual — they bring their own account. The exception is Enterprise Managed Users, or EMUs, where the enterprise controls the accounts. We'll talk more about that when we get to identity management."
 
-"One important update: GitHub Enterprise Cloud now offers **Data Residency**. This went GA in October 2024. You can choose to have your data hosted in the EU, Australia, the US, or Japan. Data residency customers get a dedicated namespace on `ghe.com` instead of `github.com`. This is a game-changer for organizations with strict data sovereignty requirements."
+"One important update: GitHub Enterprise Cloud now offers **Data Residency**. The EU region went GA in October 2024, Australia in February 2025, and Japan in December 2025. You can choose to have your data hosted in one of these regions, and data residency customers get a dedicated namespace on `ghe.com` instead of `github.com`. This is a game-changer for organizations with strict data sovereignty requirements — check the docs for the latest region availability."
 
 > **🖥️ ADVANCE to PPT Slide 8**
 
@@ -157,7 +157,7 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 "It's important to distinguish between **plans** and **add-ons**. Your base plan gives you the platform. Add-ons give you additional capabilities that you pay for separately."
 
-"A big change in 2024: GitHub Advanced Security has been **unbundled** into two separate products. **Secret Protection** is $19 per committer per month — that gives you secret scanning and push protection. **Code Security** is $30 per committer per month — that gives you CodeQL code scanning, Dependabot security updates, and the security overview dashboard. Previously these were bundled together, so you can now adopt them independently based on your priorities."
+"A big change in early 2025: GitHub Advanced Security has been **unbundled** into two separate products. **Secret Protection** is $19 per committer per month — that gives you secret scanning and push protection. **Code Security** is $30 per committer per month — that gives you CodeQL code scanning, Dependabot security updates, and the security overview dashboard. Previously these were bundled together, so you can now adopt them independently based on your priorities."
 
 "For Copilot, there are five tiers: **Free** at $0 with limited features, **Pro** at $10 per month for individual developers, **Pro+** at $39 per month for power users with expanded context and model selection, **Business** at $19 per user per month for organizations, and **Enterprise** at $39 per user per month which adds enterprise-wide policy enforcement, audit logs, and custom model support."
 
@@ -197,7 +197,7 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 "The flow is top-down. Enterprise policies cascade to organizations, org settings cascade to repositories. At each level, you can have different roles — enterprise owners, org owners, team maintainers, repo admins."
 
-"Let me call out a few key concepts. First, **licenses** are managed at the enterprise level. A user consumes one license regardless of how many orgs they're in. Second, **policies** set at the enterprise level can either be enforced — meaning organizations cannot override them — or they can be delegated, meaning organizations get to choose. Third, **outside collaborators** are a special category — they have access to specific repositories but are not organization members. They don't consume an enterprise license but they do have limited access."
+"Let me call out a few key concepts. First, **licenses** are managed at the enterprise level. A user consumes one license regardless of how many orgs they're in. Second, **policies** set at the enterprise level can either be enforced — meaning organizations cannot override them — or they can be delegated, meaning organizations get to choose. Third, **outside collaborators** are a special category — they have access to specific repositories but are not organization members. They do consume a license seat if they have access to any private or internal repository, so track them carefully."
 
 > **🖥️ ADVANCE to PPT Slide 12**
 
@@ -312,7 +312,7 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 "Common patterns to exclude: `.env` files — these often contain secrets and connection strings. `secrets/**` — any directory called secrets. `*.pem` and `*.key` — certificate and key files. `terraform.tfvars` — Terraform variable files that often contain sensitive infrastructure configuration."
 
-"Two important operational details. First, exclusions take **up to 30 minutes to propagate** to IDE clients. If you add an exclusion, developers won't see the effect immediately. Second — and this is critical — **content exclusions do NOT apply to Copilot CLI, the coding agent, or agent mode**. This is a known gap. If a developer uses Copilot in the terminal or through the coding agent, the exclusion patterns are not enforced. Make sure your security team understands this limitation."
+"Two important operational details. First, exclusions take **up to 30 minutes to propagate** to IDE clients. If you add an exclusion, developers won't see the effect immediately. Second — and this is critical — **content exclusions do NOT apply to Copilot CLI, the coding agent, agent mode, or Edit mode**. This is a known gap. If a developer uses Copilot in the terminal or through the coding agent, the exclusion patterns are not enforced. Make sure your security team understands this limitation — if exclusion compliance is critical, disable those features separately."
 
 "Enterprise-level exclusions apply to ALL users across all organizations. They cannot be overridden at the org level. This is your strongest governance tool for keeping sensitive files out of AI context."
 
@@ -338,7 +338,7 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 ---
 
-## ⏱️ [1:05] Live Demo: Lab 15 — Copilot Governance Configuration (10 minutes)
+## ⏱️ [1:05] Live Demo: Lab 15 — Copilot Governance Configuration (15 minutes)
 
 > **🖥️ SLIDE SOURCE: Day 1 Supplement — Slide 7**
 
@@ -380,6 +380,8 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 > **🖥️ DEMO STEP 4: API — Billing Seats**
 > In terminal, run:
 > `gh api /orgs/YOUR-ORG/copilot/billing/seats --paginate --jq '.seats[] | [.assignee.login, .last_activity_at, .plan_type] | @tsv'`
+>
+> **⚠️ Note:** This endpoint requires the `manage_billing:copilot` scope. If you get a 403, re-authenticate with `gh auth login` and ensure the token has billing permissions.
 
 "Now let me switch to the terminal and show you how to query this programmatically. This command lists every Copilot seat — who has it, when they last used it, and their plan type."
 
@@ -404,7 +406,7 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 ---
 
-## ⏱️ [1:15] Break (10 minutes)
+## ⏱️ [1:20] Break (10 minutes)
 
 > **🖥️ SLIDE SOURCE: You may minimize slides or show a "Break" holding slide**
 
@@ -423,7 +425,7 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 ---
 
-## ⏱️ [1:25] Organization Overview (15 minutes)
+## ⏱️ [1:30] Organization Overview (15 minutes)
 
 > **🖥️ SLIDE SOURCE: Main PowerPoint — Slide 18**
 >
@@ -525,7 +527,7 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 ---
 
-## ⏱️ [1:40] Organization Administration — Teams (15 minutes)
+## ⏱️ [1:45] Organization Administration — Teams (15 minutes)
 
 > **🖥️ SLIDE SOURCE: Main PowerPoint — Slide 32**
 
@@ -590,7 +592,7 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 ---
 
-## ⏱️ [1:55] Live Demo: Lab 9 — User and Team Administration (12 minutes)
+## ⏱️ [2:00] Live Demo: Lab 9 — User and Team Administration (15 minutes)
 
 > **🖥️ SLIDE SOURCE: Main PowerPoint — Stay on Slide 38 or minimize**
 
@@ -639,7 +641,7 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 "And let me create one more — `security-reviewer`. I'll start with the Triage base role and add security alert permissions — view and dismiss security alerts, manage code scanning alerts. This role is for your security team members who need to review vulnerabilities across repositories."
 
-"Each org can have up to 5 custom roles, so choose them carefully."
+"Each org can have up to **20 custom roles**, so you have plenty of room to model your organization's access patterns."
 
 > **🖥️ DEMO STEP 6: Team Sync Discussion**
 
@@ -656,7 +658,7 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 ---
 
-## ⏱️ [2:07] Audit Log & Dormant User Management (10 minutes)
+## ⏱️ [2:15] Audit Log & Dormant User Management (10 minutes)
 
 > **🖥️ 🔄 TRANSITION: Switch to Day 1 Supplement slides in your browser**
 >
@@ -708,9 +710,9 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 "Now let's talk about dormant users. A user is considered dormant after **30 days** without qualifying activity. This 30-day window is fixed — you can't change it."
 
-"What counts as qualifying activity? SAML SSO authentication, creating repositories, pushing to internal repos via HTTPS, creating issues or pull requests, starring repositories, and joining an organization."
+"What counts as qualifying activity? SAML SSO authentication, creating or deleting repositories, pushing to internal repos via HTTPS, creating or closing issues and pull requests, commenting on issues and PRs, PR review comments, starring repositories, and joining an organization."
 
-"What does NOT count? And this is the important part. **PAT access** does not count. **SSH key operations** do not count. **GitHub App workflows** do not count. **Private repository Git operations** do not count. **Reading or browsing** does not count."
+"What does NOT count? And this is the important part. **PAT-based access** does not count — including CI/CD pipelines. **SSH key-based Git operations** do not count. **GitHub App-based workflows** do not count. **Git operations on private repositories** do not count. **Reading or browsing without interaction** does not count. **Public repo activity outside the enterprise** does not count."
 
 "This means a developer who pushes code every day via SSH will appear dormant. A CI/CD pipeline that uses a PAT to interact with repos — that activity doesn't count. You need to be aware of these gaps before you start reclaiming licenses based on the dormant users report."
 
@@ -723,7 +725,7 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 ---
 
-## ⏱️ [2:17] Live Demo: Lab 8 — Audit Log Exploration (10 minutes)
+## ⏱️ [2:25] Live Demo: Lab 8 — Audit Log Exploration (10 minutes)
 
 > **🖥️ SLIDE SOURCE: Day 1 Supplement — Slide 13**
 
@@ -775,7 +777,7 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 ---
 
-## ⏱️ [2:27] Live Demo: Lab 10 — Dormant User Management (10 minutes)
+## ⏱️ [2:35] Live Demo: Lab 10 — Dormant User Management (10 minutes)
 
 > **🖥️ SLIDE SOURCE: Day 1 Supplement — Stay on Slide 13 or minimize**
 
@@ -844,7 +846,7 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 ---
 
-## ⏱️ [2:37] Day 1 Wrap-Up & Q&A (10 minutes)
+## ⏱️ [2:45] Day 1 Wrap-Up & Q&A (15 minutes)
 
 > **🖥️ 🔄 TRANSITION: Switch back to Main PowerPoint**
 >
@@ -921,23 +923,25 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 | 0:35-0:49 | Main PPT | 10-15 |
 | 0:50-0:55 | Main PPT | 16-17 |
 | 0:55-1:04 | **Supplement (browser)** | Supp 1-6 |
-| 1:05-1:14 | **Supplement (browser)** | Supp 7 (Demo Lab 15) |
-| 1:15-1:24 | Break | — |
-| 1:25-1:54 | Main PPT | 18-38 |
-| 1:55-2:06 | Demo Lab 9 | — |
-| 2:07-2:16 | **Supplement (browser)** | Supp 8-12 |
-| 2:17-2:26 | **Supplement (browser)** | Supp 13 (Demo Lab 8) |
-| 2:27-2:36 | Demo Lab 10 | — |
-| 2:37-2:47 | Main PPT | 1 or 3-4 |
+| 1:05-1:19 | **Supplement (browser)** | Supp 7 (Demo Lab 15) |
+| 1:20-1:29 | Break | — |
+| 1:30-1:59 | Main PPT | 18-38 |
+| 2:00-2:14 | Demo Lab 9 | — |
+| 2:15-2:24 | **Supplement (browser)** | Supp 8-12 |
+| 2:25-2:34 | **Supplement (browser)** | Supp 13 (Demo Lab 8) |
+| 2:35-2:44 | Demo Lab 10 | — |
+| 2:45-3:00 | Main PPT | 1 or 3-4 |
 
 ### Live Demo References
 
 | Demo | Lab File | Duration |
 |------|----------|----------|
-| Live Demo: Lab 15 — Copilot Governance | `labs/lab15.md` | 10 min |
-| Live Demo: Lab 9 — User and Team Admin | `labs/lab09.md` | 12 min |
+| Live Demo: Lab 15 — Copilot Governance | `labs/lab15.md` | 15 min |
+| Live Demo: Lab 9 — User and Team Admin | `labs/lab09.md` | 15 min |
 | Live Demo: Lab 8 — Audit Log Exploration | `labs/lab08.md` | 10 min |
 | Live Demo: Lab 10 — Dormant User Management | `labs/lab10.md` | 10 min |
+
+> **📝 Note on PPT Slides 39-45:** These slides cover organization insights (activity, dependencies), security overview, and detailed settings. In this script, those topics are covered via the Day 1 Supplement slides 8-12 (audit log and dormant users) and through the live demos. You do **not** need to present PPT slides 39-45 — skip directly from slide 38 to the supplement slides.
 
 ### Emergency Timing Adjustments
 
@@ -954,5 +958,20 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 | "What's the difference between EMU and standard SAML?" | EMU = enterprise owns accounts, full lifecycle control. Standard SAML = users own accounts, SSO adds authentication layer. Detailed coverage in Day 2 identity section. |
 | "Can we migrate from branch protection to rulesets?" | Yes. Rulesets are the modern replacement. They can coexist during migration. Deep dive on Day 2. |
 | "How do we handle outside collaborators with SSO?" | Outside collaborators must also authenticate via SSO when it's enforced. They need to authorize their PATs/SSH keys. |
-| "What's the cost difference between Copilot Business and Enterprise?" | Business = $19/user/mo. Enterprise = $39/user/mo. Enterprise adds policy enforcement, audit logs, knowledge bases, BYOLLM. |
+| "What's the cost difference between Copilot Business and Enterprise?" | Business = $19/user/mo. Enterprise = $39/user/mo. Enterprise adds policy enforcement, audit logs, Copilot Spaces, BYOLLM. |
 | "How often should we review dormant users?" | Monthly is recommended. Quarterly at minimum. Combine with license renewal cycles. |
+
+### VBD Topic Coverage — Day 1
+
+| Time | Section | VBD Topics |
+|------|---------|------------|
+| 0:15 | Enterprise Overview | 2.2 |
+| 0:35 | Permission Flow | 1.1 |
+| 0:50 | Enterprise Admin + Copilot | 2.2 |
+| 1:05 | Lab 15 Demo | 2.2 |
+| 1:30 | Org Overview (SSO, SAML/SCIM) | 2.1, 2.4 |
+| 1:45 | Org Admin (Teams, Team Sync) | 2.5, 2.7 |
+| 2:00 | Lab 9 Demo | 2.5, 2.7 |
+| 2:15 | Audit Log + Dormant Users | 2.3, 2.6 |
+| 2:25 | Lab 8 Demo | 2.3 |
+| 2:35 | Lab 10 Demo | 2.6 |

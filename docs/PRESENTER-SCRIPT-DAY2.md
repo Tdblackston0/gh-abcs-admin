@@ -1,11 +1,13 @@
 # 🎙️ Presenter Script — Day 2: Repository, Security, API & Advanced Topics
 
 > **Total Duration:** 180 minutes (3 hours)
-> **Labs Demoed:** 15 (Labs 1–7, 11–14)
+> **Labs Demoed:** 11 (Labs 1–7, 11–14) — combined with Day 1's 4 demos, all 15 labs are covered across both days
 > **Slide Sources:**
 >
 > - **Main PowerPoint** — Slides 46–71 (open on projector/shared screen)
-> - **Day 2 Supplement** — `slides-day2-supplement.html` (open in a browser tab; you will switch to this at specific moments)
+> - **Day 2 Supplement** — `slides-day2-supplement.html` — 27 slides (open in a browser tab; you will switch to this at specific moments)
+>
+> **📝 Note:** This script includes live demos of 5 extension labs (1, 2, 11, 12, 14) that were originally self-paced. The timing has been adjusted from the AGENDA.md to accommodate demo-only delivery — presentation demos are shorter than hands-on labs, providing the time needed for the additional demos.
 >
 > **Setup Checklist (before participants arrive):**
 >
@@ -64,7 +66,7 @@
 
 "Today we're shifting focus from the organizational level down to the **repository level**. We're going to cover repository governance — how you control what happens inside your repos. We'll do a deep dive into rulesets, which are the modern replacement for branch protection rules. We'll look at GitHub's security scanning features. And then we'll get into the API, automation, and how to manage GitHub at scale with scripts and tooling."
 
-"We have fifteen labs today — I'll be doing live demos of each one so we can discuss the steps together as a group. By the end of today, you should feel confident understanding how to configure repository settings, protecting branches with rulesets, enabling security scanning across your org, and automating admin tasks with the GitHub API and CLI."
+"We have eleven labs to demo today — combined with yesterday's four, that covers all fifteen labs across the workshop. I'll be doing live demos of each one so we can discuss the steps together as a group. By the end of today, you should feel confident understanding how to configure repository settings, protecting branches with rulesets, enabling security scanning across your org, and automating admin tasks with the GitHub API and CLI."
 
 "Any questions before we dive in? Great — let's get started."
 
@@ -287,7 +289,7 @@
 
 ### 🎤 Script
 
-"Instead of having you all work through this lab individually, I'm going to walk through it live so we can discuss each step together."
+"Let me walk through this one live."
 
 "This is Lab 3 — Repository Rulesets. We're going to create a branch ruleset from scratch, configure the key rules, and test the enforcement."
 
@@ -335,7 +337,7 @@
 
 ### 🎤 Script
 
-"Instead of having you all work through this lab individually, I'm going to walk through it live so we can discuss each step together."
+"Let me demo this next lab for you."
 
 "Lab 6 builds on what we just did. We're going to level up to **organization-level rulesets** and **tag protection**."
 
@@ -492,7 +494,7 @@
 
 ### 🎤 Script
 
-"Instead of having you all work through this lab individually, I'm going to walk through it live so we can discuss each step together."
+"Let me show you this live — it's one of the most impactful demos."
 
 "This is Lab 7 — Security Scanning and Push Protection. This is one of the most impactful demos because you'll see push protection block a secret in real time."
 
@@ -649,7 +651,7 @@
 
 "Both APIs are fully maintained. REST is **not** being deprecated. Choose whichever you're more comfortable with."
 
-"The **Octokit** library — now at version 21 and above — is the official SDK for JavaScript/TypeScript. And if you're using the **gh CLI**, it wraps both APIs with convenient commands like `gh api`."
+"The **Octokit** library — the official SDK for JavaScript/TypeScript — is actively maintained and regularly updated. And if you're using the **gh CLI**, it wraps both APIs with convenient commands like `gh api`."
 
 "One technical note: REST API now uses **date-based versioning** via the `X-GitHub-Api-Version` header. This ensures your integration doesn't break when GitHub rolls out API changes."
 
@@ -661,7 +663,7 @@
 
 "This diagram shows the four main authentication methods and when to use each."
 
-"**Personal Access Tokens — PATs** — prefixed with `ghp_`. These authenticate as **you, personally**. Good for personal scripts, one-off API calls, and testing. Not for production services."
+"**Personal Access Tokens — PATs** — classic PATs are prefixed with `ghp_`, fine-grained PATs with `github_pat_`. These authenticate as **you, personally**. Good for personal scripts, one-off API calls, and testing. Fine-grained PATs are now the recommended type — they offer repository-scoped permissions and org approval workflows. Not for production services."
 
 "**GitHub Apps** — generate tokens prefixed with `ghs_` for server-to-server or `ghu_` for user-to-server. These are the **recommended** method for automation and integrations. They have fine-grained permissions, don't consume a license seat, and act as their own identity."
 
@@ -685,7 +687,7 @@
 
 ### 🎤 Script
 
-"Instead of having you all work through this lab individually, I'm going to walk through it live so we can discuss each step together."
+"Let me walk through this one on screen."
 
 "This is Lab 5 — the GitHub API in action. We're going to see both the REST and GraphQL APIs, first through GitHub Actions workflows, then from the command line."
 
@@ -728,7 +730,7 @@
 
 ### 🎤 Script
 
-"Instead of having you all work through this lab individually, I'm going to walk through it live so we can discuss each step together."
+"Let me demo this quickly."
 
 "This is Lab 1 — Webhooks and Events. Remember that core integration loop — an event happens, a webhook fires, your service responds. Let's see that in action."
 
@@ -780,7 +782,7 @@
 
 "GitHub Apps are the recommended authentication method for integrations. Here's why."
 
-"You can have up to 100 per org. They act independently of any user — they don't consume a license. They use an installation-based model with fine-grained permissions. You choose exactly which repositories and which permissions the app gets. They can make up to 15,000 API requests per hour on an enterprise plan. And when you change permissions, the org owner has to approve — adding a layer of governance."
+"You can register up to 100 GitHub Apps per account, and there's no limit on how many apps can be installed in an org. They act independently of any user — they don't consume a license. They use an installation-based model with fine-grained permissions. You choose exactly which repositories and which permissions the app gets. They can make up to 15,000 API requests per hour on an enterprise plan. And when you change permissions, the org owner has to approve — adding a layer of governance."
 
 > **🖥️ ADVANCE to PPT Slide 56: GitHub Apps Auth Flow**
 
@@ -924,7 +926,7 @@
 
 ### 🎤 Script
 
-"Instead of having you all work through this lab individually, I'm going to walk through it live so we can discuss each step together."
+"Let me show you this one."
 
 "This is Lab 2 — Actions Settings. As an admin, controlling which Actions can run in your org is a critical governance decision."
 
@@ -972,7 +974,7 @@
 
 ### 🎤 Script
 
-"Instead of having you all work through this lab individually, I'm going to walk through it live so we can discuss each step together."
+"Time for another quick demo."
 
 "This is Lab 13 — Scripts and gh CLI Automation. The `gh` CLI is one of the most underutilized tools in the GitHub admin toolkit. Let me show you what it can do."
 
@@ -1030,7 +1032,7 @@
 
 ### 🎤 Script
 
-"Instead of having you all work through this lab individually, I'm going to walk through it live so we can discuss each step together."
+"Let me walk you through this."
 
 "This is Lab 11 — GitHub Apps and Marketplace. As an admin, you need to understand how to evaluate, install, and govern third-party apps."
 
@@ -1075,7 +1077,7 @@
 
 ### 🎤 Script
 
-"Instead of having you all work through this lab individually, I'm going to walk through it live so we can discuss each step together."
+"Let me demo this next."
 
 "This is Lab 12 — Deployments and Environments. Environments are how you add governance to your deployment pipelines — required reviewers, wait timers, and branch policies."
 
@@ -1113,7 +1115,7 @@
 
 ---
 
-## ⏱️ [2:51] Live Demo: Lab 14 — Unhealthy Repos and Git History (5 minutes)
+## ⏱️ [2:51] Live Demo: Lab 14 — Unhealthy Repos and Git History (4 minutes)
 
 ### 📋 Stage Direction
 - This is a LIVE DEMO — you are driving, attendees watch your screen
@@ -1123,7 +1125,7 @@
 
 ### 🎤 Script
 
-"Instead of having you all work through this lab individually, I'm going to walk through it live so we can discuss each step together."
+"One more quick demo before we wrap up."
 
 "This is Lab 14 — Unhealthy Repos and Git History. Every admin eventually deals with repos that have grown too large, have stale branches, or contain sensitive data in their history. Let me show you how to diagnose and address these issues."
 
@@ -1166,7 +1168,7 @@
 
 ---
 
-## ⏱️ [2:53] Privacy, Licenses, and Repo Health (2 minutes)
+## ⏱️ [2:55] Privacy, Licenses, and Wrap-Up (5 minutes)
 
 > **🖥️ SLIDE SOURCE: Main PowerPoint — Slides 68–69 (verbal overview only)**
 
@@ -1191,7 +1193,7 @@
 
 ---
 
-## ⏱️ [2:56] Wrap-Up, Assessment, and Next Steps (4 minutes)
+## ⏱️ [2:57] Wrap-Up, Assessment, and Next Steps (3 minutes)
 
 > **🖥️ SLIDE SOURCE: Main PowerPoint — Slides 70–71**
 
@@ -1205,7 +1207,7 @@
 
 > **🖥️ Main PowerPoint — Slide 70: Q&A**
 
-"Before I share next steps, let me pause for any questions. We covered a lot today — repository governance, rulesets, security scanning, push protection, GHAS cost optimization, the API and authentication methods, Actions, automation, and more. We went through fifteen live demos together."
+"Before I share next steps, let me pause for any questions. We covered a lot today — repository governance, rulesets, security scanning, push protection, GHAS cost optimization, the API and authentication methods, Actions, automation, and more. We went through eleven live demos together, bringing our total across both days to all fifteen labs."
 
 "Any questions about anything we covered today or yesterday?"
 
@@ -1235,7 +1237,7 @@
 
 "The second is the **Reference Card** — a quick-reference guide with key URLs, gh CLI commands, permission levels, audit log events, and decision matrices. Bookmark it. It's designed to be the thing you pull up when you need a quick answer."
 
-"There are also several **self-paced extension labs** you can do after the workshop: Lab 8 for Copilot governance, Lab 9 for Enterprise Managed Users, and Lab 10 for migration planning. These are all in the same lab repository."
+"All lab files remain available in the repository for self-paced review. I'd encourage you to work through any labs you want to explore further on your own, especially the ones where you'd like to practice the CLI commands yourself."
 
 "I want to leave you with one final exercise."
 
@@ -1341,3 +1343,25 @@
 | 2:56–3:00 | PPT 70–71 | Main PowerPoint | Q&A and Thank You |
 
 **Total slide source switches:** 7 (PPT → Supp → PPT[demo] → Supp → Supp → PPT → Supp → PPT → PPT)
+
+## 📎 Appendix D: VBD Topic Coverage — Day 2
+
+| Time | Section | VBD Topics |
+|------|---------|------------|
+| 0:05 | Repository Governance | 1.1 |
+| 0:20 | Lab 4 Demo (Templates) | 1.1 |
+| 0:28 | Rulesets Deep Dive | 1.2, 1.3, 1.4 |
+| 0:43 | Lab 3 Demo (Rulesets) | 1.2, 1.3 |
+| 0:53 | Lab 6 Demo (Advanced Rulesets) | 1.3, 1.4 |
+| 1:13 | Security in the Cloud | 1.5 |
+| 1:28 | Lab 7 Demo (Security) | 1.5 |
+| 1:50 | API & Authentication | 2.8, 2.11 |
+| 2:00 | Lab 5 Demo (API) | 2.8 |
+| 2:08 | Lab 1 Demo (Webhooks) | 2.11 |
+| 2:18 | Actions, Automation, Marketplace | 1.8, 2.4, 2.9, 2.10, 2.12 |
+| 2:28 | Lab 2 Demo (Actions Settings) | 2.4 |
+| 2:33 | Lab 13 Demo (Scripts/CLI) | 2.12 |
+| 2:41 | Lab 11 Demo (Apps/Marketplace) | 1.8 |
+| 2:46 | Lab 12 Demo (Deployments) | 2.10 |
+| 2:51 | Lab 14 Demo (Unhealthy Repos) | 2.13, 2.14 |
+| 2:55 | Privacy, Licenses | 1.6, 1.7 |
