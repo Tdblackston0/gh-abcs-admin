@@ -631,7 +631,7 @@ td:first-child { color: #8b949e; white-space: nowrap; }
       <h3>Bulk team management</h3>
       <p><code>gh api orgs/{org}/teams --paginate</code><br>Add / remove members in bulk via loop</p>
       <h3 style="margin-top:1rem;">Audit log export</h3>
-      <p><code>gh api /enterprises/{ent}/audit-log<br>&nbsp; -F phrase='action:repo.create'<br>&nbsp; --paginate</code></p>
+      <p><code>gh api /enterprises/{ent}/audit-log<br>&nbsp; --method GET -F phrase='action:repo.create'<br>&nbsp; --paginate</code></p>
     </div>
     <div>
       <h3>Dormant user reports</h3>

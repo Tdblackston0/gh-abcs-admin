@@ -104,9 +104,11 @@ References:
 8. Mention the **Copilot usage metrics API** for deeper adoption tracking. This API (available on Business and Enterprise plans) provides data on completions generated, suggestions accepted, and active users over time:
 
    ```bash
-   gh api /orgs/YOUR-ORG/copilot/metrics \
-     --jq '.[] | [.date, .total_active_users, .total_completions_count] | @tsv'
+   curl -s "$(gh api "/orgs/YOUR-ORG/copilot/metrics/reports/organization-1-day?day=$(date -d yesterday +%Y-%m-%d)" \
+     --jq '.download_links[0]')" | jq '{day, daily_active_users, code_generation_activity_count, code_acceptance_activity_count}'
    ```
+
+   > **Note:** The legacy `/copilot/metrics` endpoint was removed April 2026. The new API returns a download link to an NDJSON report. The command above fetches and parses it in one step. On macOS, replace `date -d yesterday` with `date -v-1d`.
 
 ## 15.4 Review Copilot audit events
 
@@ -121,7 +123,7 @@ References:
 4. To query the audit log programmatically using the `gh` CLI, run:
 
    ```bash
-   gh api /orgs/YOUR-ORG/audit-log \
+   gh api /orgs/YOUR-ORG/audit-log --method GET \
      -F phrase='action:copilot' \
      -F per_page=10 \
      --jq '.[] | {action, actor: .actor, created_at}'

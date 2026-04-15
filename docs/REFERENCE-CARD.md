@@ -207,11 +207,12 @@ Enterprise (Copilot policies)
 ### Copilot Metrics API
 
 ```bash
-# Get Copilot usage metrics for an organization
-gh api /orgs/ORG/copilot/metrics --paginate
+# Get Copilot usage metrics for an organization (daily report)
+# Note: Returns a download link; pipe through curl to get JSON data
+gh api "/orgs/ORG/copilot/metrics/reports/organization-1-day?day=YYYY-MM-DD"
 
-# Get Copilot usage metrics for an enterprise
-gh api /enterprises/ENTERPRISE/copilot/metrics --paginate
+# Get Copilot usage metrics for an enterprise (daily report)
+gh api "/enterprises/ENTERPRISE/copilot/metrics/reports/enterprise-1-day?day=YYYY-MM-DD"
 
 # Get Copilot seat assignments
 gh api /orgs/ORG/copilot/billing/seats --paginate

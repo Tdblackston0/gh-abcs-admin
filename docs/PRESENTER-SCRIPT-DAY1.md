@@ -389,9 +389,11 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 > **🖥️ DEMO STEP 5: API — Usage Metrics**
 > In terminal, run:
-> `gh api /orgs/YOUR-ORG/copilot/metrics --jq '.[] | [.date, .total_active_users, .total_completions_count] | @tsv'`
+> `curl -s "$(gh api "/orgs/YOUR-ORG/copilot/metrics/reports/organization-1-day?day=$(date -d yesterday +%Y-%m-%d)" --jq '.download_links[0]')" | jq '{day, daily_active_users, code_generation_activity_count, code_acceptance_activity_count}'`
+>
+> **⚠️ Note:** The legacy `/copilot/metrics` endpoint was removed April 2026. The new API returns a download link; the command above fetches it in one step. On macOS, replace `date -d yesterday` with `date -v-1d`.
 
-"This second command pulls usage metrics — daily active users and completion counts. You can pipe this into a CSV and track adoption trends over time. This is what you'd use in an executive dashboard."
+"This second command pulls usage metrics from the new Copilot metrics reports API. It grabs yesterday's daily report — active users, code generation count, and acceptance count. You can download the full report for detailed per-IDE and per-feature breakdowns. This is what you'd use in an executive dashboard."
 
 > **🖥️ DEMO STEP 6: Audit Log for Copilot Events**
 > Navigate to: **Settings > Audit log** → filter by `action:copilot`
@@ -761,7 +763,7 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 > **🖥️ DEMO STEP 3: Query the Audit Log API**
 > In terminal, run:
-> `gh api /orgs/YOUR-ORG/audit-log -F phrase='action:repo.create' -F per_page=5 --jq '.[] | {action, actor, created_at}'`
+> `gh api /orgs/YOUR-ORG/audit-log --method GET -F phrase='action:repo.create' -F per_page=5 --jq '.[] | {action, actor, created_at}'`
 
 "Now let me show you the API. This command queries the audit log programmatically — same data, but you can script it, pipe it, and automate it."
 
@@ -814,7 +816,7 @@ You will also have **Day 1 Supplement slides** (`slides-day1-supplement.html`) o
 
 > **🖥️ DEMO STEP 4: Check User Activity — Audit Log**
 > In terminal, run:
-> `gh api /orgs/YOUR-ORG/audit-log -F phrase='actor:USERNAME' -F per_page=5 --jq '.[] | {action, created_at}'`
+> `gh api /orgs/YOUR-ORG/audit-log --method GET -F phrase='actor:USERNAME' -F per_page=5 --jq '.[] | {action, created_at}'`
 
 "We can also check the audit log for this user's activity within our organization specifically. This shows their administrative actions — repo creation, team changes, settings modifications. Between public events and audit log entries, you can build a pretty complete picture of whether someone is actually using their account."
 

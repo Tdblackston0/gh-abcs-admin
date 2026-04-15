@@ -1004,7 +1004,7 @@
 "Now let's create a team programmatically. `gh api` with `-X POST` and `-f` flags for the fields. I'm creating a team called 'demo-lab13-team' with closed privacy. In a real scenario, you'd script this to bulk-create teams from a CSV or your identity provider."
 
 > **🖥️ DEMO STEP 6: Query audit log**
-> Run: `gh api /orgs/YOUR-ORG/audit-log -F phrase='action:team.create' --jq '.[] | {action, actor, created_at}'`
+> Run: `gh api /orgs/YOUR-ORG/audit-log --method GET -F phrase='action:team.create' --jq '.[] | {action, actor, created_at}'`
 
 "Let's verify our team creation in the audit log. I'm querying for `team.create` events. There it is — the action, who did it, and when. The audit log API is essential for compliance and incident response."
 
