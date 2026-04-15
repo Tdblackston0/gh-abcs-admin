@@ -1,10 +1,10 @@
-  hello_world_job:
-    runs-on: ubuntu-latest
-    name: A first job to say hello
-    steps:
-      - id: hello-world
-        uses: githubabcs/hello-world-composite-action@v1.0.1
-        with:
-          who-to-greet: 'Hello from GH ABCs'
-      - run: echo random-number ${{ steps.hello-world.outputs.random-number }}
-        shell: bash
+hello_world_job:
+  runs-on: ubuntu-latest
+  name: A first job to say hello
+  steps:
+    - id: hello-world
+      uses: githubabcs/hello-world-composite-action@v1.0.1
+      with:
+        who-to-greet: 'Hello from GH ABCs'
+    - run: echo random-number ${{ steps.hello-world.outputs.random-number }}
+      shell: bash
